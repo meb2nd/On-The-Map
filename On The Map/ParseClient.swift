@@ -43,7 +43,7 @@ final class ParseClient : NSObject {
 
         
         /* 4. Make the request */
-        return makeTheTask(request: request as URLRequest, errorDomain: "taskForGETMethod", completionHandler: completionHandlerForGET)
+        return makeTheTask(request: request as URLRequest, errorDomain: "ParseClient.taskForGETMethod", completionHandler: completionHandlerForGET)
         
     }
     
@@ -62,7 +62,7 @@ final class ParseClient : NSObject {
         let request  = buildTheURL(method, parameters: parametersWithApiKeys, httpMethod: .POST, headers: headers as [String : AnyObject])
         
         /* 4. Make the request */
-        return makeTheTask(request: request as URLRequest, errorDomain: "taskForPOSTMethod", completionHandler: completionHandlerForPOST)
+        return makeTheTask(request: request as URLRequest, errorDomain: "ParseClient.taskForPOSTMethod", completionHandler: completionHandlerForPOST)
 
     }
     

@@ -23,7 +23,6 @@ final class UdacityClient : NSObject {
     let path = UdacityClient.Constants.ApiPath
     
     // authentication state
-    var requestToken: String? = nil
     var sessionID : String? = nil
     var userID : Int? = nil
  
@@ -56,7 +55,7 @@ final class UdacityClient : NSObject {
 
         
         /* 4. Make the request */
-        return makeTheTask(request: request as URLRequest, errorDomain: "taskForDELETEMethod", completionHandler: completionHandlerForDELETE)
+        return makeTheTask(request: request as URLRequest, errorDomain: "UdacityClient.taskForDELETEMethod", completionHandler: completionHandlerForDELETE)
         
     }
     
@@ -74,7 +73,7 @@ final class UdacityClient : NSObject {
 
         
         /* 4. Make the request */
-        return makeTheTask(request: request as URLRequest, errorDomain: "taskForPOSTMethod", completionHandler: completionHandlerForPOST)
+        return makeTheTask(request: request as URLRequest, errorDomain: "UdacityClient.taskForPOSTMethod", completionHandler: completionHandlerForPOST)
 
     }
  

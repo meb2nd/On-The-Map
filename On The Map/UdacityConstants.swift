@@ -27,8 +27,8 @@ extension UdacityClient {
         static let StudentLocation = "/session"
         
     }
-
     
+
     // MARK: Parameter Keys
     struct ParameterKeys {
         static let Udacity = "udacity"
