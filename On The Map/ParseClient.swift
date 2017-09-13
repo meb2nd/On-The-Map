@@ -10,7 +10,7 @@ import Foundation
 
 // MARK: - ParseClient: NSObject
 
-final class ParseClient : NSObject, NetworkClient {
+final class ParseClient : NSObject {
     
     // MARK: Properties
     
@@ -66,7 +66,7 @@ final class ParseClient : NSObject, NetworkClient {
 
     }
     
-       
+    
     // MARK: Shared Instance
     
     class func sharedInstance() -> ParseClient {
@@ -74,5 +74,12 @@ final class ParseClient : NSObject, NetworkClient {
             static var sharedInstance = ParseClient()
         }
         return Singleton.sharedInstance
+    }
+}
+
+extension ParseClient: NetworkClient {
+    
+    func preprocessData (data: Data) -> Data {
+        return data
     }
 }

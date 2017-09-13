@@ -27,10 +27,6 @@ protocol NetworkClient {
 
 extension NetworkClient {
     
-    // MARK: Default implementation
-    func preprocessData (data: Data) -> Data {
-        return data
-    }
     
     func buildTheURL(_ method: String, parameters: [String:AnyObject], httpMethod: HTTPMethod = .GET, headers: [String:AnyObject] = [:], jsonBodyParameters: [String:AnyObject] = [:]) -> NSMutableURLRequest {
         
