@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="mh3-wC-ZUM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="83h-G2-ydQ">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -188,37 +188,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O2R-XF-Vai">
-                                <rect key="frame" x="20" y="20" width="374" height="44"/>
-                                <items>
-                                    <navigationItem id="Ovy-Sg-RAg">
-                                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="rOt-Ia-xYh"/>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="gzf-iW-co2" userLabel="Root Stack View">
-                                <rect key="frame" x="20" y="64" width="374" height="672"/>
+                                <rect key="frame" x="20" y="84" width="374" height="652"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WcL-4c-wp2" userLabel="Location Stack View">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="326"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="316"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="7Dh-p5-N3A" userLabel="Header Stack View">
-                                                <rect key="frame" x="0.0" y="0.0" width="374" height="55"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where are you" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L2f-rL-LUX">
-                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="13"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="6.3333333333333286"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="studying" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c0H-YT-e0n">
-                                                        <rect key="frame" x="0.0" y="21" width="374" height="13"/>
+                                                        <rect key="frame" x="0.0" y="14.333333333333329" width="374" height="6.3333333333333428"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="today?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5KE-r5-IYi">
-                                                        <rect key="frame" x="0.0" y="42" width="374" height="13"/>
+                                                        <rect key="frame" x="0.0" y="28.666666666666671" width="374" height="6.3333333333333286"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -226,28 +218,33 @@
                                                 </subviews>
                                             </stackView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter Your Location Here." textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9i7-GM-XfL">
-                                                <rect key="frame" x="0.0" y="63" width="374" height="225"/>
+                                                <rect key="frame" x="0.0" y="43" width="374" height="235"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V77-cQ-Nmh">
-                                                <rect key="frame" x="0.0" y="296" width="374" height="30"/>
-                                                <state key="normal" title="Find on the Map"/>
-                                            </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ZGZ-h0-SpU" userLabel="Find on the Map Button Stack View">
+                                                <rect key="frame" x="0.0" y="286" width="374" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V77-cQ-Nmh">
+                                                        <rect key="frame" x="131.66666666666669" y="0.0" width="111.00000000000003" height="30"/>
+                                                        <state key="normal" title="Find on the Map"/>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nGQ-9f-GMr" userLabel="Link Stack View">
-                                        <rect key="frame" x="0.0" y="346" width="374" height="326"/>
+                                        <rect key="frame" x="0.0" y="336" width="374" height="316"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a Link to Share Here." textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6w3-yD-DxS">
-                                                <rect key="frame" x="0.0" y="0.0" width="374" height="8"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="0.0"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="SVc-q3-0bd">
-                                                <rect key="frame" x="0.0" y="16" width="374" height="310"/>
+                                                <rect key="frame" x="0.0" y="8" width="374" height="308"/>
                                             </mapView>
                                         </subviews>
                                     </stackView>
@@ -258,23 +255,23 @@
                                 <state key="normal" title="Submit"/>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="gzf-iW-co2" firstAttribute="top" secondItem="O2R-XF-Vai" secondAttribute="bottom" id="1O0-gA-zKc"/>
-                            <constraint firstItem="O2R-XF-Vai" firstAttribute="leading" secondItem="yCZ-fy-WA1" secondAttribute="leadingMargin" id="2ld-c1-IMO"/>
                             <constraint firstItem="HwT-Dx-kCb" firstAttribute="top" secondItem="6DI-qi-ua7" secondAttribute="bottom" constant="20" id="DeB-7t-YYL"/>
                             <constraint firstItem="6DI-qi-ua7" firstAttribute="centerX" secondItem="SVc-q3-0bd" secondAttribute="centerX" id="K8i-CK-F7t"/>
                             <constraint firstItem="gzf-iW-co2" firstAttribute="leading" secondItem="yCZ-fy-WA1" secondAttribute="leadingMargin" id="XXE-9B-EFP"/>
-                            <constraint firstItem="O2R-XF-Vai" firstAttribute="top" secondItem="eQb-0t-o5I" secondAttribute="bottom" symbolic="YES" id="aSf-Xj-ztV"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="O2R-XF-Vai" secondAttribute="trailing" id="cb8-a1-8Cn"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gzf-iW-co2" secondAttribute="trailing" id="i9v-q6-7KL"/>
                             <constraint firstItem="HwT-Dx-kCb" firstAttribute="top" secondItem="gzf-iW-co2" secondAttribute="bottom" id="kMz-UP-gbT"/>
+                            <constraint firstItem="gzf-iW-co2" firstAttribute="top" secondItem="eQb-0t-o5I" secondAttribute="bottom" constant="20" id="qLk-3c-VnQ"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="da1-Ya-p3f">
+                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="oA4-2i-F94"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Gh-jd-srm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3227" y="-280"/>
+            <point key="canvasLocation" x="4133.3333333333339" y="-280.43478260869568"/>
         </scene>
         <!--On The Map Navigation Controller-->
         <scene sceneID="dda-C9-OUu">
@@ -291,6 +288,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bBf-K4-4va" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="206" y="95"/>
+        </scene>
+        <!--Student Information Posting Navigation Controller-->
+        <scene sceneID="LWO-bT-FFl">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="83h-G2-ydQ" userLabel="Student Information Posting Navigation Controller" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ubP-FE-shh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="mh3-wC-ZUM" kind="relationship" relationship="rootViewController" id="BVX-fn-P1u"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vzv-GP-sUl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3226.0869565217395" y="-280.43478260869568"/>
         </scene>
     </scenes>
     <resources>
