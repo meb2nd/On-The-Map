@@ -19,8 +19,7 @@
 		12CF165D1F671DF0004E6D06 /* ParseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CF165C1F671DEF004E6D06 /* ParseClient.swift */; };
 		12CF165F1F671EA9004E6D06 /* StudentInformationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CF165E1F671EA9004E6D06 /* StudentInformationTableViewController.swift */; };
 		12CF16611F671F61004E6D06 /* StudentMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CF16601F671F61004E6D06 /* StudentMapViewController.swift */; };
-		12CF16631F671F7C004E6D06 /* StudentLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CF16621F671F7C004E6D06 /* StudentLocationViewController.swift */; };
-		12CF16651F671FAF004E6D06 /* StudentLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CF16641F671FAF004E6D06 /* StudentLinkViewController.swift */; };
+		12CF16631F671F7C004E6D06 /* StudentInformationPostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CF16621F671F7C004E6D06 /* StudentInformationPostingViewController.swift */; };
 		12CF166F1F672609004E6D06 /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CF166E1F672609004E6D06 /* GCDBlackBox.swift */; };
 		12CF16711F678497004E6D06 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CF16701F678497004E6D06 /* NetworkClient.swift */; };
 /* End PBXBuildFile section */
@@ -40,8 +39,7 @@
 		12CF165C1F671DEF004E6D06 /* ParseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseClient.swift; sourceTree = "<group>"; };
 		12CF165E1F671EA9004E6D06 /* StudentInformationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformationTableViewController.swift; sourceTree = "<group>"; };
 		12CF16601F671F61004E6D06 /* StudentMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentMapViewController.swift; sourceTree = "<group>"; };
-		12CF16621F671F7C004E6D06 /* StudentLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationViewController.swift; sourceTree = "<group>"; };
-		12CF16641F671FAF004E6D06 /* StudentLinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLinkViewController.swift; sourceTree = "<group>"; };
+		12CF16621F671F7C004E6D06 /* StudentInformationPostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformationPostingViewController.swift; sourceTree = "<group>"; };
 		12CF166E1F672609004E6D06 /* GCDBlackBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDBlackBox.swift; sourceTree = "<group>"; };
 		12CF16701F678497004E6D06 /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,8 +90,7 @@
 				12CF16401F670FEA004E6D06 /* LoginViewController.swift */,
 				12CF165E1F671EA9004E6D06 /* StudentInformationTableViewController.swift */,
 				12CF16601F671F61004E6D06 /* StudentMapViewController.swift */,
-				12CF16621F671F7C004E6D06 /* StudentLocationViewController.swift */,
-				12CF16641F671FAF004E6D06 /* StudentLinkViewController.swift */,
+				12CF16621F671F7C004E6D06 /* StudentInformationPostingViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -232,13 +229,12 @@
 				12CF16711F678497004E6D06 /* NetworkClient.swift in Sources */,
 				12CF165F1F671EA9004E6D06 /* StudentInformationTableViewController.swift in Sources */,
 				12CF166F1F672609004E6D06 /* GCDBlackBox.swift in Sources */,
-				12CF16651F671FAF004E6D06 /* StudentLinkViewController.swift in Sources */,
 				12CF165D1F671DF0004E6D06 /* ParseClient.swift in Sources */,
 				12CF165B1F671DD3004E6D06 /* UdacityClient.swift in Sources */,
 				12CF163F1F670FEA004E6D06 /* AppDelegate.swift in Sources */,
 				12CF16591F671DA9004E6D06 /* StudentInformation.swift in Sources */,
 				12CF16551F671D38004E6D06 /* ParseConstants.swift in Sources */,
-				12CF16631F671F7C004E6D06 /* StudentLocationViewController.swift in Sources */,
+				12CF16631F671F7C004E6D06 /* StudentInformationPostingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +398,7 @@
 				12CF164F1F670FEA004E6D06 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

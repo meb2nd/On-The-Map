@@ -1,5 +1,5 @@
 //
-//  StudentLocationViewController.swift
+//  StudentInformationPostingViewController.swift
 //  On The Map
 //
 //  Created by Pete Barnes on 9/11/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StudentLocationViewController: UIViewController {
+class StudentInformationPostingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
