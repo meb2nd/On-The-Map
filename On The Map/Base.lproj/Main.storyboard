@@ -191,7 +191,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="gzf-iW-co2" userLabel="Root Stack View">
                                 <rect key="frame" x="0.0" y="84" width="414" height="652"/>
                                 <subviews>
-                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="WcL-4c-wp2" userLabel="Location Stack View">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="WcL-4c-wp2" userLabel="Location Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="316"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="7Dh-p5-N3A" userLabel="Header Stack View">
@@ -218,19 +218,19 @@
                                                 </subviews>
                                             </stackView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter Your Location Here." textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9i7-GM-XfL">
-                                                <rect key="frame" x="0.0" y="97" width="414" height="193"/>
+                                                <rect key="frame" x="0.0" y="97" width="414" height="50"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="20" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZGZ-h0-SpU" userLabel="Find on the Map Button Stack View">
-                                                <rect key="frame" x="0.0" y="310" width="414" height="6"/>
+                                                <rect key="frame" x="0.0" y="167" width="414" height="149"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="buo-Lh-27o">
-                                                        <rect key="frame" x="151.66666666666669" y="0.0" width="111.00000000000006" height="6"/>
+                                                        <rect key="frame" x="151.66666666666669" y="0.0" width="111.00000000000006" height="149"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V77-cQ-Nmh">
-                                                                <rect key="frame" x="0.0" y="0.0" width="111.00000000000003" height="6"/>
+                                                                <rect key="frame" x="0.0" y="59.666666666666686" width="111.00000000000003" height="30"/>
                                                                 <state key="normal" title="Find on the Map"/>
                                                             </button>
                                                         </subviews>
@@ -239,7 +239,7 @@
                                             </stackView>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nGQ-9f-GMr" userLabel="Link Stack View">
+                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nGQ-9f-GMr" userLabel="Link Stack View">
                                         <rect key="frame" x="0.0" y="336" width="414" height="316"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a Link to Share Here." textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6w3-yD-DxS">
@@ -255,12 +255,11 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6DI-qi-ua7">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6DI-qi-ua7">
                                 <rect key="frame" x="182.66666666666666" y="686" width="49" height="30"/>
                                 <state key="normal" title="Submit"/>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="HwT-Dx-kCb" firstAttribute="top" secondItem="6DI-qi-ua7" secondAttribute="bottom" constant="20" id="DeB-7t-YYL"/>
                             <constraint firstItem="6DI-qi-ua7" firstAttribute="centerX" secondItem="SVc-q3-0bd" secondAttribute="centerX" id="K8i-CK-F7t"/>
