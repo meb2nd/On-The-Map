@@ -1,23 +1,22 @@
 //
-//  StudentInformationPostingViewController.swift
+//  OnTheMapTabBarController.swift
 //  On The Map
 //
-//  Created by Pete Barnes on 9/11/17.
+//  Created by Pete Barnes on 9/17/17.
 //  Copyright © 2017 Pete Barnes. All rights reserved.
 //
 
 import UIKit
 
-class StudentInformationPostingViewController: UIViewController {
+class OnTheMapTabBarController: UITabBarController {
 
-    // MARK:  Outlet
-    @IBOutlet weak var cancelButton: UIBarButtonItem!
-    @IBOutlet weak var locationTextView: UITextView!
-    @IBOutlet weak var findOnTheMapButton: UIButton!
-    @IBOutlet weak var linkTextField: UITextField!
-    @IBOutlet weak var submitButton: UIButton!
-    @IBOutlet weak var locationStackView: UIStackView!
-    @IBOutlet weak var linkStackView: UIStackView!
+    
+    // MARK:  Outlets
+    @IBOutlet weak var logoutButton: UIBarButtonItem!
+    @IBOutlet weak var pinButton: UIBarButtonItem!
+    @IBOutlet weak var refreshButton: UIBarButtonItem!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,9 +41,14 @@ class StudentInformationPostingViewController: UIViewController {
     */
     
     // MARK:  Actions
-    @IBAction func findOnTheMap(_ sender: Any) {
+    @IBAction func logout(_ sender: Any) {
+    }
+    
+    
+    @IBAction func postStudentInformation(_ sender: Any) {
     }
 
-    @IBAction func submitStudentInformation(_ sender: Any) {
+    
+    @IBAction func refresh(_ sender: Any) {
     }
 }
