@@ -19,8 +19,8 @@ class LoginViewController: UIViewController {
     // MARK: Properties
     
     var appDelegate: AppDelegate!
-    var keyboardOnScreen = false
     var backgroundGradient: CAGradientLayer!
+    var activeField: UITextField?
     
     
     // MARK: Life Cycle
@@ -35,8 +35,7 @@ class LoginViewController: UIViewController {
         
         subscribeToNotification(.UIKeyboardWillShow, selector: #selector(keyboardWillShow))
         subscribeToNotification(.UIKeyboardWillHide, selector: #selector(keyboardWillHide))
-        subscribeToNotification(.UIKeyboardDidShow, selector: #selector(keyboardDidShow))
-        subscribeToNotification(.UIKeyboardDidHide, selector: #selector(keyboardDidHide))
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -44,10 +43,6 @@ class LoginViewController: UIViewController {
         unsubscribeFromAllNotifications()
     }
     
-    override func viewDidLayoutSubviews() {
-        //updateGradient()
-        //configureUI()
-    }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         
@@ -77,38 +72,20 @@ extension LoginViewController: UITextFieldDelegate {
     
     // MARK: UITextFieldDelegate
     
+    func textFieldDidBeginEditing(_ textField: UITextField)
+    {
+        activeField = textField
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField){
+        activeField = nil
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
-    // MARK: Show/Hide Keyboard
-    
-    func keyboardWillShow(_ notification: Notification) {
-        if !keyboardOnScreen {
-            view.frame.origin.y -= keyboardHeight(notification)
-        }
-    }
-    
-    func keyboardWillHide(_ notification: Notification) {
-        if keyboardOnScreen {
-            view.frame.origin.y += keyboardHeight(notification)
-        }
-    }
-    
-    func keyboardDidShow(_ notification: Notification) {
-        keyboardOnScreen = true
-    }
-    
-    func keyboardDidHide(_ notification: Notification) {
-        keyboardOnScreen = false
-    }
-    
-    private func keyboardHeight(_ notification: Notification) -> CGFloat {
-        let userInfo = (notification as NSNotification).userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
-        return keyboardSize.cgRectValue.height
-    }
     
     private func resignIfFirstResponder(_ textField: UITextField) {
         if textField.isFirstResponder {
@@ -174,6 +151,36 @@ private extension LoginViewController {
         textField.tintColor = UI.BlueColor
         textField.delegate = self
     }
+}
+
+// MARK: Show/Hide Keyboard
+
+extension LoginViewController {
+    
+    func keyboardWillShow(_ notification: Notification) {
+        
+        view.frame.origin.y = 0 - getKeyboardHeight(notification)
+    }
+    
+    func keyboardWillHide(_ notification: Notification) {
+        
+        view.frame.origin.y = 0
+    }
+    
+    private func getKeyboardHeight(_ notification: Notification) -> CGFloat {
+        let userInfo = (notification as NSNotification).userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+        
+        if let activeField = activeField {
+            let textFieldOrigin = activeField.convert(activeField.frame.origin, to: self.view)
+            let offset = textFieldOrigin.y + 8.0
+            return keyboardSize.cgRectValue.height > offset ? offset : keyboardSize.cgRectValue.height
+        } else {
+            return keyboardSize.cgRectValue.height
+        }
+    }
+    
+    
 }
 
 // MARK: - LoginViewController (Notifications)
