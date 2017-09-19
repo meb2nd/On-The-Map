@@ -60,7 +60,33 @@ class LoginViewController: UIViewController {
     
     @IBAction func login(_ sender: Any) {
         
-        UdacityClient.sharedInstance().authenticateUser(username: emailTextField.text!, password: passwordTextField.text!)
+        UdacityClient.sharedInstance().authenticateUser(username: emailTextField.text!, password: passwordTextField.text!) { (success, errorString) in
+            
+            performUIUpdatesOnMain {
+                if success {
+                    self.completeLogin()
+                } else {
+                    
+                    let controller = UIAlertController()
+                    controller.title = "Authentication Failure"
+                    controller.message = errorString
+                    
+                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { action in controller.dismiss(animated: true, completion: nil)
+                    }
+                    
+                    controller.addAction(okAction)
+                    self.present(controller, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
+    // MARK: Login
+    
+    private func completeLogin() {
+
+        let controller = storyboard!.instantiateViewController(withIdentifier: "OnTheMapNavigationController") as! UINavigationController
+        present(controller, animated: true, completion: nil)
     }
     
 

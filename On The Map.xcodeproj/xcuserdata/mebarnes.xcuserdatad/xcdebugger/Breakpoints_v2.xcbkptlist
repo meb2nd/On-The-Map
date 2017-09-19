@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "On The Map/LoginViewController.swift"
-            timestampString = "527480921.504546"
+            timestampString = "527531724.053378"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
+            startingLineNumber = "199"
+            endingLineNumber = "199"
             landmarkName = "getKeyboardHeight(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,59 +26,43 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "On The Map/UdacityClient.swift"
-            timestampString = "527480627.672573"
+            timestampString = "527531724.053378"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "authenticateUser(username:password:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "On The Map/NetworkClient.swift"
-            timestampString = "527481147.301378"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "makeTheTask(request:errorDomain:completionHandler:)"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "authenticateUser(username:password:completionHandlerForAuth:)"
             landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(extension in On_The_Map):On_The_Map.NetworkClient.(makeTheTask (request : Foundation.URLRequest, errorDomain : Swift.String, completionHandler : (Swift.Optional&lt;Swift.AnyObject&gt;, Swift.Optional&lt;__ObjC.NSError&gt;) -&gt; ()) -&gt; __ObjC.URLSessionDataTask).(closure #1)"
+                  symbolName = "On_The_Map.UdacityClient.(authenticateUser (username : Swift.String, password : Swift.String, completionHandlerForAuth : (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()).(closure #1)"
                   moduleName = "On The Map"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mebarnes/Documents/Nanodegree/ios-nd-networking-master/OnTheMap/On%20The%20Map/On%20The%20Map/NetworkClient.swift"
-                  timestampString = "527487848.171535"
+                  urlString = "file:///Users/mebarnes/Documents/Nanodegree/ios-nd-networking-master/OnTheMap/On%20The%20Map/On%20The%20Map/UdacityClient.swift"
+                  timestampString = "527533413.205285"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "77"
-                  endingLineNumber = "77"
-                  offsetFromSymbolStart = "260">
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "7633">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(extension in On_The_Map):On_The_Map.NetworkClient.(makeTheTask (request : Foundation.URLRequest, errorDomain : Swift.String, completionHandler : (Swift.Optional&lt;Swift.AnyObject&gt;, Swift.Optional&lt;__ObjC.NSError&gt;) -&gt; ()) -&gt; __ObjC.URLSessionDataTask).(closure #1)"
+                  symbolName = "On_The_Map.UdacityClient.(authenticateUser (username : Swift.String, password : Swift.String, completionHandlerForAuth : (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()).(closure #1)"
                   moduleName = "On The Map"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mebarnes/Documents/Nanodegree/ios-nd-networking-master/OnTheMap/On%20The%20Map/On%20The%20Map/NetworkClient.swift"
-                  timestampString = "527487848.17606"
+                  urlString = "file:///Users/mebarnes/Documents/Nanodegree/ios-nd-networking-master/OnTheMap/On%20The%20Map/On%20The%20Map/UdacityClient.swift"
+                  timestampString = "527533413.208813"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "77"
-                  endingLineNumber = "77"
-                  offsetFromSymbolStart = "535">
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "8571">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -90,11 +74,59 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "On The Map/NetworkClient.swift"
-            timestampString = "527481338.161817"
+            timestampString = "527531724.053378"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "makeTheTask(request:errorDomain:completionHandler:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(extension in On_The_Map):On_The_Map.NetworkClient.(makeTheTask (request : Foundation.URLRequest, errorDomain : Swift.String, completionHandler : (Swift.Optional&lt;Swift.AnyObject&gt;, Swift.Optional&lt;__ObjC.NSError&gt;) -&gt; ()) -&gt; __ObjC.URLSessionDataTask).(closure #1)"
+                  moduleName = "On The Map"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mebarnes/Documents/Nanodegree/ios-nd-networking-master/OnTheMap/On%20The%20Map/On%20The%20Map/NetworkClient.swift"
+                  timestampString = "527533413.223868"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "83"
+                  endingLineNumber = "83"
+                  offsetFromSymbolStart = "263">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(extension in On_The_Map):On_The_Map.NetworkClient.(makeTheTask (request : Foundation.URLRequest, errorDomain : Swift.String, completionHandler : (Swift.Optional&lt;Swift.AnyObject&gt;, Swift.Optional&lt;__ObjC.NSError&gt;) -&gt; ()) -&gt; __ObjC.URLSessionDataTask).(closure #1)"
+                  moduleName = "On The Map"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mebarnes/Documents/Nanodegree/ios-nd-networking-master/OnTheMap/On%20The%20Map/On%20The%20Map/NetworkClient.swift"
+                  timestampString = "527533413.228783"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "83"
+                  endingLineNumber = "83"
+                  offsetFromSymbolStart = "538">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "On The Map/NetworkClient.swift"
+            timestampString = "527531724.053378"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
             landmarkName = "buildTheURL(_:parameters:httpMethod:headers:jsonBodyParameters:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -111,7 +143,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "82"
             endingLineNumber = "82"
-            landmarkName = "authenticateUser(username:password:)"
+            landmarkName = "authenticateUser(username:password:completionHandlerForAuth:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -16,6 +16,12 @@ enum HTTPMethod: String {
     case DELETE = "DELETE"
 }
 
+enum ErrorCode: Int {
+    case REQUEST_ERROR = 100
+    case SERVER_ERROR = 200
+    case SERVER_REFUSED_REQUEST = 201
+    case RESPONSE_ERROR = 300
+}
 
 protocol NetworkClient {
     var scheme: String { get }
@@ -61,27 +67,32 @@ extension NetworkClient {
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             
             
-            func sendError(_ error: String) {
+            func sendError(_ error: String,_ errorCode: ErrorCode) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey : error]
-                completionHandler(nil, NSError(domain: errorDomain, code: 1, userInfo: userInfo))
+                completionHandler(nil, NSError(domain: errorDomain, code: errorCode.rawValue, userInfo: userInfo))
             }
             
             /* GUARD: Was there an error? */
             guard (error == nil) else {
-                sendError("There was an error with your request: \(error!)")
+                sendError("There was an error with your request: \(error!)", ErrorCode.REQUEST_ERROR)
                 return
             }
             
             /* GUARD: Did we get a successful 2XX response? */
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                sendError("Your request returned a status code other than 2xx!")
+                
+                if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 403 {
+                    sendError("Your request returned a status code of 403!", ErrorCode.SERVER_REFUSED_REQUEST)
+                } else {
+                    sendError("Your request returned a status code other than 2xx!", ErrorCode.SERVER_ERROR)
+                }
                 return
             }
             
             /* GUARD: Was there any data returned? */
             guard let data = data else {
-                sendError("No data was returned by the request!")
+                sendError("No data was returned by the request!", ErrorCode.RESPONSE_ERROR)
                 return
             }
             
