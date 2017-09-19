@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class LoginViewController: UIViewController {
 
@@ -103,6 +104,9 @@ class LoginViewController: UIViewController {
     
 
     @IBAction func signUp(_ sender: Any) {
+        
+        let svc = SFSafariViewController(url: URL(string: "https://www.udacity.com/account/auth#!/signup")!)
+        present(svc, animated: true, completion: nil)
     }
 
 }

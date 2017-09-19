@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "On The Map/LoginViewController.swift"
-            timestampString = "527536820.884138"
+            timestampString = "527539707.427831"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
             landmarkName = "getKeyboardHeight(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,7 +42,7 @@
                   moduleName = "On The Map"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/mebarnes/Documents/Nanodegree/ios-nd-networking-master/OnTheMap/On%20The%20Map/On%20The%20Map/UdacityClient.swift"
-                  timestampString = "527536182.117634"
+                  timestampString = "527539712.539431"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "90"
@@ -57,7 +57,7 @@
                   moduleName = "On The Map"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/mebarnes/Documents/Nanodegree/ios-nd-networking-master/OnTheMap/On%20The%20Map/On%20The%20Map/UdacityClient.swift"
-                  timestampString = "527536182.121699"
+                  timestampString = "527539712.542921"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "90"
@@ -90,7 +90,7 @@
                   moduleName = "On The Map"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/mebarnes/Documents/Nanodegree/ios-nd-networking-master/OnTheMap/On%20The%20Map/On%20The%20Map/NetworkClient.swift"
-                  timestampString = "527536182.130632"
+                  timestampString = "527539712.549583"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "83"
@@ -105,7 +105,7 @@
                   moduleName = "On The Map"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/mebarnes/Documents/Nanodegree/ios-nd-networking-master/OnTheMap/On%20The%20Map/On%20The%20Map/NetworkClient.swift"
-                  timestampString = "527536182.13419"
+                  timestampString = "527539712.551641"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "83"
@@ -160,6 +160,22 @@
             startingLineNumber = "67"
             endingLineNumber = "67"
             landmarkName = "taskForPOSTMethod(_:parameters:jsonBodyParameters:completionHandlerForPOST:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "On The Map/LoginViewController.swift"
+            timestampString = "527539677.378327"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "signUp(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

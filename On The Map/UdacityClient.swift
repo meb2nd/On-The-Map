@@ -79,7 +79,7 @@ final class UdacityClient : NSObject {
     
     // MARK:  Login
     func authenticateUser(username: String, password: String, completionHandlerForAuth: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
-        let bodyParameters = ["udacity": ["username": username, "password": password]]
+        let bodyParameters = [ParameterKeys.Udacity: [ParameterKeys.UserName: username, ParameterKeys.Password: password]]
         
         _ = taskForPOSTMethod(UdacityClient.Methods.Session, parameters: [:], jsonBodyParameters: bodyParameters as [String : AnyObject], completionHandlerForPOST: { (result, error) in
             
