@@ -60,22 +60,21 @@ class LoginViewController: UIViewController {
     
     @IBAction func login(_ sender: Any) {
         
+        guard !emailTextField.text!.isEmpty && !passwordTextField.text!.isEmpty else {
+            presentAlert(title: "Login Error", message: "Email or Password field is empty")
+            return
+        }
+        
+        self.setUIEnabled(false)
+        
         UdacityClient.sharedInstance().authenticateUser(username: emailTextField.text!, password: passwordTextField.text!) { (success, errorString) in
             
             performUIUpdatesOnMain {
+                self.setUIEnabled(true)
                 if success {
                     self.completeLogin()
                 } else {
-                    
-                    let controller = UIAlertController()
-                    controller.title = "Authentication Failure"
-                    controller.message = errorString
-                    
-                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { action in controller.dismiss(animated: true, completion: nil)
-                    }
-                    
-                    controller.addAction(okAction)
-                    self.present(controller, animated: true, completion: nil)
+                    self.presentAlert(title: "Authentication Failure", message: errorString)
                 }
             }
         }
@@ -87,6 +86,19 @@ class LoginViewController: UIViewController {
 
         let controller = storyboard!.instantiateViewController(withIdentifier: "OnTheMapNavigationController") as! UINavigationController
         present(controller, animated: true, completion: nil)
+    }
+    
+    private func presentAlert(title: String, message: String?) {
+        
+        let controller = UIAlertController()
+        controller.title = title
+        controller.message = message
+        
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { action in controller.dismiss(animated: true, completion: nil)
+        }
+        
+        controller.addAction(okAction)
+        self.present(controller, animated: true, completion: nil)
     }
     
 
