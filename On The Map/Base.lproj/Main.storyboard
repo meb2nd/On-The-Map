@@ -68,9 +68,11 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ol-Oy-qZJ">
                                                         <rect key="frame" x="0.0" y="55.333333333333314" width="374" height="60"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.50196078431372548" blue="0.83921568627450982" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="60" id="pq2-7U-YrE"/>
                                                         </constraints>
+                                                        <color key="tintColor" red="0.0" green="0.50196078431372548" blue="0.83921568627450982" alpha="1" colorSpace="calibratedRGB"/>
                                                         <state key="normal" title="Login">
                                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                                         </state>
