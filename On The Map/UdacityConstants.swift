@@ -25,6 +25,7 @@ extension UdacityClient {
         
         // MARK: Session
         static let Session = "/session"
+        static let Users = "/users/{user_id}"
         
     }
     
@@ -62,6 +63,11 @@ extension UdacityClient {
         static let Session = "session"
         static let ID = "id"
         static let Expiration = "expiration"
+        
+        // MARK: User
+        static let User = "user"
+        static let FirstName = "first_name"
+        static let LastName = "last_name"
         
     }
     

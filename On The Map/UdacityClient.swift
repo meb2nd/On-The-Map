@@ -25,12 +25,32 @@ final class UdacityClient : NSObject {
     // authentication state
     var sessionID : String? = nil
     var userID : String? = nil
+    
+    // user info
+    var firstName : String? = nil
+    var lastName : String? = nil
  
     
     // MARK: Initializers
     
     override init() {
         super.init()
+    }
+    
+    // MARK: GET
+    
+    func taskForGETMethod(_ method: String, parameters: [String:AnyObject], completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+        
+        /* 1. Set the parameters */
+        // No common paramers defined
+        
+        /* 2/3. Build the URL, Configure the request */
+        let request = buildTheURL(method, parameters: parameters)
+        
+        
+        /* 4. Make the request */
+        return makeTheTask(request: request as URLRequest, errorDomain: "UdacityClient.taskForGETMethod", completionHandler: completionHandlerForGET)
+        
     }
     
     // MARK: DELETE
@@ -134,9 +154,56 @@ final class UdacityClient : NSObject {
                 self.sessionID = sessionID
                 self.userID = userID
             
-                completionHandlerForAuth(true, nil)
+                self.getUserName(completionHandlerForUserName: completionHandlerForAuth)
             
             }
+        )
+    }
+    
+    private func getUserName(completionHandlerForUserName: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
+        
+        guard let userID = userID, let method = substituteKeyInMethod(UdacityClient.Methods.Users, key: "user_id", value: userID) else {
+            
+            completionHandlerForUserName(false, "There was an error in creating the user information request.")
+            return
+        }
+        
+        _ = taskForGETMethod(method, parameters: [:], completionHandlerForGET: { (result, error) in
+            
+            guard (error == nil) else {
+                
+                print("There was an error in the request: \(String(describing: error))")
+                
+                completionHandlerForUserName(false, "There was an error in processing the request.")
+                
+                return
+            }
+            
+            /* GUARD: Is the "user" key in parsedResult? */
+            guard let user = result?[JSONResponseKeys.User] as? [String: AnyObject] else {
+                
+                print("Cannot find key '\(JSONResponseKeys.Session)' in \(String(describing: result))")
+                completionHandlerForUserName(false, "Cannot find session key.")
+                return
+            }
+            
+            /* GUARD: Is the "first name" key in parsedResult? */
+            guard let firstName = user[JSONResponseKeys.FirstName] as? String else {
+                completionHandlerForUserName(false, "User Information is missing First Name.")
+                return
+            }
+            
+            /* GUARD: Is the "last name" key in parsedResult? */
+            guard let lastName = user[JSONResponseKeys.LastName] as? String else {
+                completionHandlerForUserName(false, "User Information is missing Last Name.")
+                return
+            }
+            
+            self.firstName = firstName
+            self.lastName = lastName
+            completionHandlerForUserName(true, nil)
+            
+        }
         )
     }
  
@@ -170,6 +237,8 @@ final class UdacityClient : NSObject {
             
             self.sessionID = nil
             self.userID = nil
+            self.firstName = nil
+            self.lastName = nil
             completionHandlerForLogout(true, nil)
             
         }
