@@ -117,12 +117,16 @@
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.34901960784313724" green="0.79607843137254897" blue="1" alpha="1" colorSpace="deviceRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="m1I-8U-ypS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="2zu-rV-gq5"/>
                             <constraint firstItem="m1I-8U-ypS" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="QzS-ed-p6U"/>
                             <constraint firstAttribute="trailingMargin" secondItem="m1I-8U-ypS" secondAttribute="trailing" id="Vn8-66-LWU"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="m1I-8U-ypS" secondAttribute="bottom" id="YGB-BN-vKo"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="ep6-PR-2jM" appends="YES" id="JM7-2d-8U6"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="emailTextField" destination="vkb-6P-XUz" id="kHE-7q-KJU"/>
@@ -132,6 +136,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="ep6-PR-2jM">
+                    <connections>
+                        <action selector="userDidTapView:" destination="BYZ-38-t0r" id="Xz1-0J-L2Z"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-624.45652173913049" y="95.652173913043484"/>
         </scene>
@@ -354,7 +363,7 @@
         <!--On The Map Navigation Controller-->
         <scene sceneID="dda-C9-OUu">
             <objects>
-                <navigationController title="On The Map Navigation Controller" id="KDB-pb-PVp" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="OnTheMapNavigationController" title="On The Map Navigation Controller" id="KDB-pb-PVp" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hwI-WF-20b">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -370,7 +379,7 @@
         <!--Student Information Posting Navigation Controller-->
         <scene sceneID="LWO-bT-FFl">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="83h-G2-ydQ" userLabel="Student Information Posting Navigation Controller" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="StudentInformationNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="83h-G2-ydQ" userLabel="Student Information Posting Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ubP-FE-shh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>

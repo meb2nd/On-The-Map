@@ -43,7 +43,7 @@ class LoginViewController: UIViewController {
         unsubscribeFromAllNotifications()
     }
     
-    
+    // MARK: UITraitEnvironment
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         
         super.traitCollectionDidChange(previousTraitCollection)
