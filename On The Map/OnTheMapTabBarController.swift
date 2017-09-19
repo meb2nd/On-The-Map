@@ -42,6 +42,24 @@ class OnTheMapTabBarController: UITabBarController {
     
     // MARK:  Actions
     @IBAction func logout(_ sender: Any) {
+        
+        UdacityClient.sharedInstance().logout { (success, errorString) in
+            
+            performUIUpdatesOnMain {
+                
+                if success {
+                    self.completeLogout()
+                } else {
+                    AlertViewHelper.presentAlert(self, title: "Logout Failure", message: errorString)
+                }
+            }
+        }
+    }
+    
+    private func completeLogout() {
+        
+        let controller = storyboard!.instantiateViewController(withIdentifier: "LoginViewController")
+        present(controller, animated: true, completion: nil)
     }
     
     

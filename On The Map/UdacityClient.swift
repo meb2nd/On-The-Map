@@ -140,6 +140,41 @@ final class UdacityClient : NSObject {
         )
     }
  
+    // MARK:  Logout
+    func logout(completionHandlerForLogout: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
+        
+        _ = taskForDELETEMethod(UdacityClient.Methods.Session, parameters: [:], completionHandlerForDELETE: { (result, error) in
+            
+            guard (error == nil) else {
+                
+                print("There was an error in the request: \(String(describing: error))")
+                
+                completionHandlerForLogout(false, "There was an error in processing the request.")
+                
+                return
+            }
+            
+            /* GUARD: Is the "session" key in parsedResult? */
+            guard let session = result?[JSONResponseKeys.Session] as? [String: AnyObject] else {
+                
+                print("Cannot find key '\(JSONResponseKeys.Session)' in \(String(describing: result))")
+                completionHandlerForLogout(false, "Cannot find session key.")
+                return
+            }
+            
+            /* GUARD: Is the "session ID" key in parsedResult? */
+            guard (session[JSONResponseKeys.ID] as? String) != nil else {
+                completionHandlerForLogout(false, "Session ID is missing.")
+                return
+            }
+            
+            self.sessionID = nil
+            self.userID = nil
+            completionHandlerForLogout(true, nil)
+            
+        }
+        )
+    }
     
     // MARK: Shared Instance
     

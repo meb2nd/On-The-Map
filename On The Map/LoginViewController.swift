@@ -58,11 +58,11 @@ class LoginViewController: UIViewController {
         }
     }
     
-    
+    // MARK: Login
     @IBAction func login(_ sender: Any) {
         
         guard !emailTextField.text!.isEmpty && !passwordTextField.text!.isEmpty else {
-            presentAlert(title: "Login Error", message: "Email or Password field is empty")
+            AlertViewHelper.presentAlert(self, title: "Login Error", message: "Email or Password field is empty")
             return
         }
         
@@ -75,13 +75,13 @@ class LoginViewController: UIViewController {
                 if success {
                     self.completeLogin()
                 } else {
-                    self.presentAlert(title: "Authentication Failure", message: errorString)
+                    AlertViewHelper.presentAlert(self, title: "Authentication Failure", message: errorString)
                 }
             }
         }
     }
     
-    // MARK: Login
+    
     
     private func completeLogin() {
 
@@ -89,20 +89,8 @@ class LoginViewController: UIViewController {
         present(controller, animated: true, completion: nil)
     }
     
-    private func presentAlert(title: String, message: String?) {
-        
-        let controller = UIAlertController()
-        controller.title = title
-        controller.message = message
-        
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { action in controller.dismiss(animated: true, completion: nil)
-        }
-        
-        controller.addAction(okAction)
-        self.present(controller, animated: true, completion: nil)
-    }
-    
 
+    // MARK: Signup
     @IBAction func signUp(_ sender: Any) {
         
         let svc = SFSafariViewController(url: URL(string: "https://www.udacity.com/account/auth#!/signup")!)
@@ -215,6 +203,7 @@ extension LoginViewController {
         let userInfo = (notification as NSNotification).userInfo
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
         
+        // If textfield is active make sure it does not move out of view
         if let activeField = activeField {
             let textFieldOrigin = activeField.convert(activeField.frame.origin, to: self.view)
             let offset = textFieldOrigin.y + 8.0
