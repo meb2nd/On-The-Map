@@ -24,7 +24,7 @@ final class UdacityClient : NSObject {
     
     // authentication state
     var sessionID : String? = nil
-    var userID : Int? = nil
+    var userID : String? = nil
  
     
     // MARK: Initializers
@@ -69,12 +69,45 @@ final class UdacityClient : NSObject {
         
         /* 2/3. Build the URL, Configure the request */
         
-        let request  = buildTheURL(method, parameters: parameters, httpMethod: .POST, headers: headers as [String : AnyObject])
+        let request  = buildTheURL(method, parameters: parameters, httpMethod: .POST, headers: headers as [String : AnyObject], jsonBodyParameters: jsonBodyParameters)
 
         
         /* 4. Make the request */
         return makeTheTask(request: request as URLRequest, errorDomain: "UdacityClient.taskForPOSTMethod", completionHandler: completionHandlerForPOST)
 
+    }
+    
+    // MARK:  Login
+    func authenticateUser(username: String, password: String) {
+        let bodyParameters = ["udacity": ["username": username, "password": password]]
+        
+        _ = taskForPOSTMethod(UdacityClient.Methods.Session, parameters: [:], jsonBodyParameters: bodyParameters as [String : AnyObject], completionHandlerForPOST: { (result, error) in
+            
+                guard (error == nil) else {
+                    print("There was an error in the request: \(String(describing: error))")
+                    return
+                }
+            
+                /* GUARD: Is the "session" key in parsedResult? */
+                guard let session = result?[JSONResponseKeys.Session] as? [String: AnyObject] else {
+                    print("Cannot find key '\(JSONResponseKeys.Session)' in \(String(describing: result))")
+                    return
+                }
+            
+                /* GUARD: Is the "account" key in parsedResult? */
+                guard let account = result?[JSONResponseKeys.Account] as? [String: AnyObject] else {
+                    print("Cannot find key '\(JSONResponseKeys.Account)' in \(String(describing: result))")
+                    return
+                }
+            
+                self.sessionID = session[JSONResponseKeys.ID] as? String
+                self.userID = account[JSONResponseKeys.Key] as? String
+            
+            }
+        
+        
+        
+        )
     }
  
     

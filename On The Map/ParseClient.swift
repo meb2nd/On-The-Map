@@ -59,7 +59,7 @@ final class ParseClient : NSObject {
                        HeaderKeys.Accept: HeaderValues.applicationJSON]
         
         /* 2/3. Build the URL, Configure the request */
-        let request  = buildTheURL(method, parameters: parametersWithApiKeys, httpMethod: .POST, headers: headers as [String : AnyObject])
+        let request  = buildTheURL(method, parameters: parametersWithApiKeys, httpMethod: .POST, headers: headers as [String : AnyObject], jsonBodyParameters: jsonBodyParameters)
         
         /* 4. Make the request */
         return makeTheTask(request: request as URLRequest, errorDomain: "ParseClient.taskForPOSTMethod", completionHandler: completionHandlerForPOST)

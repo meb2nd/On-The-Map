@@ -24,7 +24,7 @@ extension UdacityClient {
     struct Methods {
         
         // MARK: Session
-        static let StudentLocation = "/session"
+        static let Session = "/session"
         
     }
     

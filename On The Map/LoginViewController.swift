@@ -59,6 +59,8 @@ class LoginViewController: UIViewController {
     
     
     @IBAction func login(_ sender: Any) {
+        
+        UdacityClient.sharedInstance().authenticateUser(username: emailTextField.text!, password: passwordTextField.text!)
     }
     
 

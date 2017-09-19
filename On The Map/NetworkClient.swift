@@ -37,7 +37,7 @@ extension NetworkClient {
         let headersKeys = headers.keys
         
         for key in headersKeys {
-            request.setValue(headers[key] as? String, forHTTPHeaderField: key)
+            request.addValue((headers[key] as? String)!, forHTTPHeaderField: key)
         }
         
         if jsonBodyParameters.count > 0 {
