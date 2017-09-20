@@ -17,6 +17,8 @@ class StudentMapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        studentInformationMapView.delegate = self
+        
         ParseClient.sharedInstance().refreshStudentLocations() {(success, errorString) in
             if let error = errorString {
                 print(error)
@@ -28,9 +30,6 @@ class StudentMapViewController: UIViewController {
             }
 
         }
-
-
-        // Do any additional setup after loading the view.
         
     }
 
