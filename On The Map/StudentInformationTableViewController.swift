@@ -47,6 +47,20 @@ class StudentInformationTableViewController: UITableViewController {
         
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        /* Show the media URL of the selected student */
+        let studentInformation = ParseClient.sharedInstance().students[(indexPath as NSIndexPath).row]
+        
+        let app = UIApplication.shared
+        if studentInformation.studentMediaURL != "" {
+            app.open(URL(string: studentInformation.studentMediaURL)!,  completionHandler: nil)
+        } else {
+            AlertViewHelper.presentAlert(self, title: "Cannot Display Student Link", message: "Student has enetered an invalid URL")
+        }
+        
+    }
  
 
     /*
