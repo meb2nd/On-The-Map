@@ -59,7 +59,7 @@ extension ParseClient {
     
     // MARK: Parameter Values
     struct ParameterValues {
-        static let DecendingUpdatedAt = "-updatedAt"
+        static let DescendingUpdatedAt = "-updatedAt"
 
     }
     

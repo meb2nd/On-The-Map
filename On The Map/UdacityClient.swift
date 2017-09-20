@@ -39,7 +39,7 @@ final class UdacityClient : NSObject {
     
     // MARK: GET
     
-    func taskForGETMethod(_ method: String, parameters: [String:AnyObject], completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForGETMethod(_ method: String, parameters: [String:String?], completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 1. Set the parameters */
         // No common paramers defined
@@ -55,7 +55,7 @@ final class UdacityClient : NSObject {
     
     // MARK: DELETE
     
-    func taskForDELETEMethod(_ method: String, parameters: [String:AnyObject], completionHandlerForDELETE: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForDELETEMethod(_ method: String, parameters: [String: String?], completionHandlerForDELETE: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 1. Set the parameters */
         var headers: [String:AnyObject] = [:]
@@ -81,7 +81,7 @@ final class UdacityClient : NSObject {
     
     // MARK: POST
     
-    func taskForPOSTMethod(_ method: String, parameters: [String:AnyObject], jsonBodyParameters: [String:AnyObject], completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForPOSTMethod(_ method: String, parameters: [String: String?], jsonBodyParameters: [String:AnyObject], completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 1. Set the parameters */
         let headers = [HeaderKeys.ContentType: HeaderValues.applicationJSON,
@@ -174,7 +174,7 @@ final class UdacityClient : NSObject {
                 
                 print("There was an error in the request: \(String(describing: error))")
                 
-                completionHandlerForUserName(false, "There was an error in processing the request.")
+                completionHandlerForUserName(false, "There was an error in processing the User Information request.")
                 
                 return
             }

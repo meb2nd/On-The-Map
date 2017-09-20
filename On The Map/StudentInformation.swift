@@ -41,12 +41,32 @@ struct StudentInformation {
         
         var students = [StudentInformation]()
         
-        // iterate through array of dictionaries, each Movie is a dictionary
+        // iterate through array of dictionaries, each Student is a dictionary
         for result in results {
-            students.append(StudentInformation(dictionary: result))
+            
+            if isDictionaryComplete(result) {
+                students.append(StudentInformation(dictionary: result))
+            }
+            
         }
         
         return students
+    }
+    
+    static private func isDictionaryComplete (_ dictionary: [String: AnyObject]) -> Bool {
+        if (dictionary[ParseClient.JSONResponseKeys.StudentUniqueKey] != nil) &&
+           (dictionary[ParseClient.JSONResponseKeys.StudentFirstName] != nil) &&
+           (dictionary[ParseClient.JSONResponseKeys.StudentLastName] != nil) &&
+           (dictionary[ParseClient.JSONResponseKeys.StudentMapString] != nil) &&
+           (dictionary[ParseClient.JSONResponseKeys.StudentMediaURL] != nil) &&
+           (dictionary[ParseClient.JSONResponseKeys.StudentLatitude] != nil) &&
+           (dictionary[ParseClient.JSONResponseKeys.StudentLogitude] != nil) &&
+            (dictionary[ParseClient.JSONResponseKeys.StudentObjectID] != nil) {
+            return true
+        } else {
+            return false
+        }
+
     }
 }
 

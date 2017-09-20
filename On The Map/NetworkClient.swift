@@ -34,7 +34,7 @@ protocol NetworkClient {
 extension NetworkClient {
     
     
-    func buildTheURL(_ method: String, parameters: [String:AnyObject], httpMethod: HTTPMethod = .GET, headers: [String:AnyObject] = [:], jsonBodyParameters: [String:AnyObject] = [:]) -> NSMutableURLRequest {
+    func buildTheURL(_ method: String, parameters: [String: String?], httpMethod: HTTPMethod = .GET, headers: [String:AnyObject] = [:], jsonBodyParameters: [String:AnyObject] = [:]) -> NSMutableURLRequest {
         
         let request = NSMutableURLRequest(url: buildURLFromParameters(parameters, withPathExtension: method))
         
@@ -124,7 +124,7 @@ extension NetworkClient {
     
     
     // create a URL from parameters
-    private func buildURLFromParameters(_ parameters: [String:AnyObject], withPathExtension: String? = nil) -> URL {
+    private func buildURLFromParameters(_ parameters: [String:String?], withPathExtension: String? = nil) -> URL {
         
         var components = URLComponents()
         components.scheme = scheme
@@ -133,7 +133,7 @@ extension NetworkClient {
         components.queryItems = [URLQueryItem]()
         
         for (key, value) in parameters {
-            let queryItem = URLQueryItem(name: key, value: "\(value)")
+            let queryItem = URLQueryItem(name: key, value: value)
             components.queryItems!.append(queryItem)
         }
         
