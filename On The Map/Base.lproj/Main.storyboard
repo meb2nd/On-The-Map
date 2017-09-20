@@ -253,6 +253,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="icon_mapview-deselected" selectedImage="icon_mapview-selected" id="XPt-PZ-ORU"/>
+                    <connections>
+                        <outlet property="studentInformationMapView" destination="DDZ-sV-029" id="7aJ-b5-dHj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q7N-B3-Qcw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

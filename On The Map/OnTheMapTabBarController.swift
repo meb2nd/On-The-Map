@@ -22,17 +22,7 @@ class OnTheMapTabBarController: UITabBarController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        ParseClient.sharedInstance().refreshStudentLocations() {(success, errorString) in
-            if let error = errorString {
-                print(error)
-                return
-            }
-            
-            if let tableVC = self.viewControllers?[0] as? UITableViewController {
-             
-                tableVC.tableView.reloadData()
-            }
-        }
+        
     }
 
     override func didReceiveMemoryWarning() {

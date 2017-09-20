@@ -19,7 +19,7 @@ struct StudentInformation {
     let studentMapString: String
     let studentMediaURL: String
     let studentLatitude: Float
-    let studentLogitude: Float
+    let studentLongitude: Float
     let studentObjectID: String
 
     
@@ -33,7 +33,7 @@ struct StudentInformation {
         studentMapString = dictionary[ParseClient.JSONResponseKeys.StudentMapString] as! String
         studentMediaURL = dictionary[ParseClient.JSONResponseKeys.StudentMediaURL] as! String
         studentLatitude = dictionary[ParseClient.JSONResponseKeys.StudentLatitude] as! Float
-        studentLogitude = dictionary[ParseClient.JSONResponseKeys.StudentLogitude] as! Float
+        studentLongitude = dictionary[ParseClient.JSONResponseKeys.StudentLongitude] as! Float
         studentObjectID = dictionary[ParseClient.JSONResponseKeys.StudentObjectID] as! String
     }
     
@@ -60,8 +60,8 @@ struct StudentInformation {
            (dictionary[ParseClient.JSONResponseKeys.StudentMapString] != nil) &&
            (dictionary[ParseClient.JSONResponseKeys.StudentMediaURL] != nil) &&
            (dictionary[ParseClient.JSONResponseKeys.StudentLatitude] != nil) &&
-           (dictionary[ParseClient.JSONResponseKeys.StudentLogitude] != nil) &&
-            (dictionary[ParseClient.JSONResponseKeys.StudentObjectID] != nil) {
+           (dictionary[ParseClient.JSONResponseKeys.StudentLongitude] != nil) &&
+           (dictionary[ParseClient.JSONResponseKeys.StudentObjectID] != nil) {
             return true
         } else {
             return false

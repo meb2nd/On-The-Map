@@ -54,7 +54,7 @@ extension ParseClient {
         static let StudentMapString = "mapString"
         static let StudentMediaURL = "mediaURL"
         static let StudentLatitude = "latitude"
-        static let StudentLogitude = "longitude"
+        static let StudentLongitude = "longitude"
     }
     
     // MARK: Parameter Values
@@ -84,7 +84,7 @@ extension ParseClient {
         static let StudentFirstName = "firstName"
         static let StudentLastName = "lastName"
         static let StudentLatitude = "latitude"
-        static let StudentLogitude = "longitude"
+        static let StudentLongitude = "longitude"
         static let StudentMapString = "mapString"
         static let StudentMediaURL = "mediaURL"
         static let StudentObjectID = "objectId"
