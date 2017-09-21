@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KDB-pb-PVp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9wB-LP-Hyd">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -178,13 +178,13 @@
                         <outlet property="logoutButton" destination="fnK-ty-7se" id="GOF-Hw-nfx"/>
                         <outlet property="pinButton" destination="QjN-aL-428" id="eEw-r7-MZj"/>
                         <outlet property="refreshButton" destination="j8P-MM-cDU" id="q4o-eE-J0Q"/>
-                        <segue destination="BIt-X5-bUZ" kind="relationship" relationship="viewControllers" id="gC9-fu-DkW"/>
-                        <segue destination="wUN-nN-IAR" kind="relationship" relationship="viewControllers" id="mwf-Jp-uir"/>
+                        <segue destination="NEh-QG-5IO" kind="relationship" relationship="viewControllers" id="gC9-fu-DkW"/>
+                        <segue destination="DFn-Ca-tBl" kind="relationship" relationship="viewControllers" id="mwf-Jp-uir"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q7m-Co-WGi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1193" y="95"/>
+            <point key="canvasLocation" x="349" y="91"/>
         </scene>
         <!--Student Information Table View Controller-->
         <scene sceneID="fzj-X6-YAa">
@@ -203,14 +203,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ozT-wm-a1G">
-                                            <rect key="frame" x="54" y="0.0" width="345" height="43.666666666666664"/>
+                                            <rect key="frame" x="59" y="0.0" width="340" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="icon_pin" id="SI7-kK-rfP">
-                                            <rect key="frame" x="15" y="9" width="24" height="24"/>
+                                            <rect key="frame" x="20" y="9" width="24" height="24"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
                                     </subviews>
@@ -222,11 +222,17 @@
                             <outlet property="delegate" destination="wUN-nN-IAR" id="b44-UA-9ih"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="List" image="icon_listview-deselected" selectedImage="icon_listview-selected" id="uZ9-mB-Cvj"/>
+                    <navigationItem key="navigationItem" title="On The Map" id="bIV-D9-pBN">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="OCR-WD-CNt"/>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" image="icon_refresh" id="vE4-pF-6Hf"/>
+                            <barButtonItem title="Item" image="icon_pin" id="W76-iG-9T1"/>
+                        </rightBarButtonItems>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qmK-NC-F3L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2258" y="613"/>
+            <point key="canvasLocation" x="2404" y="608"/>
         </scene>
         <!--Student Map View Controller-->
         <scene sceneID="7lF-Go-Eyg">
@@ -252,14 +258,20 @@
                             <constraint firstAttribute="trailingMargin" secondItem="DDZ-sV-029" secondAttribute="trailing" id="jsd-ue-pVe"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" image="icon_mapview-deselected" selectedImage="icon_mapview-selected" id="XPt-PZ-ORU"/>
+                    <navigationItem key="navigationItem" title="On The Map" id="6Ze-Zg-kEp">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="cbG-uy-WYZ"/>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" image="icon_refresh" id="Jw8-u9-bHB"/>
+                            <barButtonItem title="Item" image="icon_pin" id="Ppw-fA-UdY"/>
+                        </rightBarButtonItems>
+                    </navigationItem>
                     <connections>
                         <outlet property="studentInformationMapView" destination="DDZ-sV-029" id="7aJ-b5-dHj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q7N-B3-Qcw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2258" y="-279"/>
+            <point key="canvasLocation" x="2404" y="-284"/>
         </scene>
         <!--Student Information Posting View Controller-->
         <scene sceneID="3Rr-SS-XeK">
@@ -277,7 +289,7 @@
                                 <rect key="frame" x="0.0" y="84" width="414" height="652"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="WcL-4c-wp2" userLabel="Location Stack View">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="316"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="652"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="7Dh-p5-N3A" userLabel="Header Stack View">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="77"/>
@@ -309,13 +321,13 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="20" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZGZ-h0-SpU" userLabel="Find on the Map Button Stack View">
-                                                <rect key="frame" x="0.0" y="167" width="414" height="149"/>
+                                                <rect key="frame" x="0.0" y="167" width="414" height="485"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="buo-Lh-27o">
-                                                        <rect key="frame" x="151.66666666666669" y="0.0" width="111.00000000000006" height="149"/>
+                                                        <rect key="frame" x="151.66666666666669" y="0.0" width="111.00000000000006" height="485"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V77-cQ-Nmh">
-                                                                <rect key="frame" x="0.0" y="59.666666666666686" width="111.00000000000003" height="30"/>
+                                                                <rect key="frame" x="0.0" y="227.66666666666669" width="111.00000000000003" height="30"/>
                                                                 <state key="normal" title="Find on the Map"/>
                                                                 <connections>
                                                                     <action selector="findOnTheMap:" destination="mh3-wC-ZUM" eventType="touchUpInside" id="vf4-4v-HGq"/>
@@ -328,16 +340,16 @@
                                         </subviews>
                                     </stackView>
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nGQ-9f-GMr" userLabel="Link Stack View">
-                                        <rect key="frame" x="0.0" y="336" width="414" height="316"/>
+                                        <rect key="frame" x="0.0" y="-92" width="414" height="8"/>
                                         <subviews>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a Link to Share Here." textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6w3-yD-DxS">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a Link to Share Here." textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6w3-yD-DxS">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="SVc-q3-0bd">
-                                                <rect key="frame" x="0.0" y="38" width="414" height="278"/>
+                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" ambiguous="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="SVc-q3-0bd">
+                                                <rect key="frame" x="0.0" y="8" width="414" height="0.0"/>
                                             </mapView>
                                         </subviews>
                                     </stackView>
@@ -376,23 +388,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Gh-jd-srm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4133.3333333333339" y="-280.43478260869568"/>
-        </scene>
-        <!--On The Map Navigation Controller-->
-        <scene sceneID="dda-C9-OUu">
-            <objects>
-                <navigationController storyboardIdentifier="OnTheMapNavigationController" title="On The Map Navigation Controller" id="KDB-pb-PVp" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hwI-WF-20b">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="9wB-LP-Hyd" kind="relationship" relationship="rootViewController" id="tLB-Da-8Tc"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bBf-K4-4va" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="206" y="95"/>
+            <point key="canvasLocation" x="4320" y="-284"/>
         </scene>
         <!--Student Information Posting Navigation Controller-->
         <scene sceneID="LWO-bT-FFl">
@@ -400,7 +396,7 @@
                 <navigationController storyboardIdentifier="StudentInformationNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="83h-G2-ydQ" userLabel="Student Information Posting Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ubP-FE-shh">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -410,7 +406,45 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vzv-GP-sUl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3226.0869565217395" y="-280.43478260869568"/>
+            <point key="canvasLocation" x="3278" y="-284"/>
+        </scene>
+        <!--Map-->
+        <scene sceneID="rh5-F1-6Oh">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NEh-QG-5IO" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Map" image="icon_mapview-deselected" selectedImage="icon_mapview-selected" id="XPt-PZ-ORU"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QUI-TW-Qfb">
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BIt-X5-bUZ" kind="relationship" relationship="rootViewController" id="ao6-uo-jOq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f8z-lw-pbD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1414" y="-283"/>
+        </scene>
+        <!--List-->
+        <scene sceneID="qtp-qo-fEQ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DFn-Ca-tBl" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="List" image="icon_listview-deselected" selectedImage="icon_listview-selected" id="uZ9-mB-Cvj"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0Hf-NW-yMo">
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="wUN-nN-IAR" kind="relationship" relationship="rootViewController" id="3Et-S8-qmQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Fh-oo-CS8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1414" y="609"/>
         </scene>
     </scenes>
     <resources>

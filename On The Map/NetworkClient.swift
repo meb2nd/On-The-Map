@@ -31,12 +31,57 @@ protocol NetworkClient {
     func preprocessData (data: Data) -> Data
 }
 
+// Enums below from suggestions at:  https://appventure.me/2015/10/17/advanced-practical-enum-examples/#errortype
+
+enum HttpError: String {
+    case Code400 = "Bad Request"
+    case Code401 = "Unauthorized"
+    case Code402 = "Payment Required"
+    case Code403 = "Forbidden"
+    case Code404 = "Not Found"
+}
+
+enum DecodeError: Error {
+    case TypeMismatch(expected: String, actual: String)
+    case MissingKey(String)
+    case Custom(String)
+}
+
+enum APIError : Error {
+    // Can't connect to the server (maybe offline?)
+    case ConnectionError(error: NSError)
+    // The server responded with a non 200 status code
+    case ServerError(statusCode: Int, error: NSError)
+    // We got no data (0 bytes) back from the server
+    case NoDataError
+    // The server response can't be converted from JSON to a Dictionary
+    case JSONSerializationError(error: Error)
+    // The decoding Failed
+    case JSONMappingError(converstionError: DecodeError)
+}
+
+
+
 extension NetworkClient {
     
     
     func buildTheURL(_ method: String, parameters: [String: String?], httpMethod: HTTPMethod = .GET, headers: [String:AnyObject] = [:], jsonBodyParameters: [String:AnyObject] = [:]) -> NSMutableURLRequest {
         
         let request = NSMutableURLRequest(url: buildURLFromParameters(parameters, withPathExtension: method))
+        
+        let error = APIError.JSONMappingError(converstionError: DecodeError.Custom("testing"))
+        
+        switch error {
+        case .JSONMappingError(let val):
+            switch val {
+            case .Custom(let val):
+                print (val)
+            default:
+                print("We're done!")
+            }
+        default:
+            print(error)
+        }
         
         request.httpMethod = httpMethod.rawValue
         
