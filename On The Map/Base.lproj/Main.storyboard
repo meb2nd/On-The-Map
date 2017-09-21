@@ -223,12 +223,29 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="On The Map" id="bIV-D9-pBN">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="OCR-WD-CNt"/>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="OCR-WD-CNt">
+                            <connections>
+                                <action selector="logout:" destination="wUN-nN-IAR" id="5fV-YL-0be"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem title="Item" image="icon_refresh" id="vE4-pF-6Hf"/>
-                            <barButtonItem title="Item" image="icon_pin" id="W76-iG-9T1"/>
+                            <barButtonItem title="Item" image="icon_refresh" id="vE4-pF-6Hf">
+                                <connections>
+                                    <action selector="refresh:" destination="wUN-nN-IAR" id="uv9-MP-cSb"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="icon_pin" id="W76-iG-9T1">
+                                <connections>
+                                    <action selector="addStudentInformation:" destination="wUN-nN-IAR" id="1Vt-OZ-gdy"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="addStudentInformationButton" destination="W76-iG-9T1" id="5PI-Z1-k46"/>
+                        <outlet property="logoutButton" destination="OCR-WD-CNt" id="fVG-Uj-lTA"/>
+                        <outlet property="refreshButton" destination="vE4-pF-6Hf" id="hbF-85-56q"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qmK-NC-F3L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -259,13 +276,28 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="On The Map" id="6Ze-Zg-kEp">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="cbG-uy-WYZ"/>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="cbG-uy-WYZ">
+                            <connections>
+                                <action selector="logout:" destination="BIt-X5-bUZ" id="Ey1-dZ-iMY"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem title="Item" image="icon_refresh" id="Jw8-u9-bHB"/>
-                            <barButtonItem title="Item" image="icon_pin" id="Ppw-fA-UdY"/>
+                            <barButtonItem title="Item" image="icon_refresh" id="Jw8-u9-bHB">
+                                <connections>
+                                    <action selector="refresh:" destination="BIt-X5-bUZ" id="9bP-ve-uJJ"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="icon_pin" id="Ppw-fA-UdY">
+                                <connections>
+                                    <action selector="addStudentInformation:" destination="BIt-X5-bUZ" id="pR9-RH-T70"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="addStudentInformationButton" destination="Ppw-fA-UdY" id="L5n-vy-QYM"/>
+                        <outlet property="logoutButton" destination="cbG-uy-WYZ" id="tmp-Ss-dQg"/>
+                        <outlet property="refreshButton" destination="Jw8-u9-bHB" id="IZj-dh-nmK"/>
                         <outlet property="studentInformationMapView" destination="DDZ-sV-029" id="7aJ-b5-dHj"/>
                     </connections>
                 </viewController>

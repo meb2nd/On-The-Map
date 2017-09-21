@@ -12,8 +12,11 @@ import MapKit
 class StudentMapViewController: UIViewController {
 
     @IBOutlet weak var studentInformationMapView: MKMapView!
+    @IBOutlet weak var logoutButton: UIBarButtonItem!
+    @IBOutlet weak var addStudentInformationButton: UIBarButtonItem!
+    @IBOutlet weak var refreshButton: UIBarButtonItem!
     
-    
+    // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,6 +39,35 @@ class StudentMapViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: Actions
+    
+    @IBAction func logout(_ sender: Any) {
+        
+        UdacityClient.sharedInstance().logout { (success, errorString) in
+            
+            performUIUpdatesOnMain {
+                
+                if success {
+                    self.completeLogout()
+                } else {
+                    AlertViewHelper.presentAlert(self, title: "Logout Failure", message: errorString)
+                }
+            }
+        }
+    }
+    
+    private func completeLogout() {
+        
+        let controller = storyboard!.instantiateViewController(withIdentifier: "LoginViewController")
+        present(controller, animated: true, completion: nil)
+    }
+    
+    @IBAction func addStudentInformation(_ sender: Any) {
+    }
+    
+    @IBAction func refresh(_ sender: Any) {
     }
     
     func refreshAnnotations() {

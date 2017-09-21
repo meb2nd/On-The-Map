@@ -10,6 +10,12 @@ import UIKit
 
 class StudentInformationTableViewController: UITableViewController {
 
+    // MARK: Outlets
+    @IBOutlet weak var logoutButton: UIBarButtonItem!
+    @IBOutlet weak var addStudentInformationButton: UIBarButtonItem!
+    @IBOutlet weak var refreshButton: UIBarButtonItem!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,6 +31,35 @@ class StudentInformationTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    // MARK: Actions
+    @IBAction func logout(_ sender: Any) {
+        
+        UdacityClient.sharedInstance().logout { (success, errorString) in
+            
+            performUIUpdatesOnMain {
+                
+                if success {
+                    self.completeLogout()
+                } else {
+                    AlertViewHelper.presentAlert(self, title: "Logout Failure", message: errorString)
+                }
+            }
+        }
+    }
+    
+    private func completeLogout() {
+        
+        let controller = storyboard!.instantiateViewController(withIdentifier: "LoginViewController")
+        present(controller, animated: true, completion: nil)
+    }
+    
+    @IBAction func addStudentInformation(_ sender: Any) {
+    }
+    
+    @IBAction func refresh(_ sender: Any) {
+    }
+    
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
