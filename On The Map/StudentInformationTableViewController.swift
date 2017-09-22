@@ -10,6 +10,12 @@ import UIKit
 
 class StudentInformationTableViewController: UITableViewController {
 
+    // MARK: Properties
+    
+    var isLoading = false
+    var studentInformationHandler = StudentInformationHandler()
+    var students: [StudentInformation]?
+    
     // MARK: Outlets
     @IBOutlet weak var logoutButton: UIBarButtonItem!
     @IBOutlet weak var addStudentInformationButton: UIBarButtonItem!
@@ -24,6 +30,15 @@ class StudentInformationTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if studentInformationHandler.students == nil {
+            refreshData()
+        } else {
+            loadData()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,26 +72,52 @@ class StudentInformationTableViewController: UITableViewController {
     }
     
     @IBAction func refresh(_ sender: Any) {
+        
+        refreshData()
     }
     
+    // MARK:  - View data updates
+    fileprivate func refreshData() {
+        
+        // TODO:  Disable UI
+        studentInformationHandler.refreshStudentData() {(success, errorString) in
+            if let error = errorString {
+                print(error)
+                return
+            }
+            
+            performUIUpdatesOnMain {
+                self.loadData()
+                // TODO:  Enable UI
+            }
+            
+        }
+    }
+    
+    // Get the data from the Student Information Handler and update the table.
+    func loadData() {
+        students = studentInformationHandler.students
+        tableView.reloadData()
+    }
     
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+
+        return (isLoading) ? 0 : 1
+
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return ParseClient.sharedInstance().students.count
+        return students?.count ?? 0
     }
 
   
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "StudentInformationTableViewCell", for: indexPath)
-        let studentInformation = ParseClient.sharedInstance().students[(indexPath as NSIndexPath).row]
+        let studentInformation = students![(indexPath as NSIndexPath).row]
 
         cell.textLabel?.text = studentInformation.studentFirstName + " " + studentInformation.studentLastName
         
@@ -86,7 +127,7 @@ class StudentInformationTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         /* Show the media URL of the selected student */
-        let studentInformation = ParseClient.sharedInstance().students[(indexPath as NSIndexPath).row]
+        let studentInformation = students![(indexPath as NSIndexPath).row]
         
         let app = UIApplication.shared
         if studentInformation.studentMediaURL != "" {

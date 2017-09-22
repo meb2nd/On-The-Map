@@ -11,35 +11,39 @@ import MapKit
 
 class StudentMapViewController: UIViewController {
 
+    // MARK: Properties
+    
+    var isLoading = false
+    var studentInformationHandler = StudentInformationHandler()
+    //var students: [StudentInformation]?
+    
+    // MARK: Outlets
     @IBOutlet weak var studentInformationMapView: MKMapView!
     @IBOutlet weak var logoutButton: UIBarButtonItem!
     @IBOutlet weak var addStudentInformationButton: UIBarButtonItem!
     @IBOutlet weak var refreshButton: UIBarButtonItem!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         studentInformationMapView.delegate = self
         
-        ParseClient.sharedInstance().refreshStudentLocations() {(success, errorString) in
-            if let error = errorString {
-                print(error)
-                return
-            }
-            
-            performUIUpdatesOnMain {
-                self.refreshAnnotations()
-            }
-
-        }
+        refreshData()
         
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if studentInformationHandler.students == nil {
+            refreshData()
+        } else {
+            loadData()
+        }
     }
+
 
     // MARK: Actions
     
@@ -68,47 +72,78 @@ class StudentMapViewController: UIViewController {
     }
     
     @IBAction func refresh(_ sender: Any) {
+        
+        refreshData()
     }
     
-    func refreshAnnotations() {
-        
-        // The "locations" array is an array of dictionary objects that are similar to the JSON
-        // data that you can download from parse.
-        let students = ParseClient.sharedInstance().students
-        
-        // We will create an MKPointAnnotation for each dictionary in "locations". The
-        // point annotations will be stored in this array, and then provided to the map view.
-        var annotations = [MKPointAnnotation]()
-        
-        // The "locations" array is loaded with the sample data below. We are using the dictionaries
-        // to create map annotations. This would be more stylish if the dictionaries were being
-        // used to create custom structs. Perhaps StudentLocation structs.
-        
-        for student in students {
+    // MARK:  - View data updates
+    fileprivate func refreshData() {
+
+        // TODO:  Disable UI
+        activityIndicator.startAnimating()
+        addStudentInformationButton.isEnabled = false
+        refreshButton.isEnabled = false
+        if  let arrayOfTabBarItems = self.tabBarController?.tabBar.items {
             
-            // Notice that the float values are being used to create CLLocationDegree values.
-            // This is a version of the Double type.
-            let lat = CLLocationDegrees(student.studentLatitude)
-            let long = CLLocationDegrees(student.studentLongitude)
-            
-            // The lat and long are used to create a CLLocationCoordinates2D instance.
-            let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-            
-            let first = student.studentFirstName
-            let last = student.studentLastName
-            let mediaURL = student.studentMediaURL
-            
-            // Here we create the annotation and set its coordiate, title, and subtitle properties
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = coordinate
-            annotation.title = "\(first) \(last)"
-            annotation.subtitle = mediaURL
-            
-            // Finally we place the annotation in an array of annotations.
-            annotations.append(annotation)
+            for tabBarItem in arrayOfTabBarItems {
+                tabBarItem.isEnabled = false
+            }
         }
         
-        // When the array is complete, we add the annotations to the map.
+        studentInformationHandler.refreshStudentData() {(success, errorString) in
+            if let error = errorString {
+                print(error)
+                return
+            }
+            
+            performUIUpdatesOnMain {
+                self.loadData()
+                // TODO:  Enable UI
+                self.activityIndicator.stopAnimating()
+                self.addStudentInformationButton.isEnabled = true
+                self.refreshButton.isEnabled = true
+                if  let arrayOfTabBarItems = self.tabBarController?.tabBar.items {
+                    
+                    for tabBarItem in arrayOfTabBarItems {
+                        tabBarItem.isEnabled = true
+                    }
+                }
+            }
+            
+        }
+    }
+    
+    // Get the data from the Student Information Handler and update the map.
+    func loadData() {
+        
+        var annotations = [MKPointAnnotation]()
+        
+        if let students = studentInformationHandler.students {
+            for student in students {
+                
+                // Notice that the float values are being used to create CLLocationDegree values.
+                // This is a version of the Double type.
+                let lat = CLLocationDegrees(student.studentLatitude)
+                let long = CLLocationDegrees(student.studentLongitude)
+                
+                // The lat and long are used to create a CLLocationCoordinates2D instance.
+                let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                
+                let first = student.studentFirstName
+                let last = student.studentLastName
+                let mediaURL = student.studentMediaURL
+                
+                // Here we create the annotation and set its coordiate, title, and subtitle properties
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = coordinate
+                annotation.title = "\(first) \(last)"
+                annotation.subtitle = mediaURL
+                
+                // Finally we place the annotation in an array of annotations.
+                annotations.append(annotation)
+            }
+        }
+        
         self.studentInformationMapView.addAnnotations(annotations)
     }
 

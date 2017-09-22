@@ -149,24 +149,12 @@
         <!--On The Map Tab Bar Controller-->
         <scene sceneID="tL9-cV-Tb6">
             <objects>
-                <tabBarController title="On The Map Tab Bar Controller" id="9wB-LP-Hyd" customClass="OnTheMapTabBarController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController title="On The Map Tab Bar Controller" id="9wB-LP-Hyd" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="On The Map" id="6Wx-Og-v10">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="fnK-ty-7se">
-                            <connections>
-                                <action selector="logout:" destination="9wB-LP-Hyd" id="gek-sD-4Pf"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="fnK-ty-7se"/>
                         <rightBarButtonItems>
-                            <barButtonItem image="icon_refresh" id="j8P-MM-cDU">
-                                <connections>
-                                    <action selector="refresh:" destination="9wB-LP-Hyd" id="glu-rK-g3f"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem image="icon_pin" id="QjN-aL-428">
-                                <connections>
-                                    <action selector="postStudentInformation:" destination="9wB-LP-Hyd" id="ggY-3g-3ph"/>
-                                </connections>
-                            </barButtonItem>
+                            <barButtonItem image="icon_refresh" id="j8P-MM-cDU"/>
+                            <barButtonItem image="icon_pin" id="QjN-aL-428"/>
                         </rightBarButtonItems>
                     </navigationItem>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="XfO-Kc-hSe">
@@ -175,9 +163,6 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <outlet property="logoutButton" destination="fnK-ty-7se" id="GOF-Hw-nfx"/>
-                        <outlet property="pinButton" destination="QjN-aL-428" id="eEw-r7-MZj"/>
-                        <outlet property="refreshButton" destination="j8P-MM-cDU" id="q4o-eE-J0Q"/>
                         <segue destination="NEh-QG-5IO" kind="relationship" relationship="viewControllers" id="gC9-fu-DkW"/>
                         <segue destination="DFn-Ca-tBl" kind="relationship" relationship="viewControllers" id="mwf-Jp-uir"/>
                     </connections>
@@ -266,11 +251,16 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="DDZ-sV-029">
                                 <rect key="frame" x="20" y="64" width="374" height="623"/>
                             </mapView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="eRL-6Y-8Ca">
+                                <rect key="frame" x="197" y="358" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Ntg-mC-ICM" firstAttribute="top" secondItem="DDZ-sV-029" secondAttribute="bottom" id="2As-Jk-WVo"/>
+                            <constraint firstItem="eRL-6Y-8Ca" firstAttribute="centerY" secondItem="0gm-Ug-x4O" secondAttribute="centerY" id="5bI-1w-trY"/>
                             <constraint firstItem="DDZ-sV-029" firstAttribute="top" secondItem="0IV-uA-bat" secondAttribute="bottom" id="DDE-pq-LvP"/>
+                            <constraint firstItem="eRL-6Y-8Ca" firstAttribute="centerX" secondItem="0gm-Ug-x4O" secondAttribute="centerX" id="Fct-GA-IOa"/>
                             <constraint firstItem="DDZ-sV-029" firstAttribute="leading" secondItem="0gm-Ug-x4O" secondAttribute="leadingMargin" id="g9w-Tu-cse"/>
                             <constraint firstAttribute="trailingMargin" secondItem="DDZ-sV-029" secondAttribute="trailing" id="jsd-ue-pVe"/>
                         </constraints>
@@ -295,6 +285,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="eRL-6Y-8Ca" id="J3p-NC-jTR"/>
                         <outlet property="addStudentInformationButton" destination="Ppw-fA-UdY" id="L5n-vy-QYM"/>
                         <outlet property="logoutButton" destination="cbG-uy-WYZ" id="tmp-Ss-dQg"/>
                         <outlet property="refreshButton" destination="Jw8-u9-bHB" id="IZj-dh-nmK"/>

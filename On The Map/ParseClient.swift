@@ -97,6 +97,35 @@ final class ParseClient : NSObject {
         }
     }
     
+    func getStudents(_ completionHandlerForStudents: @escaping (_ result: [StudentInformation]?, _ error: Error?) -> Void) {
+        
+        let parameters = [ParameterKeys.Limit: "100",
+                          ParameterKeys.Order: ParameterValues.DescendingUpdatedAt]
+        
+        _ = taskForGETMethod(Methods.StudentLocation, parameters: parameters){ (result, error) in
+            
+            guard (error == nil) else {
+                
+                print("There was an error in the request: \(String(describing: error))")
+                
+                completionHandlerForStudents(nil, error)
+                
+                return
+            }
+            
+            /* GUARD: Is the "results" key in parsedResult? */
+            guard let students = result?[JSONResponseKeys.StudentResults] as? [[String: AnyObject]] else {
+                
+                print("Cannot find key '\(JSONResponseKeys.StudentResults)' in \(String(describing: result))")
+                completionHandlerForStudents(nil, DecodeError.MissingKey(JSONResponseKeys.StudentResults))
+                return
+            }
+
+            completionHandlerForStudents(StudentInformation.StudentInformationFromResults(students), nil)
+            
+        }
+    }
+    
     
     // MARK: Shared Instance
     
