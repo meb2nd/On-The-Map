@@ -69,20 +69,6 @@ extension NetworkClient {
         
         let request = NSMutableURLRequest(url: buildURLFromParameters(parameters, withPathExtension: method))
         
-        let error = APIError.JSONMappingError(converstionError: DecodeError.Custom("testing"))
-        
-        switch error {
-        case .JSONMappingError(let val):
-            switch val {
-            case .Custom(let val):
-                print (val)
-            default:
-                print("We're done!")
-            }
-        default:
-            print(error)
-        }
-        
         request.httpMethod = httpMethod.rawValue
         
         let headersKeys = headers.keys

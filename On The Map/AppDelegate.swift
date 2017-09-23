@@ -13,9 +13,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let studentInformationHandler = StudentInformationHandler()
+        // Following code is based upon information found at: http://cleanswifter.com/dependency-injection-with-storyboards/
+        if let tab = window?.rootViewController as? UITabBarController {
+            for child in tab.viewControllers ?? [] {
+                if let nav = child as? UINavigationController {
+                    for navChild in nav.viewControllers {
+                        if var top = navChild as? StudentInformationClient {
+                            top.studentInformationHandler = studentInformationHandler
+                        }
+                    }
+                }
+            }
+        } else if var firstViewController = window?.rootViewController as? StudentInformationClient {
+            firstViewController.studentInformationHandler = studentInformationHandler
+        }
         return true
     }
 

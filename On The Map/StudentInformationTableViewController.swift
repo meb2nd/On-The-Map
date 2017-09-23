@@ -5,16 +5,18 @@
 //  Created by Pete Barnes on 9/11/17.
 //  Copyright © 2017 Pete Barnes. All rights reserved.
 //
+//  Technique for showing the activity indicator adapted from information found at: https://dzone.com/articles/displaying-an-activity-indicator-while-loading-tab
+//
 
 import UIKit
 
-class StudentInformationTableViewController: UITableViewController {
+class StudentInformationTableViewController: UITableViewController, StudentInformationClient {
 
     // MARK: Properties
     
-    var isLoading = false
-    var studentInformationHandler = StudentInformationHandler()
+    var studentInformationHandler: StudentInformationHandler!
     var students: [StudentInformation]?
+    weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: Outlets
     @IBOutlet weak var logoutButton: UIBarButtonItem!
@@ -24,6 +26,11 @@ class StudentInformationTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        activityIndicatorView.hidesWhenStopped = true
+        tableView.backgroundView = activityIndicatorView
+        self.activityIndicator = activityIndicatorView
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -79,7 +86,21 @@ class StudentInformationTableViewController: UITableViewController {
     // MARK:  - View data updates
     fileprivate func refreshData() {
         
+        students = nil
+        tableView.reloadData()
+        
         // TODO:  Disable UI
+        activityIndicator.startAnimating()
+        addStudentInformationButton.isEnabled = false
+        refreshButton.isEnabled = false
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        if  let arrayOfTabBarItems = self.tabBarController?.tabBar.items {
+            
+            for tabBarItem in arrayOfTabBarItems {
+                tabBarItem.isEnabled = false
+            }
+        }
+        
         studentInformationHandler.refreshStudentData() {(success, errorString) in
             if let error = errorString {
                 print(error)
@@ -87,8 +108,21 @@ class StudentInformationTableViewController: UITableViewController {
             }
             
             performUIUpdatesOnMain {
-                self.loadData()
+                
                 // TODO:  Enable UI
+                self.activityIndicator.stopAnimating()
+                self.addStudentInformationButton.isEnabled = true
+                self.refreshButton.isEnabled = true
+                self.tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
+                if  let arrayOfTabBarItems = self.tabBarController?.tabBar.items {
+                    
+                    for tabBarItem in arrayOfTabBarItems {
+                        tabBarItem.isEnabled = true
+                    }
+                }
+               
+                self.loadData()
+                
             }
             
         }
@@ -104,7 +138,7 @@ class StudentInformationTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
 
-        return (isLoading) ? 0 : 1
+        return (students == nil) ? 0 : 1
 
     }
 

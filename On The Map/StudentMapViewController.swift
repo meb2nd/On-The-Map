@@ -9,12 +9,13 @@
 import UIKit
 import MapKit
 
-class StudentMapViewController: UIViewController {
+class StudentMapViewController: UIViewController, StudentInformationClient {
 
     // MARK: Properties
     
+    var studentInformationHandler: StudentInformationHandler!
     var isLoading = false
-    var studentInformationHandler = StudentInformationHandler()
+    
     //var students: [StudentInformation]?
     
     // MARK: Outlets
@@ -118,6 +119,12 @@ class StudentMapViewController: UIViewController {
         
         var annotations = [MKPointAnnotation]()
         
+        let currentAnnotations = studentInformationMapView.annotations
+        
+        if currentAnnotations.count > 0 {
+            studentInformationMapView.removeAnnotations(currentAnnotations)
+        }
+        
         if let students = studentInformationHandler.students {
             for student in students {
                 
@@ -144,7 +151,7 @@ class StudentMapViewController: UIViewController {
             }
         }
         
-        self.studentInformationMapView.addAnnotations(annotations)
+        studentInformationMapView.addAnnotations(annotations)
     }
 
     /*

@@ -9,7 +9,15 @@
 import UIKit
 import SafariServices
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, StudentInformationClient {
+    
+    // MARK: Properties
+    
+    var appDelegate: AppDelegate!
+    var backgroundGradient: CAGradientLayer!
+    var activeField: UITextField?
+    var studentInformationHandler: StudentInformationHandler!
+    
 
     // MARK:  Outlets
     @IBOutlet weak var emailTextField: UITextField!
@@ -17,11 +25,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
     
-    // MARK: Properties
     
-    var appDelegate: AppDelegate!
-    var backgroundGradient: CAGradientLayer!
-    var activeField: UITextField?
     
     
     // MARK: Life Cycle
@@ -212,7 +216,6 @@ extension LoginViewController {
             return keyboardSize.cgRectValue.height
         }
     }
-    
     
 }
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		124F9A521F746C9B004CDE9F /* StudentInformationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124F9A511F746C9B004CDE9F /* StudentInformationHandler.swift */; };
+		124F9A541F75F821004CDE9F /* StudentInformationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124F9A531F75F821004CDE9F /* StudentInformationClient.swift */; };
 		127D25F91F6F4CE6000F2074 /* OnTheMapTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127D25F81F6F4CE6000F2074 /* OnTheMapTabBarController.swift */; };
 		1288ED6B1F71B6BE008AF851 /* AlertViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1288ED6A1F71B6BE008AF851 /* AlertViewHelper.swift */; };
 		12CF163F1F670FEA004E6D06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CF163E1F670FEA004E6D06 /* AppDelegate.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		124F9A511F746C9B004CDE9F /* StudentInformationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformationHandler.swift; sourceTree = "<group>"; };
+		124F9A531F75F821004CDE9F /* StudentInformationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentInformationClient.swift; sourceTree = "<group>"; };
 		127D25F81F6F4CE6000F2074 /* OnTheMapTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnTheMapTabBarController.swift; sourceTree = "<group>"; };
 		1288ED6A1F71B6BE008AF851 /* AlertViewHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewHelper.swift; sourceTree = "<group>"; };
 		12CF163B1F670FEA004E6D06 /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +111,7 @@
 				12CF16581F671DA9004E6D06 /* StudentInformation.swift */,
 				124F9A511F746C9B004CDE9F /* StudentInformationHandler.swift */,
 				12CF16691F672437004E6D06 /* Clients */,
+				124F9A531F75F821004CDE9F /* StudentInformationClient.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				12CF16611F671F61004E6D06 /* StudentMapViewController.swift in Sources */,
 				12CF16571F671D6F004E6D06 /* UdacityConstants.swift in Sources */,
 				12CF16711F678497004E6D06 /* NetworkClient.swift in Sources */,
+				124F9A541F75F821004CDE9F /* StudentInformationClient.swift in Sources */,
 				12CF165F1F671EA9004E6D06 /* StudentInformationTableViewController.swift in Sources */,
 				12CF166F1F672609004E6D06 /* GCDBlackBox.swift in Sources */,
 				1288ED6B1F71B6BE008AF851 /* AlertViewHelper.swift in Sources */,
