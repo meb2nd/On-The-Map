@@ -89,7 +89,16 @@ class LoginViewController: UIViewController, StudentInformationClient {
     
     private func completeLogin() {
 
-        let controller = storyboard!.instantiateViewController(withIdentifier: "OnTheMapNavigationController") as! UINavigationController
+        let controller = storyboard!.instantiateViewController(withIdentifier: "OnTheMapTabBarController") as! UITabBarController
+        for child in controller.viewControllers ?? [] {
+            if let nav = child as? UINavigationController {
+                for navChild in nav.viewControllers {
+                    if var top = navChild as? StudentInformationClient {
+                        top.studentInformationHandler = studentInformationHandler
+                    }
+                }
+            }
+        }
         present(controller, animated: true, completion: nil)
     }
     
@@ -97,8 +106,9 @@ class LoginViewController: UIViewController, StudentInformationClient {
     // MARK: Signup
     @IBAction func signUp(_ sender: Any) {
         
-        let svc = SFSafariViewController(url: URL(string: "https://www.udacity.com/account/auth#!/signup")!)
-        present(svc, animated: true, completion: nil)
+        let app = UIApplication.shared
+        app.open(URL(string: "https://www.udacity.com/account/auth#!/signup")!,  completionHandler: nil)
+
     }
 
 }

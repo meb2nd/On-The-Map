@@ -65,8 +65,7 @@ class StudentMapViewController: UIViewController, StudentInformationClient {
     
     private func completeLogout() {
         
-        let controller = storyboard!.instantiateViewController(withIdentifier: "LoginViewController")
-        present(controller, animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func addStudentInformation(_ sender: Any) {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9wB-LP-Hyd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -149,7 +149,7 @@
         <!--On The Map Tab Bar Controller-->
         <scene sceneID="tL9-cV-Tb6">
             <objects>
-                <tabBarController title="On The Map Tab Bar Controller" id="9wB-LP-Hyd" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="OnTheMapTabBarController" title="On The Map Tab Bar Controller" id="9wB-LP-Hyd" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="On The Map" id="6Wx-Og-v10">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="fnK-ty-7se"/>
                         <rightBarButtonItems>
