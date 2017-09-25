@@ -10,6 +10,10 @@ import UIKit
 
 class StudentInformationPostingViewController: UIViewController {
 
+    // MARK:  Properties
+    var activeField: UITextInput?
+    let defaultLocationPrompt = "Enter Your Location Here."
+    
     // MARK:  Outlet
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var locationTextView: UITextView!
@@ -25,6 +29,12 @@ class StudentInformationPostingViewController: UIViewController {
         // Code for removing the navigation bar was found at: https://stackoverflow.com/questions/26390072/remove-border-in-navigationbar-in-swift
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+
+        locationTextView.text = defaultLocationPrompt
+        
+        locationTextView.delegate = self
+        linkTextField.delegate = self
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,3 +64,72 @@ class StudentInformationPostingViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 }
+
+// MARK: - StudentInformationPostingViewController: UITextFieldDelegate
+
+extension StudentInformationPostingViewController: UITextFieldDelegate {
+    
+    // MARK: UITextFieldDelegate
+    
+    func textFieldDidBeginEditing(_ textField: UITextField)
+    {
+        activeField = textField
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField){
+        
+        activeField = nil
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    
+    private func resignIfFirstResponder(_ textInput: UITextInput) {
+        if let textField = textInput as? UITextField, textField.isFirstResponder {
+            textField.resignFirstResponder()
+        } else if let textView = textInput as? UITextView, textView.isFirstResponder {
+            textView.resignFirstResponder()
+        }
+    }
+    
+    @IBAction func userDidTapView(_ sender: AnyObject) {
+        resignIfFirstResponder(linkTextField)
+        resignIfFirstResponder(locationTextView)
+    }
+}
+
+// MARK: - StudentInformationPostingViewController: UITextViewDelegate
+
+extension StudentInformationPostingViewController: UITextViewDelegate {
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool
+    {
+        let currentText = textView.text
+        
+        if currentText == defaultLocationPrompt {
+            
+            textView.text = ""
+        }
+        
+        activeField = textView
+        return true
+    }
+    
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        
+        let currentText = textView.text
+        
+        if currentText == "" {
+            
+            textView.text = defaultLocationPrompt
+        }
+        
+        activeField = nil
+        return true
+    }
+}
+
+

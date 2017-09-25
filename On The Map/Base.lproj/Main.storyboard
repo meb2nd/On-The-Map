@@ -342,7 +342,7 @@
                                                 <color key="backgroundColor" red="0.31764705882352939" green="0.53725490196078429" blue="0.70588235294117641" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
                                             </textView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="20" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZGZ-h0-SpU" userLabel="Find on the Map Button Stack View">
                                                 <rect key="frame" x="0.0" y="167" width="414" height="485"/>
@@ -398,6 +398,9 @@
                             <constraint firstItem="HwT-Dx-kCb" firstAttribute="top" secondItem="gzf-iW-co2" secondAttribute="bottom" id="kMz-UP-gbT"/>
                             <constraint firstItem="gzf-iW-co2" firstAttribute="top" secondItem="eQb-0t-o5I" secondAttribute="bottom" constant="20" id="qLk-3c-VnQ"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="V8t-Pb-L3c" appends="YES" id="kuy-JM-pPK"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="da1-Ya-p3f">
                         <barButtonItem key="rightBarButtonItem" title="Cancel" id="oA4-2i-F94">
@@ -417,6 +420,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Gh-jd-srm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="V8t-Pb-L3c">
+                    <connections>
+                        <action selector="userDidTapView:" destination="mh3-wC-ZUM" id="qoT-Qd-WC9"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="4320" y="-284"/>
         </scene>
