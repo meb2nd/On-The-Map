@@ -363,7 +363,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nGQ-9f-GMr" userLabel="Link Stack View">
-                                        <rect key="frame" x="0.0" y="-92" width="414" height="8"/>
+                                        <rect key="frame" x="0.0" y="-84" width="414" height="8"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a Link to Share Here." textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6w3-yD-DxS">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
@@ -397,7 +397,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="da1-Ya-p3f">
-                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="oA4-2i-F94"/>
+                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="oA4-2i-F94">
+                            <connections>
+                                <action selector="cancel:" destination="mh3-wC-ZUM" id="TAn-OA-5uO"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="cancelButton" destination="oA4-2i-F94" id="7jg-a4-l7g"/>

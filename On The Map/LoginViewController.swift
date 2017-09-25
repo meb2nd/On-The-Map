@@ -89,7 +89,7 @@ class LoginViewController: UIViewController, StudentInformationClient {
     
     private func completeLogin() {
 
-        let controller = storyboard!.instantiateViewController(withIdentifier: "OnTheMapTabBarController") as! UITabBarController
+        let controller = storyboard!.instantiateViewController(withIdentifier: "OnTheMapTabBarController")
         injectViewController(controller, withStudentInformationHandler: studentInformationHandler)
         present(controller, animated: true, completion: nil)
     }

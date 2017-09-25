@@ -47,4 +47,8 @@ class StudentInformationPostingViewController: UIViewController {
 
     @IBAction func submitStudentInformation(_ sender: Any) {
     }
+    
+    @IBAction func cancel(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
 }

@@ -69,6 +69,9 @@ class StudentMapViewController: UIViewController, StudentInformationClient {
     }
     
     @IBAction func addStudentInformation(_ sender: Any) {
+        let controller = storyboard!.instantiateViewController(withIdentifier: "StudentInformationNavigationController")
+        injectViewController(controller, withStudentInformationHandler: studentInformationHandler)
+        present(controller, animated: true, completion: nil)
     }
     
     @IBAction func refresh(_ sender: Any) {
