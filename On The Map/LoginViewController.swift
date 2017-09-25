@@ -90,15 +90,7 @@ class LoginViewController: UIViewController, StudentInformationClient {
     private func completeLogin() {
 
         let controller = storyboard!.instantiateViewController(withIdentifier: "OnTheMapTabBarController") as! UITabBarController
-        for child in controller.viewControllers ?? [] {
-            if let nav = child as? UINavigationController {
-                for navChild in nav.viewControllers {
-                    if var top = navChild as? StudentInformationClient {
-                        top.studentInformationHandler = studentInformationHandler
-                    }
-                }
-            }
-        }
+        injectViewController(controller, withStudentInformationHandler: studentInformationHandler)
         present(controller, animated: true, completion: nil)
     }
     
