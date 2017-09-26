@@ -72,7 +72,7 @@ class LoginViewController: UIViewController, StudentInformationClient {
         
         self.setUIEnabled(false)
         
-        UdacityClient.sharedInstance().authenticateUser(username: emailTextField.text!, password: passwordTextField.text!) { (success, errorString) in
+        UdacityClient.sharedInstance().authenticateUser(username: emailTextField.text!.trimmingCharacters(in: .whitespaces), password: passwordTextField.text!.trimmingCharacters(in: .whitespaces)) { (success, errorString) in
             
             performUIUpdatesOnMain {
                 self.setUIEnabled(true)

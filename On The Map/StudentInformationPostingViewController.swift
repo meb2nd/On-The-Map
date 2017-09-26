@@ -100,7 +100,7 @@ class StudentInformationPostingViewController: UIViewController {
     @IBAction func submitStudentInformation(_ sender: Any) {
         
         
-        guard let urlString = linkTextField.text?.lowercased(), !urlString.isEmpty else {
+        guard let urlString = linkTextField.text?.lowercased().trimmingCharacters(in: .whitespaces), !urlString.isEmpty else {
             AlertViewHelper.presentAlert(self, title: linkToShareErrorTitle, message: "URL field cannot be empty")
             return
         }
@@ -163,7 +163,7 @@ extension StudentInformationPostingViewController: UITextViewDelegate {
     {
         let currentText = textView.text
         
-        if currentText == defaultLocationPrompt {
+        if currentText?.trimmingCharacters(in: .whitespacesAndNewlines) == defaultLocationPrompt {
             
             textView.text = ""
         }
@@ -174,7 +174,7 @@ extension StudentInformationPostingViewController: UITextViewDelegate {
     
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         
-        let currentText = textView.text
+        let currentText = textView.text.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if currentText == "" {
             
