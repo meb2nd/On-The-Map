@@ -14,6 +14,7 @@ class StudentInformationPostingViewController: UIViewController {
     // MARK:  Properties
     var activeField: UITextInput?
     let defaultLocationPrompt = "Enter Your Location Here."
+    let linkToShareErrorTitle = "Link to Share Error"
     var studentlatitude: Double = 0.0
     var studentLongitude: Double = 0.0
     
@@ -97,6 +98,19 @@ class StudentInformationPostingViewController: UIViewController {
     }
 
     @IBAction func submitStudentInformation(_ sender: Any) {
+        
+        
+        guard let urlString = linkTextField.text?.lowercased(), !urlString.isEmpty else {
+            AlertViewHelper.presentAlert(self, title: linkToShareErrorTitle, message: "URL field cannot be empty")
+            return
+        }
+        
+        guard (urlString.starts(with: "http://")) || (urlString.starts(with: "https://")) else {
+            AlertViewHelper.presentAlert(self, title: linkToShareErrorTitle, message: "Invalid URL. Include http(s)://")
+            return
+        }
+        
+
     }
     
     @IBAction func cancel(_ sender: Any) {
@@ -116,6 +130,7 @@ extension StudentInformationPostingViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField){
+
         
         activeField = nil
     }
