@@ -371,7 +371,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="URL" returnKeyType="done"/>
                                             </textField>
                                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" ambiguous="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="SVc-q3-0bd">
                                                 <rect key="frame" x="0.0" y="8" width="414" height="0.0"/>
@@ -416,6 +416,7 @@
                         <outlet property="linkTextField" destination="6w3-yD-DxS" id="2ef-se-5Rk"/>
                         <outlet property="locationStackView" destination="WcL-4c-wp2" id="DGb-ZT-NGz"/>
                         <outlet property="locationTextView" destination="9i7-GM-XfL" id="I55-ZE-2rd"/>
+                        <outlet property="studentLocationMapView" destination="SVc-q3-0bd" id="cpk-7S-ct1"/>
                         <outlet property="submitButton" destination="6DI-qi-ua7" id="6ZJ-p2-i2k"/>
                     </connections>
                 </viewController>

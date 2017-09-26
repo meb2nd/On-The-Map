@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import MapKit
 
 class StudentInformationPostingViewController: UIViewController {
 
     // MARK:  Properties
     var activeField: UITextInput?
     let defaultLocationPrompt = "Enter Your Location Here."
+    var studentlatitude: Double = 0.0
+    var studentLongitude: Double = 0.0
     
     // MARK:  Outlet
     @IBOutlet weak var cancelButton: UIBarButtonItem!
@@ -22,6 +25,7 @@ class StudentInformationPostingViewController: UIViewController {
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var locationStackView: UIStackView!
     @IBOutlet weak var linkStackView: UIStackView!
+    @IBOutlet weak var studentLocationMapView: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +35,11 @@ class StudentInformationPostingViewController: UIViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
 
         locationTextView.text = defaultLocationPrompt
+        
+        self.locationStackView.isHidden = false
+        self.linkStackView.isHidden = true
+        self.submitButton.isHidden = true
+        self.submitButton.backgroundColor = UIColor.white
         
         locationTextView.delegate = self
         linkTextField.delegate = self
@@ -54,7 +63,37 @@ class StudentInformationPostingViewController: UIViewController {
     */
     
     // MARK:  Actions
+    // COde for this method based on information found at: https://stackoverflow.com/questions/41639478/mkmapview-center-and-zoom-in
+    // https://stackoverflow.com/questions/10644854/ios-zoom-in-mapkit-for-two-annotation-point
+    // https://littlebitesofcocoa.com/47-mklocalsearch
     @IBAction func findOnTheMap(_ sender: Any) {
+        let request = MKLocalSearchRequest()
+        request.naturalLanguageQuery = locationTextView.text
+        request.region = studentLocationMapView.region
+        
+        let search = MKLocalSearch(request: request)
+        search.start { response, error in
+            guard error == nil else { return } // TODO: Handle MKError
+            guard let response = response else {
+                print("There was an error searching for: \(String(describing: request.naturalLanguageQuery)) error: \(String(describing: error))")
+                return
+            }
+            guard response.mapItems.count > 0 else { return }
+            
+            for item in response.mapItems {
+                // Display the received items
+                self.studentlatitude = item.placemark.coordinate.latitude
+                self.studentLongitude = item.placemark.coordinate.longitude
+                
+                let region = MKCoordinateRegion(center: item.placemark.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+                self.studentLocationMapView.setRegion(region, animated: true)
+                self.studentLocationMapView.addAnnotation(item.placemark) // TODO: Custom annotation
+                
+                self.locationStackView.isHidden = true
+                self.linkStackView.isHidden = false
+                self.submitButton.isHidden = false
+            }
+        }
     }
 
     @IBAction func submitStudentInformation(_ sender: Any) {
