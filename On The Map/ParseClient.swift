@@ -213,7 +213,7 @@ final class ParseClient : NSObject {
             }
             
             /* GUARD: Is the "updated at" key in parsedResult? */
-            guard result?[JSONResponseKeys.StudentUpdatedAt] as? [[String: AnyObject]] != nil else {
+            guard result?[JSONResponseKeys.StudentUpdatedAt] as? String != nil else {
                 
                 print("Cannot find key '\(JSONResponseKeys.StudentUpdatedAt)' in \(String(describing: result))")
                 completionHandlerForPutStudentLocation(false, "Cannot find student 'updatedAt' key.")
@@ -250,7 +250,7 @@ final class ParseClient : NSObject {
             }
             
             /* GUARD: Is the "object ID" key in parsedResult? */
-            guard result?[JSONResponseKeys.StudentObjectID] as? [[String: AnyObject]] != nil else {
+            guard result?[JSONResponseKeys.StudentObjectID] as? String != nil else {
                 
                 print("Cannot find key '\(JSONResponseKeys.StudentObjectID)' in \(String(describing: result))")
                 completionHandlerForPostStudentLocation(false, "Cannot find student 'objectID' key.")

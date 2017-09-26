@@ -15,10 +15,9 @@ class StudentInformationPostingViewController: UIViewController {
     var activeField: UITextInput?
     let defaultLocationPrompt = "Enter Your Location Here."
     let linkToShareErrorTitle = "Link to Share Error"
-    var studentlatitude: Double = 0.0
-    var studentLongitude: Double = 0.0
-    var studentMapString: String = ""
-    var studentURL: String = ""
+    var studentlatitude: Float = 0.0
+    var studentLongitude: Float = 0.0
+
     
     // MARK:  Outlet
     @IBOutlet weak var cancelButton: UIBarButtonItem!
@@ -85,9 +84,8 @@ class StudentInformationPostingViewController: UIViewController {
             
             for item in response.mapItems {
                 // Display the received items
-                self.studentlatitude = item.placemark.coordinate.latitude
-                self.studentLongitude = item.placemark.coordinate.longitude
-                self.studentMapString = self.locationTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+                self.studentlatitude = Float(item.placemark.coordinate.latitude)
+                self.studentLongitude = Float(item.placemark.coordinate.longitude)
                 
                 let region = MKCoordinateRegion(center: item.placemark.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
                 self.studentLocationMapView.setRegion(region, animated: true)
@@ -113,6 +111,34 @@ class StudentInformationPostingViewController: UIViewController {
             return
         }
         
+        let studentInfo: [String: Any] = [ParseClient.ParameterKeys.StudentUniqueKey: UdacityClient.sharedInstance().userID ?? "1234",
+                           ParseClient.ParameterKeys.StudentFirstName: UdacityClient.sharedInstance().firstName  ?? "Joe",
+                           ParseClient.ParameterKeys.StudentLastName: UdacityClient.sharedInstance().lastName  ?? "Blow",
+                           ParseClient.ParameterKeys.StudentMapString: self.locationTextView.text.trimmingCharacters(in: .whitespacesAndNewlines),
+                           ParseClient.ParameterKeys.StudentLongitude: studentLongitude,
+                           ParseClient.ParameterKeys.StudentLatitude: studentlatitude,
+                           ParseClient.ParameterKeys.StudentMediaURL: linkTextField.text?.trimmingCharacters(in: .whitespaces) ?? ""
+            ]
+        
+        guard let studentInformation = StudentInformation(dictionary: studentInfo) else {
+            AlertViewHelper.presentAlert(self, title: "Error Processing Request", message: "Incomplete student information")
+            return
+        }
+        
+        ParseClient.sharedInstance().postStudentLocation(studentInformation){(result, error) in
+            
+            guard error == nil else {
+                AlertViewHelper.presentAlert(self, title: "Error Processing Post Request", message: "Could not update server.")
+                return
+            }
+            
+            // Need to refresh student list
+            
+            performUIUpdatesOnMain() {
+                self.dismiss(animated: true, completion: nil)
+            }
+            
+        }
 
     }
     
