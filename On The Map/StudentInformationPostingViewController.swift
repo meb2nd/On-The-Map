@@ -17,6 +17,8 @@ class StudentInformationPostingViewController: UIViewController {
     let linkToShareErrorTitle = "Link to Share Error"
     var studentlatitude: Double = 0.0
     var studentLongitude: Double = 0.0
+    var studentMapString: String = ""
+    var studentURL: String = ""
     
     // MARK:  Outlet
     @IBOutlet weak var cancelButton: UIBarButtonItem!
@@ -85,6 +87,7 @@ class StudentInformationPostingViewController: UIViewController {
                 // Display the received items
                 self.studentlatitude = item.placemark.coordinate.latitude
                 self.studentLongitude = item.placemark.coordinate.longitude
+                self.studentMapString = self.locationTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
                 
                 let region = MKCoordinateRegion(center: item.placemark.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
                 self.studentLocationMapView.setRegion(region, animated: true)

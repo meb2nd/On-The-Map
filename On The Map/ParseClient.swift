@@ -66,6 +66,23 @@ final class ParseClient : NSObject {
 
     }
     
+    // MARK: Put
+    
+    func taskForPUTMethod(_ method: String, parameters: [String:String?], jsonBodyParameters: [String:AnyObject], completionHandlerForPUT: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+        
+        /* 1. Set the parameters */
+        let headers = [HeaderKeys.ContentType: HeaderValues.applicationJSON,
+                       ParameterKeys.RESTApiKey: Constants.RESTApiKey,
+                       ParameterKeys.ApplicationID: Constants.ApplicationID]
+        
+        /* 2/3. Build the URL, Configure the request */
+        let request  = buildTheURL(method, parameters: parameters, httpMethod: .PUT, headers: headers as [String : AnyObject], jsonBodyParameters: jsonBodyParameters)
+        
+        /* 4. Make the request */
+        return makeTheTask(request: request as URLRequest, errorDomain: "ParseClient.taskForPUTMethod", completionHandler: completionHandlerForPUT)
+        
+    }
+    
     // MARK: Refresh Student Locations
     func refreshStudentLocations(completionHandlerForStudentLocations: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         
@@ -97,6 +114,7 @@ final class ParseClient : NSObject {
         }
     }
     
+    // MARK: Get Student Locations
     func getStudents(_ completionHandlerForStudents: @escaping (_ result: [StudentInformation]?, _ error: Error?) -> Void) {
         
         let parameters = [ParameterKeys.Limit: "100",
@@ -123,6 +141,123 @@ final class ParseClient : NSObject {
 
             completionHandlerForStudents(StudentInformation.StudentInformationFromResults(students), nil)
             
+        }
+    }
+    
+    // MARK: Get Student Location
+    func getStudent(_ studentUniqueKey:String, completionHandlerForGetStudent: @escaping (_ result: StudentInformation?, _ error: Error?) -> Void) {
+        
+        let parameters = [ParameterKeys.Where: "{\"\(ParameterKeys.StudentUniqueKey)\":\"\(studentUniqueKey)\"}"]
+        
+        _ = taskForGETMethod(Methods.StudentLocation, parameters: parameters){ (result, error) in
+            
+            guard (error == nil) else {
+                
+                print("There was an error in the request: \(String(describing: error))")
+                
+                completionHandlerForGetStudent(nil, error)
+                
+                return
+            }
+            
+            /* GUARD: Is the "results" key in parsedResult? */
+            guard let students = result?[JSONResponseKeys.StudentResults] as? [[String: AnyObject]] else {
+                
+                print("Cannot find key '\(JSONResponseKeys.StudentResults)' in \(String(describing: result))")
+                completionHandlerForGetStudent(nil, DecodeError.MissingKey(JSONResponseKeys.StudentResults))
+                return
+            }
+            
+            guard students.count > 0 else {
+                print("No student found in the results")
+                completionHandlerForGetStudent(nil, DecodeError.Custom("No student found in the returned results."))
+                return
+            }
+            
+            completionHandlerForGetStudent(StudentInformation.StudentInformationFromResults(students).first, nil)
+            
+        }
+    }
+    
+    // MARK: Put Student Location
+    func putStudentLocation(_ studentInformation: StudentInformation, completionHandlerForPutStudentLocation: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
+        
+        guard let method = substituteKeyInMethod(Methods.StudentLocationObjectID, key: URLKeys.StudentObjectID, value: studentInformation.studentObjectID) else {
+            
+            print("There was an error in the request. Could not generate method with student object ID.")
+            
+            completionHandlerForPutStudentLocation(false, "There was an error in processing the Put Student Location request.")
+            
+            return
+        }
+        
+        let jsonBodyParameters = [ParameterKeys.StudentUniqueKey: studentInformation.studentUniqueKey,
+                          ParameterKeys.StudentFirstName: studentInformation.studentFirstName,
+                          ParameterKeys.StudentLastName: studentInformation.studentLastName,
+                          ParameterKeys.StudentMapString: studentInformation.studentMapString,
+                          ParameterKeys.StudentMediaURL: studentInformation.studentMediaURL,
+                          ParameterKeys.StudentLatitude: studentInformation.studentLatitude,
+                          ParameterKeys.StudentLongitude: studentInformation.studentLongitude] as [String : AnyObject]
+        
+        
+        
+        _ = taskForPUTMethod(method, parameters: [:], jsonBodyParameters: jsonBodyParameters as [String : AnyObject]){ (result, error) in
+            
+            guard (error == nil) else {
+                
+                print("There was an error in the request: \(String(describing: error))")
+                
+                completionHandlerForPutStudentLocation(false, "There was an error in processing the Put Student Location request.")
+                
+                return
+            }
+            
+            /* GUARD: Is the "updated at" key in parsedResult? */
+            guard result?[JSONResponseKeys.StudentUpdatedAt] as? [[String: AnyObject]] != nil else {
+                
+                print("Cannot find key '\(JSONResponseKeys.StudentUpdatedAt)' in \(String(describing: result))")
+                completionHandlerForPutStudentLocation(false, "Cannot find student 'updatedAt' key.")
+                return
+            }
+
+            completionHandlerForPutStudentLocation(true, nil)
+        }
+    }
+    
+    // MARK: Post Student Location
+    func postStudentLocation(_ studentInformation: StudentInformation, completionHandlerForPostStudentLocation: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
+        
+        
+        let jsonBodyParameters = [ParameterKeys.StudentUniqueKey: studentInformation.studentUniqueKey,
+                                  ParameterKeys.StudentFirstName: studentInformation.studentFirstName,
+                                  ParameterKeys.StudentLastName: studentInformation.studentLastName,
+                                  ParameterKeys.StudentMapString: studentInformation.studentMapString,
+                                  ParameterKeys.StudentMediaURL: studentInformation.studentMediaURL,
+                                  ParameterKeys.StudentLatitude: studentInformation.studentLatitude,
+                                  ParameterKeys.StudentLongitude: studentInformation.studentLongitude] as [String : AnyObject]
+        
+        
+        
+        _ = taskForPOSTMethod(Methods.StudentLocation, parameters: [:], jsonBodyParameters: jsonBodyParameters as [String : AnyObject]){ (result, error) in
+            
+            guard (error == nil) else {
+                
+                print("There was an error in the request: \(String(describing: error))")
+                
+                completionHandlerForPostStudentLocation(false, "There was an error in processing the Post Student Location request.")
+                
+                return
+            }
+            
+            /* GUARD: Is the "object ID" key in parsedResult? */
+            guard result?[JSONResponseKeys.StudentObjectID] as? [[String: AnyObject]] != nil else {
+                
+                print("Cannot find key '\(JSONResponseKeys.StudentObjectID)' in \(String(describing: result))")
+                completionHandlerForPostStudentLocation(false, "Cannot find student 'objectID' key.")
+                return
+            }
+            
+            completionHandlerForPostStudentLocation(true, nil)
         }
     }
     

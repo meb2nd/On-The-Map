@@ -31,7 +31,7 @@ extension ParseClient {
         
         // MARK: Student Location
         static let StudentLocation = "/StudentLocation"
-        static let StudentLocationObjectID = "/account/{objectId}"
+        static let StudentLocationObjectID = "/StudentLocation/{objectId}"
         
     }
     
