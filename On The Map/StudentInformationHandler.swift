@@ -26,11 +26,11 @@ class StudentInformationHandler {
                 case .ConnectionError:
                     errorString = "Could not connect to server, try again later."
                 default:
-                    errorString = "Could not retrieve student map data."
+                    errorString = "Could not retrieve student data."
                 }
                 completionHandlerForRefreshStudentData(false, errorString)
             } else {
-                completionHandlerForRefreshStudentData(false, "Could not retrieve student map data.")
+                completionHandlerForRefreshStudentData(false, "Could not retrieve student data.")
             }
         }
     }

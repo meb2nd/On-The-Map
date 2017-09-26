@@ -26,15 +26,38 @@ struct StudentInformation {
     // MARK: Initializers
     
     // construct a StudentInformation from a dictionary
-    init(dictionary: [String:AnyObject]) {
-        studentUniqueKey = dictionary[ParseClient.JSONResponseKeys.StudentUniqueKey] as! String
-        studentFirstName = dictionary[ParseClient.JSONResponseKeys.StudentFirstName] as! String
-        studentLastName = dictionary[ParseClient.JSONResponseKeys.StudentLastName] as! String
-        studentMapString = dictionary[ParseClient.JSONResponseKeys.StudentMapString] as! String
-        studentMediaURL = dictionary[ParseClient.JSONResponseKeys.StudentMediaURL] as! String
-        studentLatitude = dictionary[ParseClient.JSONResponseKeys.StudentLatitude] as! Float
-        studentLongitude = dictionary[ParseClient.JSONResponseKeys.StudentLongitude] as! Float
-        studentObjectID = dictionary[ParseClient.JSONResponseKeys.StudentObjectID] as! String
+    init?(dictionary: [String:AnyObject]) {
+        guard let studentUniqueKey = dictionary[ParseClient.JSONResponseKeys.StudentUniqueKey] as? String, !studentUniqueKey.isEmpty else {
+            return nil
+        }
+        guard let studentFirstName = dictionary[ParseClient.JSONResponseKeys.StudentFirstName] as? String, !studentFirstName.isEmpty else {
+            return nil
+        }
+        guard let studentLastName = dictionary[ParseClient.JSONResponseKeys.StudentLastName] as? String, !studentLastName.isEmpty else {
+            return nil
+        }
+        guard let studentMapString = dictionary[ParseClient.JSONResponseKeys.StudentMapString] as? String, !studentMapString.isEmpty else {
+            return nil
+        }
+        guard let studentMediaURL = dictionary[ParseClient.JSONResponseKeys.StudentMediaURL] as? String, !studentMediaURL.isEmpty else {
+            return nil
+        }
+        guard let studentLatitude = dictionary[ParseClient.JSONResponseKeys.StudentLatitude] as? Float else {
+            return nil
+        }
+        guard let studentLongitude = dictionary[ParseClient.JSONResponseKeys.StudentLongitude] as? Float else {
+            return nil
+        }
+        
+        self.studentUniqueKey = studentUniqueKey
+        self.studentFirstName = studentFirstName
+        self.studentLastName = studentLastName
+        self.studentMapString = studentMapString
+        self.studentMediaURL = studentMediaURL
+        self.studentLatitude = studentLatitude
+        self.studentLongitude = studentLongitude
+        // Will not have an object ID when creating a new student
+        self.studentObjectID = dictionary[ParseClient.JSONResponseKeys.StudentObjectID] as? String ?? ""
     }
     
     static func StudentInformationFromResults(_ results: [[String:AnyObject]]) -> [StudentInformation] {
@@ -44,8 +67,8 @@ struct StudentInformation {
         // iterate through array of dictionaries, each Student is a dictionary
         for result in results {
             
-            if isDictionaryComplete(result) {
-                students.append(StudentInformation(dictionary: result))
+            if let student = StudentInformation(dictionary: result) {
+                students.append(student)
             }
             
         }
@@ -53,27 +76,12 @@ struct StudentInformation {
         return students
     }
     
-    static private func isDictionaryComplete (_ dictionary: [String: AnyObject]) -> Bool {
-        if (dictionary[ParseClient.JSONResponseKeys.StudentUniqueKey] != nil) &&
-           (dictionary[ParseClient.JSONResponseKeys.StudentFirstName] != nil) &&
-           (dictionary[ParseClient.JSONResponseKeys.StudentLastName] != nil) &&
-           (dictionary[ParseClient.JSONResponseKeys.StudentMapString] != nil) &&
-           (dictionary[ParseClient.JSONResponseKeys.StudentMediaURL] != nil) &&
-           (dictionary[ParseClient.JSONResponseKeys.StudentLatitude] != nil) &&
-           (dictionary[ParseClient.JSONResponseKeys.StudentLongitude] != nil) &&
-           (dictionary[ParseClient.JSONResponseKeys.StudentObjectID] != nil) {
-            return true
-        } else {
-            return false
-        }
-
-    }
 }
 
 // MARK: - StudentInformation: Equatable
 
 extension StudentInformation: Equatable {}
 
-func ==(lhs: StudentInformation, rhs: StudentInformation) -> Bool {
+func == (lhs: StudentInformation, rhs: StudentInformation) -> Bool {
     return lhs.studentUniqueKey == rhs.studentUniqueKey
 }
