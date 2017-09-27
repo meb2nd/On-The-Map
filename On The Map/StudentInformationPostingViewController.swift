@@ -75,7 +75,7 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
     */
     
     // MARK:  Actions
-    // COde for this method based on information found at: https://stackoverflow.com/questions/41639478/mkmapview-center-and-zoom-in
+    // Code for this method based on information found at: https://stackoverflow.com/questions/41639478/mkmapview-center-and-zoom-in
     // https://stackoverflow.com/questions/10644854/ios-zoom-in-mapkit-for-two-annotation-point
     // https://littlebitesofcocoa.com/47-mklocalsearch
     @IBAction func findOnTheMap(_ sender: Any) {

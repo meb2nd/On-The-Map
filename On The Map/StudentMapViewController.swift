@@ -14,7 +14,6 @@ class StudentMapViewController: UIViewController, StudentInformationClient {
     // MARK: Properties
     
     var studentInformationHandler: StudentInformationHandler!
-    var isLoading = false
     
     //var students: [StudentInformation]?
     
@@ -26,13 +25,10 @@ class StudentMapViewController: UIViewController, StudentInformationClient {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: Life Cycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         studentInformationMapView.delegate = self
-        
-        refreshData()
         
     }
     
