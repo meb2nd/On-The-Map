@@ -51,6 +51,11 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
         locationTextView.delegate = self
         linkTextField.delegate = self
         
+        if let student = studentInformationHandler.student {
+            locationTextView.text = student.studentMapString
+            linkTextField.text = student.studentMediaURL
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -116,13 +121,14 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
             return
         }
         
-        let studentInfo: [String: Any] = [ParseClient.ParameterKeys.StudentUniqueKey: UdacityClient.sharedInstance().userID ?? "1234",
-                           ParseClient.ParameterKeys.StudentFirstName: UdacityClient.sharedInstance().firstName  ?? "Joe",
-                           ParseClient.ParameterKeys.StudentLastName: UdacityClient.sharedInstance().lastName  ?? "Blow",
+        let studentInfo: [String: Any] = [ParseClient.ParameterKeys.StudentUniqueKey: UdacityClient.sharedInstance().userID ?? "",
+                           ParseClient.ParameterKeys.StudentFirstName: UdacityClient.sharedInstance().firstName  ?? "",
+                           ParseClient.ParameterKeys.StudentLastName: UdacityClient.sharedInstance().lastName  ?? "",
                            ParseClient.ParameterKeys.StudentMapString: self.locationTextView.text.trimmingCharacters(in: .whitespacesAndNewlines),
                            ParseClient.ParameterKeys.StudentLongitude: studentLongitude,
                            ParseClient.ParameterKeys.StudentLatitude: studentlatitude,
-                           ParseClient.ParameterKeys.StudentMediaURL: linkTextField.text?.trimmingCharacters(in: .whitespaces) ?? ""
+                           ParseClient.ParameterKeys.StudentMediaURL: linkTextField.text?.trimmingCharacters(in: .whitespaces) ?? "",
+                           ParseClient.ParameterKeys.StudentObjectID: studentInformationHandler.student?.studentObjectID ?? ""
             ]
         
         guard let studentInformation = StudentInformation(dictionary: studentInfo) else {
@@ -133,33 +139,45 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
         submitButton.isEnabled = false
         activityIndicator.startAnimating()
         
-        ParseClient.sharedInstance().postStudentLocation(studentInformation){(result, error) in
+        if studentInformationHandler.student == nil {
             
+            ParseClient.sharedInstance().postStudentLocation(studentInformation){(result, error) in
+                
+                self.processResults(success: result, error)
+                
+            }
+            
+        } else {
+            
+            ParseClient.sharedInstance().putStudentLocation(studentInformation){(result, error) in
+                
+                self.processResults(success: result, error)
+                
+            }
+        }
+        
+    }
+    
+    private func processResults(success: Bool, _ error: String?) {
+        
+        guard error == nil else {
+            AlertViewHelper.presentAlert(self, title: "Error Processing Post Request", message: "Could not update server.")
+            return
+        }
+        
+        // Need to refresh student list
+        self.studentInformationHandler.refreshStudentData(){(success, error) in
             guard error == nil else {
-                AlertViewHelper.presentAlert(self, title: "Error Processing Post Request", message: "Could not update server.")
+                AlertViewHelper.presentAlert(self, title: "Error Processing Post Request", message: "Could not refresh student data points.")
                 return
             }
             
-            // Need to refresh student list
-            self.studentInformationHandler.refreshStudentData(){(success, error) in
-                guard error == nil else {
-                    AlertViewHelper.presentAlert(self, title: "Error Processing Post Request", message: "Could not refresh student data points.")
-                    return
-                }
-                
-                performUIUpdatesOnMain() {
-                    self.submitButton.isEnabled = true
-                    self.activityIndicator.stopAnimating()
-                    self.dismiss(animated: true, completion: nil)
-                }
-                
-                
+            performUIUpdatesOnMain() {
+                self.submitButton.isEnabled = true
+                self.activityIndicator.stopAnimating()
+                self.dismiss(animated: true, completion: nil)
             }
-            
-            
-            
         }
-
     }
     
     @IBAction func cancel(_ sender: Any) {

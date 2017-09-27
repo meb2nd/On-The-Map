@@ -18,10 +18,8 @@ extension StudentInformationClient  where Self: UIViewController {
             controller.title = "Student Post Already Exists!"
             controller.message = "You Have Already Posted a Student Location. Would You Like to Overwrite Your Current Location?"
             
-            let overwriteAction = UIAlertAction(title: "Overwrite", style: UIAlertActionStyle.default) { action in controller.dismiss(animated: true) {
-                
+            let overwriteAction = UIAlertAction(title: "Overwrite", style: UIAlertActionStyle.default) { action in
                 self.completeSegueToStudentInformationNavigationController ()
-                }
             }
             
             let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { action in controller.dismiss(animated: true, completion: nil)

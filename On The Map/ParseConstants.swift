@@ -55,6 +55,7 @@ extension ParseClient {
         static let StudentMediaURL = "mediaURL"
         static let StudentLatitude = "latitude"
         static let StudentLongitude = "longitude"
+        static let StudentObjectID = "objectId"
     }
     
     // MARK: Parameter Values
