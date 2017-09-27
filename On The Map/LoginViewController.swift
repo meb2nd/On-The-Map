@@ -12,7 +12,6 @@ import SafariServices
 class LoginViewController: UIViewController, StudentInformationClient {
     
     // MARK: Properties
-    
     var appDelegate: AppDelegate!
     var backgroundGradient: CAGradientLayer!
     var activeField: UITextField?
@@ -30,7 +29,6 @@ class LoginViewController: UIViewController, StudentInformationClient {
     
     
     // MARK: Life Cycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -113,9 +111,8 @@ class LoginViewController: UIViewController, StudentInformationClient {
 // MARK: - LoginViewController: UITextFieldDelegate
 // Made changes here based on information located at: https://cocoacasts.com/five-simple-tips-to-make-user-friendly-forms-on-ios/
 
+// MARK: UITextFieldDelegate
 extension LoginViewController: UITextFieldDelegate {
-    
-    // MARK: UITextFieldDelegate
     
     func textFieldDidBeginEditing(_ textField: UITextField)
     {
@@ -153,7 +150,6 @@ extension LoginViewController: UITextFieldDelegate {
 }
 
 // MARK: - LoginViewController (Configure UI)
-
 private extension LoginViewController {
     
     // MARK: UI
@@ -206,7 +202,6 @@ private extension LoginViewController {
 }
 
 // MARK: Show/Hide Keyboard
-
 extension LoginViewController {
     
     func keyboardWillShow(_ notification: Notification) {
@@ -236,7 +231,6 @@ extension LoginViewController {
 }
 
 // MARK: - LoginViewController (Notifications)
-
 private extension LoginViewController {
     
     func subscribeToNotification(_ notification: NSNotification.Name, selector: Selector) {
