@@ -24,6 +24,7 @@ class LoginViewController: UIViewController, StudentInformationClient {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     
     
@@ -154,11 +155,13 @@ private extension LoginViewController {
         passwordTextField.isEnabled = enabled
         loginButton.isEnabled = enabled
         
-        // adjust login button alpha
+        // adjust login button alpha and activity indicator animation
         if enabled {
             loginButton.alpha = 1.0
+            activityIndicator.stopAnimating()
         } else {
             loginButton.alpha = 0.5
+            activityIndicator.startAnimating()
         }
     }
     

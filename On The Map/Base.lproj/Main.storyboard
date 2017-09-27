@@ -117,20 +117,26 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="UBT-aZ-8qd">
+                                <rect key="frame" x="197" y="358" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.34901960784313724" green="0.79607843137254897" blue="1" alpha="1" colorSpace="deviceRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="m1I-8U-ypS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="2zu-rV-gq5"/>
                             <constraint firstItem="m1I-8U-ypS" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="QzS-ed-p6U"/>
+                            <constraint firstItem="UBT-aZ-8qd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RT7-jH-WZQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="m1I-8U-ypS" secondAttribute="trailing" id="Vn8-66-LWU"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="m1I-8U-ypS" secondAttribute="bottom" id="YGB-BN-vKo"/>
+                            <constraint firstItem="UBT-aZ-8qd" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="d8L-78-Ggk"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="ep6-PR-2jM" appends="YES" id="JM7-2d-8U6"/>
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="UBT-aZ-8qd" id="VI4-4P-v6y"/>
                         <outlet property="emailTextField" destination="vkb-6P-XUz" id="kHE-7q-KJU"/>
                         <outlet property="loginButton" destination="7Ol-Oy-qZJ" id="1Bh-1k-aSe"/>
                         <outlet property="passwordTextField" destination="tDW-oM-a8M" id="zBu-j5-Fxo"/>
