@@ -15,9 +15,8 @@ class StudentMapViewController: UIViewController, StudentInformationClient {
     
     var studentInformationHandler: StudentInformationHandler!
     
-    //var students: [StudentInformation]?
-    
     // MARK: Outlets
+    
     @IBOutlet weak var studentInformationMapView: MKMapView!
     @IBOutlet weak var logoutButton: UIBarButtonItem!
     @IBOutlet weak var addStudentInformationButton: UIBarButtonItem!
@@ -25,6 +24,7 @@ class StudentMapViewController: UIViewController, StudentInformationClient {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,11 +34,7 @@ class StudentMapViewController: UIViewController, StudentInformationClient {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if studentInformationHandler.students == nil {
-            refreshData()
-        } else {
-            loadData()
-        }
+        refreshStudentInformationView()
     }
 
 
@@ -57,99 +53,12 @@ class StudentMapViewController: UIViewController, StudentInformationClient {
         
         refreshData()
     }
-    
-    // MARK:  - View data updates
-    fileprivate func refreshData() {
 
-        // TODO:  Disable UI
-        activityIndicator.startAnimating()
-        addStudentInformationButton.isEnabled = false
-        refreshButton.isEnabled = false
-        if  let arrayOfTabBarItems = self.tabBarController?.tabBar.items {
-            
-            for tabBarItem in arrayOfTabBarItems {
-                tabBarItem.isEnabled = false
-            }
-        }
-        
-        studentInformationHandler.refreshStudentData() {(success, errorString) in
-            if let error = errorString {
-                print(error)
-                return
-            }
-            
-            performUIUpdatesOnMain {
-                self.loadData()
-                // TODO:  Enable UI
-                self.activityIndicator.stopAnimating()
-                self.addStudentInformationButton.isEnabled = true
-                self.refreshButton.isEnabled = true
-                if  let arrayOfTabBarItems = self.tabBarController?.tabBar.items {
-                    
-                    for tabBarItem in arrayOfTabBarItems {
-                        tabBarItem.isEnabled = true
-                    }
-                }
-            }
-            
-        }
-    }
-    
-    // Get the data from the Student Information Handler and update the map.
-    func loadData() {
-        
-        var annotations = [MKPointAnnotation]()
-        
-        let currentAnnotations = studentInformationMapView.annotations
-        
-        if currentAnnotations.count > 0 {
-            studentInformationMapView.removeAnnotations(currentAnnotations)
-        }
-        
-        if let students = studentInformationHandler.students {
-            for student in students {
-                
-                // Notice that the float values are being used to create CLLocationDegree values.
-                // This is a version of the Double type.
-                let lat = CLLocationDegrees(student.studentLatitude)
-                let long = CLLocationDegrees(student.studentLongitude)
-                
-                // The lat and long are used to create a CLLocationCoordinates2D instance.
-                let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                
-                let first = student.studentFirstName
-                let last = student.studentLastName
-                let mediaURL = student.studentMediaURL
-                
-                // Here we create the annotation and set its coordiate, title, and subtitle properties
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = coordinate
-                annotation.title = "\(first) \(last)"
-                annotation.subtitle = mediaURL
-                
-                // Finally we place the annotation in an array of annotations.
-                annotations.append(annotation)
-            }
-        }
-        
-        studentInformationMapView.addAnnotations(annotations)
-    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
+// MARK: - MKMapViewDelegate
 
 extension StudentMapViewController: MKMapViewDelegate {
-    
-    // MARK: - MKMapViewDelegate
     
     // Here we create a view with a "right callout accessory view". You might choose to look into other
     // decoration alternatives. Notice the similarity between this method and the cellForRowAtIndexPath
@@ -192,4 +101,73 @@ extension StudentMapViewController: MKMapViewDelegate {
     //            app.openURL(NSURL(string: annotationView.annotation.subtitle))
     //        }
     //    }
+}
+
+// MARK:  - StudentInformationView
+extension StudentMapViewController: StudentInformationView {
+    
+    internal func refreshData() {
+        
+        activityIndicator.startAnimating()
+        addStudentInformationButton.isEnabled = false
+        refreshButton.isEnabled = false
+        enableTabBar(false)
+        
+        studentInformationHandler.refreshStudentData() {(success, errorString) in
+            if let error = errorString {
+                print(error)
+                return
+            }
+            
+            performUIUpdatesOnMain {
+                self.loadData()
+                // TODO:  Enable UI
+                self.activityIndicator.stopAnimating()
+                self.addStudentInformationButton.isEnabled = true
+                self.refreshButton.isEnabled = true
+                self.enableTabBar(true)
+            }
+            
+        }
+    }
+    
+    // Get the data from the Student Information Handler and update the map.
+    internal func loadData() {
+        
+        var annotations = [MKPointAnnotation]()
+        
+        let currentAnnotations = studentInformationMapView.annotations
+        
+        if currentAnnotations.count > 0 {
+            studentInformationMapView.removeAnnotations(currentAnnotations)
+        }
+        
+        if let students = studentInformationHandler.students {
+            for student in students {
+                
+                // Notice that the float values are being used to create CLLocationDegree values.
+                // This is a version of the Double type.
+                let lat = CLLocationDegrees(student.studentLatitude)
+                let long = CLLocationDegrees(student.studentLongitude)
+                
+                // The lat and long are used to create a CLLocationCoordinates2D instance.
+                let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                
+                let first = student.studentFirstName
+                let last = student.studentLastName
+                let mediaURL = student.studentMediaURL
+                
+                // Here we create the annotation and set its coordiate, title, and subtitle properties
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = coordinate
+                annotation.title = "\(first) \(last)"
+                annotation.subtitle = mediaURL
+                
+                // Finally we place the annotation in an array of annotations.
+                annotations.append(annotation)
+            }
+        }
+        
+        studentInformationMapView.addAnnotations(annotations)
+    }
 }

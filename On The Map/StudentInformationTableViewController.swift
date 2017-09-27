@@ -19,10 +19,12 @@ class StudentInformationTableViewController: UITableViewController, StudentInfor
     weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: Outlets
+    
     @IBOutlet weak var logoutButton: UIBarButtonItem!
     @IBOutlet weak var addStudentInformationButton: UIBarButtonItem!
     @IBOutlet weak var refreshButton: UIBarButtonItem!
     
+    // MARK: Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,34 +34,20 @@ class StudentInformationTableViewController: UITableViewController, StudentInfor
         tableView.backgroundView = activityIndicatorView
         self.activityIndicator = activityIndicatorView
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if studentInformationHandler.students == nil {
-            refreshData()
-        } else {
-            loadData()
-        }
+        refreshStudentInformationView()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
     // MARK: Actions
+    
     @IBAction func logout(_ sender: Any) {
         
         completeLogout()
     }
-    
-
     
     @IBAction func addStudentInformation(_ sender: Any) {
         
@@ -71,59 +59,9 @@ class StudentInformationTableViewController: UITableViewController, StudentInfor
         refreshData()
     }
     
-    // MARK:  - View data updates
-    fileprivate func refreshData() {
-        
-        students = nil
-        tableView.reloadData()
-        
-        // TODO:  Disable UI
-        activityIndicator.startAnimating()
-        addStudentInformationButton.isEnabled = false
-        refreshButton.isEnabled = false
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
-        if  let arrayOfTabBarItems = self.tabBarController?.tabBar.items {
-            
-            for tabBarItem in arrayOfTabBarItems {
-                tabBarItem.isEnabled = false
-            }
-        }
-        
-        studentInformationHandler.refreshStudentData() {(success, errorString) in
-            if let error = errorString {
-                print(error)
-                return
-            }
-            
-            performUIUpdatesOnMain {
-                
-                // TODO:  Enable UI
-                self.activityIndicator.stopAnimating()
-                self.addStudentInformationButton.isEnabled = true
-                self.refreshButton.isEnabled = true
-                self.tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
-                if  let arrayOfTabBarItems = self.tabBarController?.tabBar.items {
-                    
-                    for tabBarItem in arrayOfTabBarItems {
-                        tabBarItem.isEnabled = true
-                    }
-                }
-               
-                self.loadData()
-                
-            }
-            
-        }
-    }
-    
-    // Get the data from the Student Information Handler and update the table.
-    func loadData() {
-        students = studentInformationHandler.students
-        tableView.reloadData()
-    }
     
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
 
         return (students == nil) ? 0 : 1
@@ -159,51 +97,48 @@ class StudentInformationTableViewController: UITableViewController, StudentInfor
         }
         
     }
- 
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+}
+
+// MARK:  - StudentInformationView
+
+extension StudentInformationTableViewController: StudentInformationView {
+    
+    internal func refreshData() {
+        
+        students = nil
+        tableView.reloadData()
+
+        activityIndicator.startAnimating()
+        addStudentInformationButton.isEnabled = false
+        refreshButton.isEnabled = false
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        enableTabBar(false)
+        
+        studentInformationHandler.refreshStudentData() {(success, errorString) in
+            if let error = errorString {
+                print(error)
+                return
+            }
+            
+            performUIUpdatesOnMain {
+                
+                self.activityIndicator.stopAnimating()
+                self.addStudentInformationButton.isEnabled = true
+                self.refreshButton.isEnabled = true
+                self.tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
+                self.enableTabBar(true)
+                
+                self.loadData()
+                
+            }
+            
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    // Get the data from the Student Information Handler and update the table.
+    internal func loadData() {
+        students = studentInformationHandler.students
+        tableView.reloadData()
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
