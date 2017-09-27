@@ -186,9 +186,6 @@ private extension LoginViewController {
         backgroundGradient.colors = [UI.LoginColorTop, UI.LoginColorBottom]
         backgroundGradient.locations = [0.0, 1.0]
         backgroundGradient.frame = view.frame
-        //backgroundGradient.transform = CATransform3DMakeRotation(CGFloat.pi / 2, 0, 0, 0)
-        backgroundGradient.startPoint = CGPoint(x: 0.5, y: 0.0) // default (0.5,0.0).
-        backgroundGradient.endPoint = CGPoint(x: 0.5, y: 1.0) //default (0.5, 1.0)
         view.layer.insertSublayer(backgroundGradient, at: 0)
         
         configureTextField(emailTextField)
@@ -249,7 +246,6 @@ private extension LoginViewController {
     func unsubscribeFromAllNotifications() {
         NotificationCenter.default.removeObserver(self)
     }
-
 
 }
 
