@@ -106,6 +106,7 @@ class LoginViewController: UIViewController, StudentInformationClient {
 
 }
 // MARK: - LoginViewController: UITextFieldDelegate
+// Made changes here based on information located at: https://cocoacasts.com/five-simple-tips-to-make-user-friendly-forms-on-ios/
 
 extension LoginViewController: UITextFieldDelegate {
     
@@ -121,8 +122,16 @@ extension LoginViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        
+        switch textField {
+        case emailTextField:
+            passwordTextField.becomeFirstResponder()
+        default:
+            textField.resignFirstResponder()
+        }
+        
         return true
+
     }
     
     
