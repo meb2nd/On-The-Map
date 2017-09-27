@@ -39,9 +39,14 @@ class LoginViewController: UIViewController, StudentInformationClient {
         
         configureUI()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         subscribeToNotification(.UIKeyboardWillShow, selector: #selector(keyboardWillShow))
         subscribeToNotification(.UIKeyboardWillHide, selector: #selector(keyboardWillHide))
-
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
