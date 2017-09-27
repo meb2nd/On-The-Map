@@ -13,13 +13,15 @@ class StudentInformationHandler {
     // MARK: Properties
     var students: [StudentInformation]?
     
+    var student: StudentInformation?
+    
     func refreshStudentData(completionHandlerForRefreshStudentData: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
     
         ParseClient.sharedInstance().getStudents() { (result, error) in
         
             if let students = result {
                 self.students = students
-                completionHandlerForRefreshStudentData(true, nil)
+                self.refreshStudentLocation(completionHandlerForRefreshStudentLocation: completionHandlerForRefreshStudentData)
             } else if let error = error as? APIError {            
                 var errorString:String
                 switch error as APIError  {
@@ -31,6 +33,40 @@ class StudentInformationHandler {
                 completionHandlerForRefreshStudentData(false, errorString)
             } else {
                 completionHandlerForRefreshStudentData(false, "Could not retrieve student data.")
+            }
+        }
+    }
+    
+    fileprivate func refreshStudentLocation(completionHandlerForRefreshStudentLocation: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
+        
+        guard let userID = UdacityClient.sharedInstance().userID else {
+            completionHandlerForRefreshStudentLocation(true, "Could not retrieve logged-in student data.")
+            return
+        }
+        ParseClient.sharedInstance().getStudent(userID) { (result, error) in
+            
+            // If no error and no exisiting student we're good
+            guard result != nil || error != nil else {
+                completionHandlerForRefreshStudentLocation(true, nil)
+                return
+            }
+            
+            if let student = result {
+                self.student = student
+                completionHandlerForRefreshStudentLocation(true, nil)
+            } else if let error = error as? APIError {
+                var errorString:String
+                switch error as APIError  {
+                case .ConnectionError:
+                    errorString = "Could not connect to server, try again later."
+                default:
+                    errorString = "Could not retrieve logged-in student data."
+                }
+                print(error)
+                completionHandlerForRefreshStudentLocation(false, errorString)
+            } else {
+                print(error as Any)
+                completionHandlerForRefreshStudentLocation(false, "Could not retrieve logged-in student data.")
             }
         }
     }

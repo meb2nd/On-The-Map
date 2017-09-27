@@ -48,6 +48,8 @@ enum DecodeError: Error {
 }
 
 enum APIError : Error {
+    // Missing parameters to make request
+    case MissingParametersError(String)
     // Can't connect to the server (maybe offline?)
     case ConnectionError(error: NSError)
     // The server responded with a non 200 status code

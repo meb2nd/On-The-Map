@@ -11,6 +11,7 @@
 		124F9A541F75F821004CDE9F /* StudentInformationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124F9A531F75F821004CDE9F /* StudentInformationClient.swift */; };
 		127D25F91F6F4CE6000F2074 /* OnTheMapTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127D25F81F6F4CE6000F2074 /* OnTheMapTabBarController.swift */; };
 		1288ED6B1F71B6BE008AF851 /* AlertViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1288ED6A1F71B6BE008AF851 /* AlertViewHelper.swift */; };
+		12A58C0A1F7B55F9008F0D6A /* VIewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A58C091F7B55F9008F0D6A /* VIewControllerExtensions.swift */; };
 		12CF163F1F670FEA004E6D06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CF163E1F670FEA004E6D06 /* AppDelegate.swift */; };
 		12CF16411F670FEA004E6D06 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CF16401F670FEA004E6D06 /* LoginViewController.swift */; };
 		12CF16441F670FEA004E6D06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12CF16421F670FEA004E6D06 /* Main.storyboard */; };
@@ -33,6 +34,7 @@
 		124F9A531F75F821004CDE9F /* StudentInformationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentInformationClient.swift; sourceTree = "<group>"; };
 		127D25F81F6F4CE6000F2074 /* OnTheMapTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnTheMapTabBarController.swift; sourceTree = "<group>"; };
 		1288ED6A1F71B6BE008AF851 /* AlertViewHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewHelper.swift; sourceTree = "<group>"; };
+		12A58C091F7B55F9008F0D6A /* VIewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VIewControllerExtensions.swift; sourceTree = "<group>"; };
 		12CF163B1F670FEA004E6D06 /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		12CF163E1F670FEA004E6D06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		12CF16401F670FEA004E6D06 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 		12CF16661F671FED004E6D06 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				12A58C091F7B55F9008F0D6A /* VIewControllerExtensions.swift */,
 				127D25F81F6F4CE6000F2074 /* OnTheMapTabBarController.swift */,
 				12CF16401F670FEA004E6D06 /* LoginViewController.swift */,
 				1288ED6A1F71B6BE008AF851 /* AlertViewHelper.swift */,
@@ -250,6 +253,7 @@
 				12CF163F1F670FEA004E6D06 /* AppDelegate.swift in Sources */,
 				12CF16591F671DA9004E6D06 /* StudentInformation.swift in Sources */,
 				12CF16551F671D38004E6D06 /* ParseConstants.swift in Sources */,
+				12A58C0A1F7B55F9008F0D6A /* VIewControllerExtensions.swift in Sources */,
 				12CF16631F671F7C004E6D06 /* StudentInformationPostingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

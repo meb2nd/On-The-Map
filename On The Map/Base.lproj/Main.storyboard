@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="83h-G2-ydQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -184,11 +184,11 @@
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Og5-nM-NaP" id="Wy4-EF-7A9">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ozT-wm-a1G">
-                                            <rect key="frame" x="59" y="0.0" width="340" height="43.666666666666664"/>
+                                            <rect key="frame" x="59" y="0.0" width="340" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -387,14 +387,21 @@
                                     <action selector="submitStudentInformation:" destination="mh3-wC-ZUM" eventType="touchUpInside" id="odB-6w-ujW"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="4OJ-zW-lhx">
+                                <rect key="frame" x="197" y="358" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.87843137250000003" green="0.87843137250000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="4OJ-zW-lhx" firstAttribute="centerY" secondItem="yCZ-fy-WA1" secondAttribute="centerY" id="Aga-gc-kTY"/>
                             <constraint firstItem="HwT-Dx-kCb" firstAttribute="top" secondItem="6DI-qi-ua7" secondAttribute="bottom" constant="20" id="DeB-7t-YYL"/>
                             <constraint firstItem="6DI-qi-ua7" firstAttribute="centerX" secondItem="SVc-q3-0bd" secondAttribute="centerX" id="K8i-CK-F7t"/>
                             <constraint firstItem="HwT-Dx-kCb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="9i7-GM-XfL" secondAttribute="bottom" constant="100" id="KP2-p8-gvX"/>
                             <constraint firstItem="gzf-iW-co2" firstAttribute="leading" secondItem="yCZ-fy-WA1" secondAttribute="leadingMargin" constant="-20" id="XXE-9B-EFP"/>
+                            <constraint firstItem="4OJ-zW-lhx" firstAttribute="centerY" secondItem="yCZ-fy-WA1" secondAttribute="centerY" id="aC0-lh-1f6"/>
+                            <constraint firstItem="4OJ-zW-lhx" firstAttribute="centerX" secondItem="yCZ-fy-WA1" secondAttribute="centerX" id="dKe-Hy-0dy"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gzf-iW-co2" secondAttribute="trailing" constant="-20" id="i9v-q6-7KL"/>
+                            <constraint firstItem="4OJ-zW-lhx" firstAttribute="centerX" secondItem="yCZ-fy-WA1" secondAttribute="centerX" id="imD-0W-PN1"/>
                             <constraint firstItem="HwT-Dx-kCb" firstAttribute="top" secondItem="gzf-iW-co2" secondAttribute="bottom" id="kMz-UP-gbT"/>
                             <constraint firstItem="gzf-iW-co2" firstAttribute="top" secondItem="eQb-0t-o5I" secondAttribute="bottom" constant="20" id="qLk-3c-VnQ"/>
                         </constraints>
@@ -410,6 +417,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="4OJ-zW-lhx" id="B1I-0x-DWs"/>
                         <outlet property="cancelButton" destination="oA4-2i-F94" id="7jg-a4-l7g"/>
                         <outlet property="findOnTheMapButton" destination="V77-cQ-Nmh" id="GhH-cW-n5c"/>
                         <outlet property="linkStackView" destination="nGQ-9f-GMr" id="zwr-10-R7Q"/>

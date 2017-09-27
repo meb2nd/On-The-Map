@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class StudentInformationPostingViewController: UIViewController {
+class StudentInformationPostingViewController: UIViewController, StudentInformationClient {
 
     // MARK:  Properties
     var activeField: UITextInput?
@@ -17,6 +17,7 @@ class StudentInformationPostingViewController: UIViewController {
     let linkToShareErrorTitle = "Link to Share Error"
     var studentlatitude: Float = 0.0
     var studentLongitude: Float = 0.0
+    var studentInformationHandler: StudentInformationHandler!
 
     
     // MARK:  Outlet
@@ -28,6 +29,7 @@ class StudentInformationPostingViewController: UIViewController {
     @IBOutlet weak var locationStackView: UIStackView!
     @IBOutlet weak var linkStackView: UIStackView!
     @IBOutlet weak var studentLocationMapView: MKMapView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +39,9 @@ class StudentInformationPostingViewController: UIViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
 
         locationTextView.text = defaultLocationPrompt
+        
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.stopAnimating()
         
         self.locationStackView.isHidden = false
         self.linkStackView.isHidden = true
@@ -125,6 +130,9 @@ class StudentInformationPostingViewController: UIViewController {
             return
         }
         
+        submitButton.isEnabled = false
+        activityIndicator.startAnimating()
+        
         ParseClient.sharedInstance().postStudentLocation(studentInformation){(result, error) in
             
             guard error == nil else {
@@ -133,10 +141,22 @@ class StudentInformationPostingViewController: UIViewController {
             }
             
             // Need to refresh student list
-            
-            performUIUpdatesOnMain() {
-                self.dismiss(animated: true, completion: nil)
+            self.studentInformationHandler.refreshStudentData(){(success, error) in
+                guard error == nil else {
+                    AlertViewHelper.presentAlert(self, title: "Error Processing Post Request", message: "Could not refresh student data points.")
+                    return
+                }
+                
+                performUIUpdatesOnMain() {
+                    self.submitButton.isEnabled = true
+                    self.activityIndicator.stopAnimating()
+                    self.dismiss(animated: true, completion: nil)
+                }
+                
+                
             }
+            
+            
             
         }
 

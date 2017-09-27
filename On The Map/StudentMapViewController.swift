@@ -50,28 +50,11 @@ class StudentMapViewController: UIViewController, StudentInformationClient {
     
     @IBAction func logout(_ sender: Any) {
         
-        UdacityClient.sharedInstance().logout { (success, errorString) in
-            
-            performUIUpdatesOnMain {
-                
-                if success {
-                    self.completeLogout()
-                } else {
-                    AlertViewHelper.presentAlert(self, title: "Logout Failure", message: errorString)
-                }
-            }
-        }
-    }
-    
-    private func completeLogout() {
-        
-        dismiss(animated: true, completion: nil)
+       completeLogout()
     }
     
     @IBAction func addStudentInformation(_ sender: Any) {
-        let controller = storyboard!.instantiateViewController(withIdentifier: "StudentInformationNavigationController")
-        injectViewController(controller, withStudentInformationHandler: studentInformationHandler)
-        present(controller, animated: true, completion: nil)
+        segueToStudentInformationNavigationController()
     }
     
     @IBAction func refresh(_ sender: Any) {

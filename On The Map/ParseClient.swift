@@ -147,6 +147,11 @@ final class ParseClient : NSObject {
     // MARK: Get Student Location
     func getStudent(_ studentUniqueKey:String, completionHandlerForGetStudent: @escaping (_ result: StudentInformation?, _ error: Error?) -> Void) {
         
+        guard !studentUniqueKey.isEmpty else {
+            completionHandlerForGetStudent(nil, APIError.MissingParametersError("Missing Student Unique Key"))
+            return
+        }
+        
         let parameters = [ParameterKeys.Where: "{\"\(ParameterKeys.StudentUniqueKey)\":\"\(studentUniqueKey)\"}"]
         
         _ = taskForGETMethod(Methods.StudentLocation, parameters: parameters){ (result, error) in
@@ -170,7 +175,7 @@ final class ParseClient : NSObject {
             
             guard students.count > 0 else {
                 print("No student found in the results")
-                completionHandlerForGetStudent(nil, DecodeError.Custom("No student found in the returned results."))
+                completionHandlerForGetStudent(nil, nil)
                 return
             }
             
