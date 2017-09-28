@@ -325,7 +325,7 @@
                                 <rect key="frame" x="0.0" y="84" width="414" height="652"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="WcL-4c-wp2" userLabel="Location Stack View">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="652"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="316"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="7Dh-p5-N3A" userLabel="Header Stack View">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="77"/>
@@ -358,13 +358,13 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
                                             </textView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="20" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZGZ-h0-SpU" userLabel="Find on the Map Button Stack View">
-                                                <rect key="frame" x="0.0" y="167" width="414" height="485"/>
+                                                <rect key="frame" x="0.0" y="167" width="414" height="149"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="buo-Lh-27o">
-                                                        <rect key="frame" x="151.66666666666669" y="0.0" width="111.00000000000006" height="485"/>
+                                                        <rect key="frame" x="151.66666666666669" y="0.0" width="111.00000000000006" height="149"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V77-cQ-Nmh">
-                                                                <rect key="frame" x="0.0" y="227.66666666666669" width="111.00000000000003" height="30"/>
+                                                                <rect key="frame" x="0.0" y="59.666666666666686" width="111.00000000000003" height="30"/>
                                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <state key="normal" title="Find on the Map"/>
                                                                 <connections>
@@ -377,17 +377,17 @@
                                             </stackView>
                                         </subviews>
                                     </stackView>
-                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nGQ-9f-GMr" userLabel="Link Stack View">
-                                        <rect key="frame" x="0.0" y="-92" width="414" height="8"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nGQ-9f-GMr" userLabel="Link Stack View">
+                                        <rect key="frame" x="0.0" y="336" width="414" height="316"/>
                                         <subviews>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a Link to Share Here." textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6w3-yD-DxS">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a Link to Share Here." textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6w3-yD-DxS">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="URL" returnKeyType="done"/>
                                             </textField>
-                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" ambiguous="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="SVc-q3-0bd">
-                                                <rect key="frame" x="0.0" y="8" width="414" height="0.0"/>
+                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="SVc-q3-0bd">
+                                                <rect key="frame" x="0.0" y="38" width="414" height="278"/>
                                             </mapView>
                                         </subviews>
                                     </stackView>
