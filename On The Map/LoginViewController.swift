@@ -203,7 +203,7 @@ private extension LoginViewController {
         textField.leftViewMode = .always
         textField.backgroundColor = UI.GreyColor
         textField.textColor = UI.BlueColor
-        textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.white])
+        textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
         textField.tintColor = UI.BlueColor
         textField.delegate = self
     }
@@ -213,12 +213,12 @@ private extension LoginViewController {
 
 extension LoginViewController {
     
-    func keyboardWillShow(_ notification: Notification) {
+    @objc func keyboardWillShow(_ notification: Notification) {
         
         view.frame.origin.y = 0 - getKeyboardHeight(notification)
     }
     
-    func keyboardWillHide(_ notification: Notification) {
+    @objc func keyboardWillHide(_ notification: Notification) {
         
         view.frame.origin.y = 0
     }
