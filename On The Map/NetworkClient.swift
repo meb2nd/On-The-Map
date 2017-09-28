@@ -17,15 +17,6 @@ enum HTTPMethod: String {
     case delete = "DELETE"
 }
 
-// MARK: - ErrorCode
-
-enum ErrorCode: Int {
-    case requestError = 100
-    case serverError = 200
-    case serverRefusedRequest = 201
-    case responseError = 300
-}
-
 // MARK: - NetworkClient
 
 protocol NetworkClient {
@@ -38,15 +29,6 @@ protocol NetworkClient {
 
 // Enums below from suggestions at:  https://appventure.me/2015/10/17/advanced-practical-enum-examples/#errortype
 
-// MARK: - HttpError
-
-enum HttpError: String {
-    case code400 = "Bad Request"
-    case code401 = "Unauthorized"
-    case code402 = "Payment Required"
-    case code403 = "Forbidden"
-    case code404 = "Not Found"
-}
 
 // MARK: - DecodeError
 
@@ -62,9 +44,9 @@ enum APIError : Error {
     // Missing parameters to make request
     case missingParametersError(String)
     // Can't connect to the server (maybe offline?)
-    case connectionError(error: NSError)
+    case connectionError(error: Error)
     // The server responded with a non 200 status code
-    case serverError(statusCode: Int, error: NSError)
+    case serverError(statusCode: Int, error: Error)
     // We got no data (0 bytes) back from the server
     case noDataError
     // The server response can't be converted from JSON to a Dictionary
@@ -105,38 +87,39 @@ extension NetworkClient {
         return request
     }
     
-    func makeTheTask(request: URLRequest, errorDomain: String, completionHandler: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func makeTheTask(request: URLRequest, errorDomain: String, completionHandler: @escaping (_ result: AnyObject?, _ error: APIError?) -> Void) -> URLSessionDataTask {
         
         var session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             
             
-            func sendError(_ error: String,_ errorCode: ErrorCode) {
+            func sendError(_ errorString: String,_ error: APIError) {
                 print(error)
-                let userInfo = [NSLocalizedDescriptionKey : error]
-                completionHandler(nil, NSError(domain: errorDomain, code: errorCode.rawValue, userInfo: userInfo))
+                completionHandler(nil, error)
             }
             
             /* GUARD: Was there an error? */
             guard (error == nil) else {
-                sendError("There was an error with your request: \(error!)", ErrorCode.requestError)
+                sendError("There was an error with your request: \(error!)", APIError.connectionError(error: error!))
                 return
             }
             
             /* GUARD: Did we get a successful 2XX response? */
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
                 
-                if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 403 {
-                    sendError("Your request returned a status code of 403!", ErrorCode.serverRefusedRequest)
-                } else {
-                    sendError("Your request returned a status code other than 2xx!", ErrorCode.serverError)
-                }
+                let statusCode = (response as? HTTPURLResponse)?.statusCode
+                
+                let userInfo = [NSLocalizedDescriptionKey : "The server responded with a non 200 status code"]
+                let error = NSError(domain: errorDomain, code: 1, userInfo: userInfo)
+                
+                sendError("Your request returned a status code other than 2xx!", APIError.serverError(statusCode: statusCode!, error: error))
+
                 return
             }
             
             /* GUARD: Was there any data returned? */
             guard let data = data else {
-                sendError("No data was returned by the request!", ErrorCode.responseError)
+                sendError("No data was returned by the request!", APIError.noDataError)
                 return
             }
             
@@ -185,14 +168,14 @@ extension NetworkClient {
     }
     
     // given raw JSON, return a usable Foundation object
-    private func convertDataWithCompletionHandler(_ data: Data, completionHandlerForConvertData: (_ result: AnyObject?, _ error: NSError?) -> Void) {
+    private func convertDataWithCompletionHandler(_ data: Data, completionHandlerForConvertData: (_ result: AnyObject?, _ error: APIError?) -> Void) {
         
         var parsedResult: AnyObject! = nil
         do {
             parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject
         } catch {
             let userInfo = [NSLocalizedDescriptionKey : "Could not parse the data as JSON: '\(data)'"]
-            completionHandlerForConvertData(nil, NSError(domain: "convertDataWithCompletionHandler", code: 1, userInfo: userInfo))
+            completionHandlerForConvertData(nil, APIError.jsonSerializationError(error: NSError(domain: "NetworkClient.convertDataWithCompletionHandler", code: 1, userInfo: userInfo)))
         }
         
         completionHandlerForConvertData(parsedResult, nil)

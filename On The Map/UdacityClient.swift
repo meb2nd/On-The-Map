@@ -37,7 +37,7 @@ final class UdacityClient : NSObject {
     
     // MARK: - HTTP Tasks
     
-    func taskForGETMethod(_ method: String, parameters: [String:String?], completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForGETMethod(_ method: String, parameters: [String:String?], completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: APIError?) -> Void) -> URLSessionDataTask {
         
         /* 1. Set the parameters */
         // No common paramers defined
@@ -51,7 +51,7 @@ final class UdacityClient : NSObject {
         
     }
     
-    func taskForDELETEMethod(_ method: String, parameters: [String: String?], completionHandlerForDELETE: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForDELETEMethod(_ method: String, parameters: [String: String?], completionHandlerForDELETE: @escaping (_ result: AnyObject?, _ error: APIError?) -> Void) -> URLSessionDataTask {
         
         /* 1. Set the parameters */
         var headers: [String:AnyObject] = [:]
@@ -75,7 +75,7 @@ final class UdacityClient : NSObject {
         
     }
     
-    func taskForPOSTMethod(_ method: String, parameters: [String: String?], jsonBodyParameters: [String:AnyObject], completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForPOSTMethod(_ method: String, parameters: [String: String?], jsonBodyParameters: [String:AnyObject], completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: APIError?) -> Void) -> URLSessionDataTask {
         
         /* 1. Set the parameters */
         let headers = [HeaderKeys.ContentType: HeaderValues.applicationJSON,
@@ -102,20 +102,23 @@ final class UdacityClient : NSObject {
                 
                 print("There was an error in the request: \(String(describing: error))")
                 
-                if let errorCode = ErrorCode(rawValue: (error?.code)!) {
-                    switch errorCode {
-                    case ErrorCode.requestError:
+                if let error = error {
+                    switch error {
+                    case .connectionError(error: _) :
                         completionHandlerForAuth(false, "There was a problem contacting the server.")
-                    case ErrorCode.responseError:
+                    case .missingParametersError(_):
                         completionHandlerForAuth(false, "There was a problem processing the request.")
-                    case ErrorCode.serverError:
-                        completionHandlerForAuth(false, "There was a server error.")
-                    case ErrorCode.serverRefusedRequest:
-                        completionHandlerForAuth(false, "Invalid username and/or password.")
+                    case .serverError(statusCode: let code, error: _):
+                        if code == 403 {
+                            completionHandlerForAuth(false, "Invalid username and/or password.")
+                        } else {
+                            completionHandlerForAuth(false, "There was a server error.")
+                        }
+                    default:
+                        completionHandlerForAuth(false, "There was a problem processing the response.")
                     }
-                } else {
-                    completionHandlerForAuth(false, "There was an error in processing the request.")
                 }
+
                 
                 return
             }

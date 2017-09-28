@@ -22,7 +22,7 @@ class StudentInformationHandler {
             if let students = result {
                 self.students = students
                 self.refreshStudentLocation(completionHandlerForRefreshStudentLocation: completionHandlerForRefreshStudentData)
-            } else if let error = error as? APIError {            
+            } else if let error = error {            
                 var errorString:String
                 switch error as APIError  {
                 case .connectionError:
@@ -54,7 +54,7 @@ class StudentInformationHandler {
             if let student = result {
                 self.student = student
                 completionHandlerForRefreshStudentLocation(true, nil)
-            } else if let error = error as? APIError {
+            } else if let error = error {
                 var errorString:String
                 switch error as APIError  {
                 case .connectionError:

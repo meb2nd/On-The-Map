@@ -31,7 +31,7 @@ final class ParseClient : NSObject {
     
     // MARK: - HTTP Tasks
     
-    func taskForGETMethod(_ method: String, parameters: [String: String?], completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForGETMethod(_ method: String, parameters: [String: String?], completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: APIError?) -> Void) -> URLSessionDataTask {
         
         /* 1. Set the parameters */
         let headers = [ParameterKeys.RESTApiKey: Constants.RESTApiKey,
@@ -46,7 +46,7 @@ final class ParseClient : NSObject {
         
     }
     
-    func taskForPOSTMethod(_ method: String, parameters: [String:String?], jsonBodyParameters: [String:AnyObject], completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForPOSTMethod(_ method: String, parameters: [String:String?], jsonBodyParameters: [String:AnyObject], completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: APIError?) -> Void) -> URLSessionDataTask {
         
         /* 1. Set the parameters */
         let headers = [HeaderKeys.ContentType: HeaderValues.applicationJSON,
@@ -62,7 +62,7 @@ final class ParseClient : NSObject {
         
     }
     
-    func taskForPUTMethod(_ method: String, parameters: [String:String?], jsonBodyParameters: [String:AnyObject], completionHandlerForPUT: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForPUTMethod(_ method: String, parameters: [String:String?], jsonBodyParameters: [String:AnyObject], completionHandlerForPUT: @escaping (_ result: AnyObject?, _ error: APIError?) -> Void) -> URLSessionDataTask {
         
         /* 1. Set the parameters */
         let headers = [HeaderKeys.ContentType: HeaderValues.applicationJSON,
@@ -109,7 +109,7 @@ final class ParseClient : NSObject {
         }
     }
     
-    func getStudents(_ completionHandlerForStudents: @escaping (_ result: [StudentInformation]?, _ error: Error?) -> Void) {
+    func getStudents(_ completionHandlerForStudents: @escaping (_ result: [StudentInformation]?, _ error: APIError?) -> Void) {
         
         let parameters = [ParameterKeys.Limit: "100",
                           ParameterKeys.Order: ParameterValues.DescendingUpdatedAt]
@@ -129,7 +129,7 @@ final class ParseClient : NSObject {
             guard let students = result?[JSONResponseKeys.StudentResults] as? [[String: AnyObject]] else {
                 
                 print("Cannot find key '\(JSONResponseKeys.StudentResults)' in \(String(describing: result))")
-                completionHandlerForStudents(nil, DecodeError.missingKey(JSONResponseKeys.StudentResults))
+                completionHandlerForStudents(nil, APIError.jsonMappingError(converstionError: DecodeError.missingKey(JSONResponseKeys.StudentResults)))
                 return
             }
             
@@ -139,7 +139,7 @@ final class ParseClient : NSObject {
     }
     
     
-    func getStudent(_ studentUniqueKey:String, completionHandlerForGetStudent: @escaping (_ result: StudentInformation?, _ error: Error?) -> Void) {
+    func getStudent(_ studentUniqueKey:String, completionHandlerForGetStudent: @escaping (_ result: StudentInformation?, _ error: APIError?) -> Void) {
         
         guard !studentUniqueKey.isEmpty else {
             completionHandlerForGetStudent(nil, APIError.missingParametersError("Missing Student Unique Key"))
@@ -163,7 +163,7 @@ final class ParseClient : NSObject {
             guard let students = result?[JSONResponseKeys.StudentResults] as? [[String: AnyObject]] else {
                 
                 print("Cannot find key '\(JSONResponseKeys.StudentResults)' in \(String(describing: result))")
-                completionHandlerForGetStudent(nil, DecodeError.missingKey(JSONResponseKeys.StudentResults))
+                completionHandlerForGetStudent(nil, APIError.jsonMappingError(converstionError: DecodeError.missingKey(JSONResponseKeys.StudentResults)))
                 return
             }
             
