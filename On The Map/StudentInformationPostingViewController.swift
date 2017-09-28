@@ -50,6 +50,7 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
         
         locationTextView.delegate = self
         linkTextField.delegate = self
+        studentLocationMapView.delegate = self
         
         if let student = studentInformationHandler.student {
             locationTextView.text = student.studentMapString
@@ -252,5 +253,3 @@ extension StudentInformationPostingViewController: UITextViewDelegate {
         return true
     }
 }
-
-
