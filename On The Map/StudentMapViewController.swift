@@ -60,7 +60,7 @@ class StudentMapViewController: UIViewController, StudentInformationClient {
 
 extension StudentMapViewController: StudentInformationView {
     
-    internal func refreshData() {
+    func refreshData() {
         
         activityIndicator.startAnimating()
         addStudentInformationButton.isEnabled = false
@@ -86,7 +86,7 @@ extension StudentMapViewController: StudentInformationView {
     }
     
     // Get the data from the Student Information Handler and update the map.
-    internal func loadData() {
+    func loadData() {
         
         var annotations = [MKPointAnnotation]()
         

@@ -106,7 +106,7 @@ class StudentInformationTableViewController: UITableViewController, StudentInfor
 
 extension StudentInformationTableViewController: StudentInformationView {
     
-    internal func refreshData() {
+    func refreshData() {
         
         students = nil
         tableView.reloadData()
@@ -139,7 +139,7 @@ extension StudentInformationTableViewController: StudentInformationView {
     }
     
     // Get the data from the Student Information Handler and update the table.
-    internal func loadData() {
+    func loadData() {
         students = studentInformationHandler.students
         tableView.reloadData()
     }
