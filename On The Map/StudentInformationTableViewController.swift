@@ -80,6 +80,7 @@ class StudentInformationTableViewController: UITableViewController, StudentInfor
         let studentInformation = students![(indexPath as NSIndexPath).row]
 
         cell.textLabel?.text = studentInformation.studentFirstName + " " + studentInformation.studentLastName
+        cell.detailTextLabel?.text = studentInformation.studentMediaURL
         
         return cell
     }
@@ -90,10 +91,11 @@ class StudentInformationTableViewController: UITableViewController, StudentInfor
         let studentInformation = students![(indexPath as NSIndexPath).row]
         
         let app = UIApplication.shared
-        if studentInformation.studentMediaURL != "" {
-            app.open(URL(string: studentInformation.studentMediaURL)!,  completionHandler: nil)
+        let url = studentInformation.studentMediaURL.lowercased()
+        if !url.isEmpty, url.starts(with: "http://") || url.starts(with: "https://") {
+            app.open(URL(string: url)!,  completionHandler: nil)
         } else {
-            AlertViewHelper.presentAlert(self, title: "Cannot Display Student Link", message: "Student has enetered an invalid URL")
+            AlertViewHelper.presentAlert(self, title: "Cannot Display Student Link", message: "Student has entered an invalid URL")
         }
         
     }

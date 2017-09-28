@@ -100,7 +100,7 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
                 
                 let region = MKCoordinateRegion(center: item.placemark.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
                 self.studentLocationMapView.setRegion(region, animated: true)
-                self.studentLocationMapView.addAnnotation(item.placemark) // TODO: Custom annotation
+                self.studentLocationMapView.addAnnotation(item.placemark) 
                 
                 self.locationStackView.isHidden = true
                 self.linkStackView.isHidden = false
