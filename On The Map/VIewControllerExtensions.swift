@@ -46,6 +46,8 @@ extension StudentInformationClient  where Self: UIViewController {
             performUIUpdatesOnMain {
                 
                 if success {
+                    self.studentInformationHandler.student = nil
+                    self.studentInformationHandler.students = nil
                     self.dismiss(animated: true, completion: nil)
                 } else {
                     AlertViewHelper.presentAlert(self, title: "Logout Failure", message: errorString)
