@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: - HTTPMethod
 
 enum HTTPMethod: String {
     case GET = "GET"
@@ -16,12 +17,16 @@ enum HTTPMethod: String {
     case DELETE = "DELETE"
 }
 
+// MARK: - ErrorCode
+
 enum ErrorCode: Int {
     case REQUEST_ERROR = 100
     case SERVER_ERROR = 200
     case SERVER_REFUSED_REQUEST = 201
     case RESPONSE_ERROR = 300
 }
+
+// MARK: - NetworkClient
 
 protocol NetworkClient {
     var scheme: String { get }
@@ -33,6 +38,8 @@ protocol NetworkClient {
 
 // Enums below from suggestions at:  https://appventure.me/2015/10/17/advanced-practical-enum-examples/#errortype
 
+// MARK: - HttpError
+
 enum HttpError: String {
     case Code400 = "Bad Request"
     case Code401 = "Unauthorized"
@@ -41,11 +48,15 @@ enum HttpError: String {
     case Code404 = "Not Found"
 }
 
+// MARK: - DecodeError
+
 enum DecodeError: Error {
     case TypeMismatch(expected: String, actual: String)
     case MissingKey(String)
     case Custom(String)
 }
+
+// MARK: - APIError
 
 enum APIError : Error {
     // Missing parameters to make request
@@ -62,7 +73,7 @@ enum APIError : Error {
     case JSONMappingError(converstionError: DecodeError)
 }
 
-
+// MARK: - NetworkClient
 
 extension NetworkClient {
     

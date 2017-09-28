@@ -11,15 +11,19 @@
 extension ParseClient {
     
     // MARK: Constants
+    
     struct Constants {
         
         // MARK: API Key
+        
         static let RESTApiKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
         
         // MARK: Application ID
+        
         static let ApplicationID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
         
         // MARK: URLs
+        
         static let ApiScheme = "https"
         static let ApiHost = "parse.udacity.com"
         static let ApiPath = "/parse/classes"
@@ -27,20 +31,24 @@ extension ParseClient {
     }
     
     // MARK: Methods
+    
     struct Methods {
         
         // MARK: Student Location
+        
         static let StudentLocation = "/StudentLocation"
         static let StudentLocationObjectID = "/StudentLocation/{objectId}"
         
     }
     
     // MARK: URL Keys
+    
     struct URLKeys {
         static let StudentObjectID = "objectId"
     }
     
     // MARK: Parameter Keys
+    
     struct ParameterKeys {
         static let RESTApiKey = "X-Parse-REST-API-Key"
         static let ApplicationID = "X-Parse-Application-Id"
@@ -59,28 +67,31 @@ extension ParseClient {
     }
     
     // MARK: Parameter Values
+    
     struct ParameterValues {
         static let DescendingUpdatedAt = "-updatedAt"
-
     }
     
     // MARK: Header Keys
+    
     struct HeaderKeys {
         static let Accept = "Accept"
         static let ContentType = "Content-Type"
     }
     
     // MARK: Header Values
+    
     struct HeaderValues {
         static let applicationJSON = "application/json"
-        
     }
     
     
     // MARK: JSON Response Keys
+    
     struct JSONResponseKeys {
         
         // MARK: Students
+        
         static let StudentCreatedAt = "createdAt"
         static let StudentFirstName = "firstName"
         static let StudentLastName = "lastName"

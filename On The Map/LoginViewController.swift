@@ -9,9 +9,12 @@
 import UIKit
 import SafariServices
 
+// MARK: - LoginViewController
+
 class LoginViewController: UIViewController, StudentInformationClient {
     
     // MARK: Properties
+    
     var appDelegate: AppDelegate!
     var backgroundGradient: CAGradientLayer!
     var activeField: UITextField?
@@ -19,6 +22,7 @@ class LoginViewController: UIViewController, StudentInformationClient {
     
 
     // MARK:  Outlets
+    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
@@ -26,9 +30,8 @@ class LoginViewController: UIViewController, StudentInformationClient {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     
-    
-    
     // MARK: Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,11 +51,13 @@ class LoginViewController: UIViewController, StudentInformationClient {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        
         super.viewWillDisappear(animated)
         unsubscribeFromAllNotifications()
     }
     
     // MARK: UITraitEnvironment
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         
         super.traitCollectionDidChange(previousTraitCollection)
@@ -67,6 +72,7 @@ class LoginViewController: UIViewController, StudentInformationClient {
     }
     
     // MARK: Login
+    
     @IBAction func login(_ sender: Any) {
         
         guard !emailTextField.text!.isEmpty && !passwordTextField.text!.isEmpty else {
@@ -100,6 +106,7 @@ class LoginViewController: UIViewController, StudentInformationClient {
     
 
     // MARK: Signup
+    
     @IBAction func signUp(_ sender: Any) {
         
         let app = UIApplication.shared
@@ -111,7 +118,6 @@ class LoginViewController: UIViewController, StudentInformationClient {
 // MARK: - LoginViewController: UITextFieldDelegate
 // Made changes here based on information located at: https://cocoacasts.com/five-simple-tips-to-make-user-friendly-forms-on-ios/
 
-// MARK: UITextFieldDelegate
 extension LoginViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField)
@@ -150,9 +156,11 @@ extension LoginViewController: UITextFieldDelegate {
 }
 
 // MARK: - LoginViewController (Configure UI)
+
 private extension LoginViewController {
     
     // MARK: UI
+    
     struct UI {
         static let LoginColorTop = UIColor(red: 0.345, green: 0.839, blue: 0.988, alpha: 1.0).cgColor
         static let LoginColorBottom = UIColor(red: 0.023, green: 0.569, blue: 0.910, alpha: 1.0).cgColor
@@ -201,7 +209,8 @@ private extension LoginViewController {
     }
 }
 
-// MARK: Show/Hide Keyboard
+// MARK: LoginViewController (Show/Hide Keyboard)
+
 extension LoginViewController {
     
     func keyboardWillShow(_ notification: Notification) {
@@ -231,6 +240,7 @@ extension LoginViewController {
 }
 
 // MARK: - LoginViewController (Notifications)
+
 private extension LoginViewController {
     
     func subscribeToNotification(_ notification: NSNotification.Name, selector: Selector) {

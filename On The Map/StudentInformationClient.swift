@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+// MARK: - StudentInformationClient
 protocol StudentInformationClient {
     var studentInformationHandler: StudentInformationHandler! { get set }
 }

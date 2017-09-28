@@ -11,19 +11,23 @@
 extension UdacityClient {
     
     // MARK: Constants
+    
     struct Constants {
         
         
         // MARK: URLs
+        
         static let ApiScheme = "https"
         static let ApiHost = "www.udacity.com"
         static let ApiPath = "/api"
     }
     
     // MARK: Methods
+    
     struct Methods {
         
         // MARK: Session
+        
         static let Session = "/session"
         static let Users = "/users/{user_id}"
         
@@ -31,6 +35,7 @@ extension UdacityClient {
     
 
     // MARK: Parameter Keys
+    
     struct ParameterKeys {
         static let Udacity = "udacity"
         static let UserName = "username"
@@ -38,6 +43,7 @@ extension UdacityClient {
     }
     
     // MARK: Header Keys
+    
     struct HeaderKeys {
         static let Accept = "Accept"
         static let ContentType = "Content-Type"
@@ -45,6 +51,7 @@ extension UdacityClient {
     }
     
     // MARK: Header Values
+    
     struct HeaderValues {
         static let applicationJSON = "application/json"
         
@@ -52,19 +59,23 @@ extension UdacityClient {
     
     
     // MARK: JSON Response Keys
+    
     struct JSONResponseKeys {
         
         // MARK: Account
+        
         static let Account = "account"
         static let Registered = "registered"
         static let Key = "key"
         
         // MARK: Session
+        
         static let Session = "session"
         static let ID = "id"
         static let Expiration = "expiration"
         
         // MARK: User
+        
         static let User = "user"
         static let FirstName = "first_name"
         static let LastName = "last_name"

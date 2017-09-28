@@ -84,6 +84,7 @@ final class ParseClient : NSObject {
     }
     
     // MARK: Refresh Student Locations
+    
     func refreshStudentLocations(completionHandlerForStudentLocations: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         
         let parameters = [ParameterKeys.Limit: "100",
@@ -115,6 +116,7 @@ final class ParseClient : NSObject {
     }
     
     // MARK: Get Student Locations
+    
     func getStudents(_ completionHandlerForStudents: @escaping (_ result: [StudentInformation]?, _ error: Error?) -> Void) {
         
         let parameters = [ParameterKeys.Limit: "100",
@@ -145,6 +147,7 @@ final class ParseClient : NSObject {
     }
     
     // MARK: Get Student Location
+    
     func getStudent(_ studentUniqueKey:String, completionHandlerForGetStudent: @escaping (_ result: StudentInformation?, _ error: Error?) -> Void) {
         
         guard !studentUniqueKey.isEmpty else {
@@ -185,6 +188,7 @@ final class ParseClient : NSObject {
     }
     
     // MARK: Put Student Location
+    
     func putStudentLocation(_ studentInformation: StudentInformation, completionHandlerForPutStudentLocation: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         
         guard let method = substituteKeyInMethod(Methods.StudentLocationObjectID, key: URLKeys.StudentObjectID, value: studentInformation.studentObjectID) else {
@@ -230,6 +234,7 @@ final class ParseClient : NSObject {
     }
     
     // MARK: Post Student Location
+    
     func postStudentLocation(_ studentInformation: StudentInformation, completionHandlerForPostStudentLocation: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         
         
@@ -277,6 +282,7 @@ final class ParseClient : NSObject {
     }
 }
 
+// MARK: - ParseClient: NetworkClient
 extension ParseClient: NetworkClient {
     
     func preprocessData (data: Data) -> Data {

@@ -10,6 +10,8 @@
 
 import UIKit
 
+// MARK: - StudentInformationTableViewController
+
 class StudentInformationTableViewController: UITableViewController, StudentInformationClient {
 
     // MARK: Properties
@@ -102,7 +104,7 @@ class StudentInformationTableViewController: UITableViewController, StudentInfor
 
 }
 
-// MARK:  - StudentInformationView
+// MARK:  - StudentInformationTableViewController: StudentInformationView
 
 extension StudentInformationTableViewController: StudentInformationView {
     

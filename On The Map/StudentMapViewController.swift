@@ -9,6 +9,8 @@
 import UIKit
 import MapKit
 
+// MARK: StudentMapViewController
+
 class StudentMapViewController: UIViewController, StudentInformationClient {
 
     // MARK: Properties
@@ -41,7 +43,6 @@ class StudentMapViewController: UIViewController, StudentInformationClient {
     // MARK: Actions
     
     @IBAction func logout(_ sender: Any) {
-        
        completeLogout()
     }
     
@@ -50,7 +51,6 @@ class StudentMapViewController: UIViewController, StudentInformationClient {
     }
     
     @IBAction func refresh(_ sender: Any) {
-        
         refreshData()
     }
 
@@ -58,7 +58,8 @@ class StudentMapViewController: UIViewController, StudentInformationClient {
 }
 
 
-// MARK:  - StudentInformationView
+// MARK:  - StudentMapViewController: StudentInformationView
+
 extension StudentMapViewController: StudentInformationView {
     
     internal func refreshData() {

@@ -98,6 +98,7 @@ final class UdacityClient : NSObject {
     }
     
     // MARK:  Login
+    
     func authenticateUser(username: String, password: String, completionHandlerForAuth: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         let bodyParameters = [ParameterKeys.Udacity: [ParameterKeys.UserName: username, ParameterKeys.Password: password]]
         
@@ -254,6 +255,8 @@ final class UdacityClient : NSObject {
         return Singleton.sharedInstance
     }
 }
+
+// MARK: - UdacityClient: NetworkClient
 
 extension UdacityClient: NetworkClient {
     

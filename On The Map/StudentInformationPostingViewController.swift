@@ -9,9 +9,12 @@
 import UIKit
 import MapKit
 
+// MARK: - StudentInformationPostingViewController
+
 class StudentInformationPostingViewController: UIViewController, StudentInformationClient {
 
     // MARK:  Properties
+    
     var activeField: UITextInput?
     let defaultLocationPrompt = "Enter Your Location Here."
     let linkToShareErrorTitle = "Link to Share Error"
@@ -21,6 +24,7 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
 
     
     // MARK:  Outlet
+    
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var locationTextView: UITextView!
     @IBOutlet weak var findOnTheMapButton: UIButton!
@@ -30,6 +34,8 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
     @IBOutlet weak var linkStackView: UIStackView!
     @IBOutlet weak var studentLocationMapView: MKMapView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    // MARK: Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,26 +65,13 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
         
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     // MARK:  Actions
+    
     // Code for this method based on information found at: https://stackoverflow.com/questions/41639478/mkmapview-center-and-zoom-in
     // https://stackoverflow.com/questions/10644854/ios-zoom-in-mapkit-for-two-annotation-point
     // https://littlebitesofcocoa.com/47-mklocalsearch
+    
     @IBAction func findOnTheMap(_ sender: Any) {
         let request = MKLocalSearchRequest()
         request.naturalLanguageQuery = locationTextView.text
@@ -145,7 +138,6 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
             ParseClient.sharedInstance().postStudentLocation(studentInformation){(result, error) in
                 
                 self.processResults(success: result, error)
-                
             }
             
         } else {
@@ -192,14 +184,11 @@ extension StudentInformationPostingViewController: UITextFieldDelegate {
     
     // MARK: UITextFieldDelegate
     
-    func textFieldDidBeginEditing(_ textField: UITextField)
-    {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         activeField = textField
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField){
-
-        
+    func textFieldDidEndEditing(_ textField: UITextField) {
         activeField = nil
     }
     
@@ -207,7 +196,6 @@ extension StudentInformationPostingViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-    
     
     private func resignIfFirstResponder(_ textInput: UITextInput) {
         if let textField = textInput as? UITextField, textField.isFirstResponder {

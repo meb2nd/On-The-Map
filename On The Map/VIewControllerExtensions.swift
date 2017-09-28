@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import MapKit
 
+// MARK: -StudentInformationClient
+
 extension StudentInformationClient  where Self: UIViewController {
     
     func segueToStudentInformationNavigationController() {
@@ -58,6 +60,8 @@ extension StudentInformationClient  where Self: UIViewController {
     }
         
 }
+
+// MARK: - UIViewController
 
 extension UIViewController {
     
