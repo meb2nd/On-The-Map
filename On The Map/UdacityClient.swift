@@ -8,11 +8,9 @@
 
 import Foundation
 
-// MARK: - ParseClient: NSObject
-
 final class UdacityClient : NSObject {
     
-    // MARK: Properties
+    // MARK: - Properties
     
     // shared session
     var session = URLSession.shared
@@ -29,15 +27,15 @@ final class UdacityClient : NSObject {
     // user info
     var firstName : String? = nil
     var lastName : String? = nil
- 
     
-    // MARK: Initializers
+    
+    // MARK: - Initializers
     
     override init() {
         super.init()
     }
     
-    // MARK: GET
+    // MARK: - HTTP Tasks
     
     func taskForGETMethod(_ method: String, parameters: [String:String?], completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
@@ -52,8 +50,6 @@ final class UdacityClient : NSObject {
         return makeTheTask(request: request as URLRequest, errorDomain: "UdacityClient.taskForGETMethod", completionHandler: completionHandlerForGET)
         
     }
-    
-    // MARK: DELETE
     
     func taskForDELETEMethod(_ method: String, parameters: [String: String?], completionHandlerForDELETE: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
@@ -71,15 +67,13 @@ final class UdacityClient : NSObject {
         }
         
         /* 2/3. Build the URL, Configure the request */
-        let request = buildTheURL(method, parameters: parameters, httpMethod: .DELETE, headers: headers)
-
+        let request = buildTheURL(method, parameters: parameters, httpMethod: .delete, headers: headers)
+        
         
         /* 4. Make the request */
         return makeTheTask(request: request as URLRequest, errorDomain: "UdacityClient.taskForDELETEMethod", completionHandler: completionHandlerForDELETE)
         
     }
-    
-    // MARK: POST
     
     func taskForPOSTMethod(_ method: String, parameters: [String: String?], jsonBodyParameters: [String:AnyObject], completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
@@ -89,75 +83,75 @@ final class UdacityClient : NSObject {
         
         /* 2/3. Build the URL, Configure the request */
         
-        let request  = buildTheURL(method, parameters: parameters, httpMethod: .POST, headers: headers as [String : AnyObject], jsonBodyParameters: jsonBodyParameters)
-
+        let request  = buildTheURL(method, parameters: parameters, httpMethod: .post, headers: headers as [String : AnyObject], jsonBodyParameters: jsonBodyParameters)
+        
         
         /* 4. Make the request */
         return makeTheTask(request: request as URLRequest, errorDomain: "UdacityClient.taskForPOSTMethod", completionHandler: completionHandlerForPOST)
-
+        
     }
     
-    // MARK:  Login
+    // MARK:  - User Functions
     
     func authenticateUser(username: String, password: String, completionHandlerForAuth: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         let bodyParameters = [ParameterKeys.Udacity: [ParameterKeys.UserName: username, ParameterKeys.Password: password]]
         
         _ = taskForPOSTMethod(UdacityClient.Methods.Session, parameters: [:], jsonBodyParameters: bodyParameters as [String : AnyObject], completionHandlerForPOST: { (result, error) in
             
-                guard (error == nil) else {
-                    
-                    print("There was an error in the request: \(String(describing: error))")
-                    
-                    if let errorCode = ErrorCode(rawValue: (error?.code)!) {
-                        switch errorCode {
-                        case ErrorCode.REQUEST_ERROR:
-                            completionHandlerForAuth(false, "There was a problem contacting the server.")
-                        case ErrorCode.RESPONSE_ERROR:
-                            completionHandlerForAuth(false, "There was a problem processing the request.")
-                        case ErrorCode.SERVER_ERROR:
-                            completionHandlerForAuth(false, "There was a server error.")
-                        case ErrorCode.SERVER_REFUSED_REQUEST:
-                            completionHandlerForAuth(false, "Invalid username and/or password.")
-                        }
-                    } else {
-                        completionHandlerForAuth(false, "There was an error in processing the request.")
+            guard (error == nil) else {
+                
+                print("There was an error in the request: \(String(describing: error))")
+                
+                if let errorCode = ErrorCode(rawValue: (error?.code)!) {
+                    switch errorCode {
+                    case ErrorCode.requestError:
+                        completionHandlerForAuth(false, "There was a problem contacting the server.")
+                    case ErrorCode.responseError:
+                        completionHandlerForAuth(false, "There was a problem processing the request.")
+                    case ErrorCode.serverError:
+                        completionHandlerForAuth(false, "There was a server error.")
+                    case ErrorCode.serverRefusedRequest:
+                        completionHandlerForAuth(false, "Invalid username and/or password.")
                     }
-                    
-                    return
+                } else {
+                    completionHandlerForAuth(false, "There was an error in processing the request.")
                 }
-            
-                /* GUARD: Is the "session" key in parsedResult? */
-                guard let session = result?[JSONResponseKeys.Session] as? [String: AnyObject] else {
-                    
-                    print("Cannot find key '\(JSONResponseKeys.Session)' in \(String(describing: result))")
-                    completionHandlerForAuth(false, "Cannot find session key.")
-                    return
-                }
-            
-                /* GUARD: Is the "account" key in parsedResult? */
-                guard let account = result?[JSONResponseKeys.Account] as? [String: AnyObject] else {
-                    print("Cannot find key '\(JSONResponseKeys.Account)' in \(String(describing: result))")
-                    completionHandlerForAuth(false, "Cannot find account key.")
-                    return
-                }
-            
-                /* GUARD: Is the "session ID" key in parsedResult? */
-                guard let sessionID =  session[JSONResponseKeys.ID] as? String else {
-                    completionHandlerForAuth(false, "Session ID is missing.")
-                    return
-                }
-                /* GUARD: Is the "User ID" key in parsedResult? */
-                guard let userID = account[JSONResponseKeys.Key] as? String else {
-                    completionHandlerForAuth(false, "User ID is missing.")
-                    return
-                }
-            
-                self.sessionID = sessionID
-                self.userID = userID
-            
-                self.getUserName(completionHandlerForUserName: completionHandlerForAuth)
-            
+                
+                return
             }
+            
+            /* GUARD: Is the "session" key in parsedResult? */
+            guard let session = result?[JSONResponseKeys.Session] as? [String: AnyObject] else {
+                
+                print("Cannot find key '\(JSONResponseKeys.Session)' in \(String(describing: result))")
+                completionHandlerForAuth(false, "Cannot find session key.")
+                return
+            }
+            
+            /* GUARD: Is the "account" key in parsedResult? */
+            guard let account = result?[JSONResponseKeys.Account] as? [String: AnyObject] else {
+                print("Cannot find key '\(JSONResponseKeys.Account)' in \(String(describing: result))")
+                completionHandlerForAuth(false, "Cannot find account key.")
+                return
+            }
+            
+            /* GUARD: Is the "session ID" key in parsedResult? */
+            guard let sessionID =  session[JSONResponseKeys.ID] as? String else {
+                completionHandlerForAuth(false, "Session ID is missing.")
+                return
+            }
+            /* GUARD: Is the "User ID" key in parsedResult? */
+            guard let userID = account[JSONResponseKeys.Key] as? String else {
+                completionHandlerForAuth(false, "User ID is missing.")
+                return
+            }
+            
+            self.sessionID = sessionID
+            self.userID = userID
+            
+            self.getUserName(completionHandlerForUserName: completionHandlerForAuth)
+            
+        }
         )
     }
     
@@ -207,8 +201,7 @@ final class UdacityClient : NSObject {
         }
         )
     }
- 
-    // MARK:  Logout
+    
     func logout(completionHandlerForLogout: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         
         _ = taskForDELETEMethod(UdacityClient.Methods.Session, parameters: [:], completionHandlerForDELETE: { (result, error) in
@@ -246,7 +239,7 @@ final class UdacityClient : NSObject {
         )
     }
     
-    // MARK: Shared Instance
+    // MARK: - Shared Instance
     
     class func sharedInstance() -> UdacityClient {
         struct Singleton {
@@ -256,7 +249,7 @@ final class UdacityClient : NSObject {
     }
 }
 
-// MARK: - UdacityClient: NetworkClient
+// MARK: - NetworkClient
 
 extension UdacityClient: NetworkClient {
     

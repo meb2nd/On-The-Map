@@ -10,7 +10,7 @@
 
 extension UdacityClient {
     
-    // MARK: Constants
+    // MARK: - Constants
     
     struct Constants {
         
@@ -22,7 +22,7 @@ extension UdacityClient {
         static let ApiPath = "/api"
     }
     
-    // MARK: Methods
+    // MARK: - Methods
     
     struct Methods {
         
@@ -34,7 +34,7 @@ extension UdacityClient {
     }
     
 
-    // MARK: Parameter Keys
+    // MARK: - Parameter Keys
     
     struct ParameterKeys {
         static let Udacity = "udacity"
@@ -42,7 +42,7 @@ extension UdacityClient {
         static let Password = "password"
     }
     
-    // MARK: Header Keys
+    // MARK: - Header Keys
     
     struct HeaderKeys {
         static let Accept = "Accept"
@@ -50,7 +50,7 @@ extension UdacityClient {
         static let XSRFToken = "X-XSRF-TOKEN"
     }
     
-    // MARK: Header Values
+    // MARK: - Header Values
     
     struct HeaderValues {
         static let applicationJSON = "application/json"
@@ -58,7 +58,7 @@ extension UdacityClient {
     }
     
     
-    // MARK: JSON Response Keys
+    // MARK: - JSON Response Keys
     
     struct JSONResponseKeys {
         

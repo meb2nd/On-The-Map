@@ -9,8 +9,6 @@
 import UIKit
 import SafariServices
 
-// MARK: - LoginViewController
-
 class LoginViewController: UIViewController, StudentInformationClient {
     
     // MARK: Properties

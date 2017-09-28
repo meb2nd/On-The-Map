@@ -11,19 +11,19 @@ import Foundation
 // MARK: - HTTPMethod
 
 enum HTTPMethod: String {
-    case GET = "GET"
-    case POST = "POST"
-    case PUT = "PUT"
-    case DELETE = "DELETE"
+    case get = "GET"
+    case post = "POST"
+    case put = "PUT"
+    case delete = "DELETE"
 }
 
 // MARK: - ErrorCode
 
 enum ErrorCode: Int {
-    case REQUEST_ERROR = 100
-    case SERVER_ERROR = 200
-    case SERVER_REFUSED_REQUEST = 201
-    case RESPONSE_ERROR = 300
+    case requestError = 100
+    case serverError = 200
+    case serverRefusedRequest = 201
+    case responseError = 300
 }
 
 // MARK: - NetworkClient
@@ -41,36 +41,36 @@ protocol NetworkClient {
 // MARK: - HttpError
 
 enum HttpError: String {
-    case Code400 = "Bad Request"
-    case Code401 = "Unauthorized"
-    case Code402 = "Payment Required"
-    case Code403 = "Forbidden"
-    case Code404 = "Not Found"
+    case code400 = "Bad Request"
+    case code401 = "Unauthorized"
+    case code402 = "Payment Required"
+    case code403 = "Forbidden"
+    case code404 = "Not Found"
 }
 
 // MARK: - DecodeError
 
 enum DecodeError: Error {
-    case TypeMismatch(expected: String, actual: String)
-    case MissingKey(String)
-    case Custom(String)
+    case typeMismatch(expected: String, actual: String)
+    case missingKey(String)
+    case custom(String)
 }
 
 // MARK: - APIError
 
 enum APIError : Error {
     // Missing parameters to make request
-    case MissingParametersError(String)
+    case missingParametersError(String)
     // Can't connect to the server (maybe offline?)
-    case ConnectionError(error: NSError)
+    case connectionError(error: NSError)
     // The server responded with a non 200 status code
-    case ServerError(statusCode: Int, error: NSError)
+    case serverError(statusCode: Int, error: NSError)
     // We got no data (0 bytes) back from the server
-    case NoDataError
+    case noDataError
     // The server response can't be converted from JSON to a Dictionary
-    case JSONSerializationError(error: Error)
+    case jsonSerializationError(error: Error)
     // The decoding Failed
-    case JSONMappingError(converstionError: DecodeError)
+    case jsonMappingError(converstionError: DecodeError)
 }
 
 // MARK: - NetworkClient
@@ -78,7 +78,7 @@ enum APIError : Error {
 extension NetworkClient {
     
     
-    func buildTheURL(_ method: String, parameters: [String: String?], httpMethod: HTTPMethod = .GET, headers: [String:AnyObject] = [:], jsonBodyParameters: [String:AnyObject] = [:]) -> NSMutableURLRequest {
+    func buildTheURL(_ method: String, parameters: [String: String?], httpMethod: HTTPMethod = .get, headers: [String:AnyObject] = [:], jsonBodyParameters: [String:AnyObject] = [:]) -> NSMutableURLRequest {
         
         let request = NSMutableURLRequest(url: buildURLFromParameters(parameters, withPathExtension: method))
         
@@ -119,7 +119,7 @@ extension NetworkClient {
             
             /* GUARD: Was there an error? */
             guard (error == nil) else {
-                sendError("There was an error with your request: \(error!)", ErrorCode.REQUEST_ERROR)
+                sendError("There was an error with your request: \(error!)", ErrorCode.requestError)
                 return
             }
             
@@ -127,21 +127,21 @@ extension NetworkClient {
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
                 
                 if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 403 {
-                    sendError("Your request returned a status code of 403!", ErrorCode.SERVER_REFUSED_REQUEST)
+                    sendError("Your request returned a status code of 403!", ErrorCode.serverRefusedRequest)
                 } else {
-                    sendError("Your request returned a status code other than 2xx!", ErrorCode.SERVER_ERROR)
+                    sendError("Your request returned a status code other than 2xx!", ErrorCode.serverError)
                 }
                 return
             }
             
             /* GUARD: Was there any data returned? */
             guard let data = data else {
-                sendError("No data was returned by the request!", ErrorCode.RESPONSE_ERROR)
+                sendError("No data was returned by the request!", ErrorCode.responseError)
                 return
             }
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
-
+            
             let newData = self.preprocessData(data: data)
             self.convertDataWithCompletionHandler(newData, completionHandlerForConvertData: completionHandler)
         }

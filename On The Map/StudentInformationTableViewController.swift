@@ -10,23 +10,21 @@
 
 import UIKit
 
-// MARK: - StudentInformationTableViewController
-
 class StudentInformationTableViewController: UITableViewController, StudentInformationClient {
-
-    // MARK: Properties
+    
+    // MARK: - Properties
     
     var studentInformationHandler: StudentInformationHandler!
     var students: [StudentInformation]?
     weak var activityIndicator: UIActivityIndicatorView!
     
-    // MARK: Outlets
+    // MARK: - Outlets
     
     @IBOutlet weak var logoutButton: UIBarButtonItem!
     @IBOutlet weak var addStudentInformationButton: UIBarButtonItem!
     @IBOutlet weak var refreshButton: UIBarButtonItem!
     
-    // MARK: Life cycle
+    // MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,16 +33,16 @@ class StudentInformationTableViewController: UITableViewController, StudentInfor
         activityIndicatorView.hidesWhenStopped = true
         tableView.backgroundView = activityIndicatorView
         self.activityIndicator = activityIndicatorView
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         refreshStudentInformationView()
     }
-
-
-    // MARK: Actions
+    
+    
+    // MARK: - Actions
     
     @IBAction func logout(_ sender: Any) {
         
@@ -65,22 +63,22 @@ class StudentInformationTableViewController: UITableViewController, StudentInfor
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-
+        
         return (students == nil) ? 0 : 1
-
+        
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
+        
         return students?.count ?? 0
     }
-
-  
+    
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "StudentInformationTableViewCell", for: indexPath)
         let studentInformation = students![(indexPath as NSIndexPath).row]
-
+        
         cell.textLabel?.text = studentInformation.studentFirstName + " " + studentInformation.studentLastName
         cell.detailTextLabel?.text = studentInformation.studentMediaURL
         
@@ -101,10 +99,10 @@ class StudentInformationTableViewController: UITableViewController, StudentInfor
         }
         
     }
-
+    
 }
 
-// MARK:  - StudentInformationTableViewController: StudentInformationView
+// MARK:  - StudentInformationView
 
 extension StudentInformationTableViewController: StudentInformationView {
     
@@ -112,7 +110,7 @@ extension StudentInformationTableViewController: StudentInformationView {
         
         students = nil
         tableView.reloadData()
-
+        
         activityIndicator.startAnimating()
         addStudentInformationButton.isEnabled = false
         refreshButton.isEnabled = false

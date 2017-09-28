@@ -8,13 +8,14 @@
 
 import Foundation
 
-// MARK: - StudentInformationView
+
 
 protocol StudentInformationView  {
     func refreshData()
     func loadData()
 }
 
+// MARK: - StudentInformationView
 extension StudentInformationView where Self: StudentInformationClient {
 
     func refreshStudentInformationView() {

@@ -6,14 +6,14 @@
 //  Copyright © 2017 Pete Barnes. All rights reserved.
 //
 
-// MARK: - StudentInformationHandler
-
 class StudentInformationHandler {
     
-    // MARK: Properties
+    // MARK: - Properties
     var students: [StudentInformation]?
     
     var student: StudentInformation?
+    
+    // MARK: - Refresh Student Data
     
     func refreshStudentData(completionHandlerForRefreshStudentData: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
     
@@ -25,7 +25,7 @@ class StudentInformationHandler {
             } else if let error = error as? APIError {            
                 var errorString:String
                 switch error as APIError  {
-                case .ConnectionError:
+                case .connectionError:
                     errorString = "Could not connect to server, try again later."
                 default:
                     errorString = "Could not retrieve student data."
@@ -57,7 +57,7 @@ class StudentInformationHandler {
             } else if let error = error as? APIError {
                 var errorString:String
                 switch error as APIError  {
-                case .ConnectionError:
+                case .connectionError:
                     errorString = "Could not connect to server, try again later."
                 default:
                     errorString = "Could not retrieve logged-in student data."

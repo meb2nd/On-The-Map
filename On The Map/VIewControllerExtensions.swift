@@ -58,7 +58,7 @@ extension StudentInformationClient  where Self: UIViewController {
         }
         
     }
-        
+    
 }
 
 // MARK: - UIViewController
@@ -66,7 +66,7 @@ extension StudentInformationClient  where Self: UIViewController {
 extension UIViewController {
     
     func enableTabBar(_ isEnabled: Bool) {
-    
+        
         if  let arrayOfTabBarItems = self.tabBarController?.tabBar.items {
             
             for tabBarItem in arrayOfTabBarItems {

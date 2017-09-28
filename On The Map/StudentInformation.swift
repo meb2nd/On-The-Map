@@ -6,12 +6,10 @@
 //  Copyright © 2017 Pete Barnes. All rights reserved.
 //
 
-// MARK: - StudentInformation
-
 struct StudentInformation {
     
     
-    // MARK: Properties
+    // MARK: - Properties
    
     let studentUniqueKey: String
     let studentFirstName: String
@@ -23,10 +21,10 @@ struct StudentInformation {
     let studentObjectID: String
 
     
-    // MARK: Initializers
+    // MARK: - Initializers
     
     // construct a StudentInformation from a dictionary
-    init?(dictionary: [String:Any]) {
+    init?(_ dictionary: [String:Any]) {
         guard let studentUniqueKey = dictionary[ParseClient.JSONResponseKeys.StudentUniqueKey] as? String, !studentUniqueKey.isEmpty else {
             print("Cannot create StudentInformation from dictionary: Missing Student Unique Key")
             return nil
@@ -74,7 +72,7 @@ struct StudentInformation {
         // iterate through array of dictionaries, each Student is a dictionary
         for result in results {
             
-            if let student = StudentInformation(dictionary: result) {
+            if let student = StudentInformation(result) {
                 students.append(student)
             }
             
@@ -85,7 +83,7 @@ struct StudentInformation {
     
 }
 
-// MARK: - StudentInformation: Equatable
+// MARK: - Equatable
 
 extension StudentInformation: Equatable {}
 

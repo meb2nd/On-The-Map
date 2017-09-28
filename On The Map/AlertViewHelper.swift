@@ -8,8 +8,6 @@
 
 import UIKit
 
-// MARK: - AlertViewHelper
-
 class AlertViewHelper {
 
     static func presentAlert(_ viewController: UIViewController, title: String, message: String?) {

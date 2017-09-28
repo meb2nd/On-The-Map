@@ -9,11 +9,9 @@
 import UIKit
 import MapKit
 
-// MARK: - StudentInformationPostingViewController
-
 class StudentInformationPostingViewController: UIViewController, StudentInformationClient {
 
-    // MARK:  Properties
+    // MARK: - Properties
     
     var activeField: UITextInput?
     let defaultLocationPrompt = "Enter Your Location Here."
@@ -23,7 +21,7 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
     var studentInformationHandler: StudentInformationHandler!
 
     
-    // MARK:  Outlet
+    // MARK: - Outlets
     
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var locationTextView: UITextView!
@@ -35,7 +33,7 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
     @IBOutlet weak var studentLocationMapView: MKMapView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    // MARK: Life cycle
+    // MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +64,7 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
     }
 
     
-    // MARK:  Actions
+    // MARK:  - Actions
     
     // Code for this method based on information found at: https://stackoverflow.com/questions/41639478/mkmapview-center-and-zoom-in
     // https://stackoverflow.com/questions/10644854/ios-zoom-in-mapkit-for-two-annotation-point
@@ -125,7 +123,7 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
                            ParseClient.ParameterKeys.StudentObjectID: studentInformationHandler.student?.studentObjectID ?? ""
             ]
         
-        guard let studentInformation = StudentInformation(dictionary: studentInfo) else {
+        guard let studentInformation = StudentInformation(studentInfo) else {
             AlertViewHelper.presentAlert(self, title: "Error Processing Request", message: "Incomplete student information")
             return
         }
@@ -178,7 +176,7 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
     }
 }
 
-// MARK: - StudentInformationPostingViewController: UITextFieldDelegate
+// MARK: - UITextFieldDelegate
 
 extension StudentInformationPostingViewController: UITextFieldDelegate {
     
@@ -211,7 +209,7 @@ extension StudentInformationPostingViewController: UITextFieldDelegate {
     }
 }
 
-// MARK: - StudentInformationPostingViewController: UITextViewDelegate
+// MARK: - UITextViewDelegate
 
 extension StudentInformationPostingViewController: UITextViewDelegate {
     

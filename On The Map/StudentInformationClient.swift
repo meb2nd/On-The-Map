@@ -9,10 +9,11 @@
 import Foundation
 import UIKit
 
-// MARK: - StudentInformationClient
 protocol StudentInformationClient {
     var studentInformationHandler: StudentInformationHandler! { get set }
 }
+
+// MARK: - StudentInformationClient
 
 extension StudentInformationClient {
     func injectViewController (_ viewController: UIViewController, withStudentInformationHandler studentInformationHandler: StudentInformationHandler) {

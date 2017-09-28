@@ -9,15 +9,13 @@
 import UIKit
 import MapKit
 
-// MARK: StudentMapViewController
-
 class StudentMapViewController: UIViewController, StudentInformationClient {
-
-    // MARK: Properties
+    
+    // MARK: - Properties
     
     var studentInformationHandler: StudentInformationHandler!
     
-    // MARK: Outlets
+    // MARK: - Outlets
     
     @IBOutlet weak var studentInformationMapView: MKMapView!
     @IBOutlet weak var logoutButton: UIBarButtonItem!
@@ -25,7 +23,7 @@ class StudentMapViewController: UIViewController, StudentInformationClient {
     @IBOutlet weak var refreshButton: UIBarButtonItem!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    // MARK: Life Cycle
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,12 +36,12 @@ class StudentMapViewController: UIViewController, StudentInformationClient {
         super.viewWillAppear(animated)
         refreshStudentInformationView()
     }
-
-
-    // MARK: Actions
+    
+    
+    // MARK: - Actions
     
     @IBAction func logout(_ sender: Any) {
-       completeLogout()
+        completeLogout()
     }
     
     @IBAction func addStudentInformation(_ sender: Any) {
@@ -53,12 +51,12 @@ class StudentMapViewController: UIViewController, StudentInformationClient {
     @IBAction func refresh(_ sender: Any) {
         refreshData()
     }
-
-
+    
+    
 }
 
 
-// MARK:  - StudentMapViewController: StudentInformationView
+// MARK:  - StudentInformationView
 
 extension StudentMapViewController: StudentInformationView {
     

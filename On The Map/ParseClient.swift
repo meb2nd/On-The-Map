@@ -8,11 +8,9 @@
 
 import Foundation
 
-// MARK: - ParseClient: NSObject
-
 final class ParseClient : NSObject {
     
-    // MARK: Properties
+    // MARK: - Properties
     
     var students: [StudentInformation] = [StudentInformation]()
     
@@ -23,15 +21,15 @@ final class ParseClient : NSObject {
     let scheme = ParseClient.Constants.ApiScheme
     let host = ParseClient.Constants.ApiHost
     let path = ParseClient.Constants.ApiPath
-
     
-    // MARK: Initializers
+    
+    // MARK: - Initializers
     
     override init() {
         super.init()
     }
     
-    // MARK: GET
+    // MARK: - HTTP Tasks
     
     func taskForGETMethod(_ method: String, parameters: [String: String?], completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
@@ -41,14 +39,12 @@ final class ParseClient : NSObject {
         
         /* 2/3. Build the URL, Configure the request */
         let request = buildTheURL(method, parameters: parameters, headers: headers as [String : AnyObject])
-
+        
         
         /* 4. Make the request */
         return makeTheTask(request: request as URLRequest, errorDomain: "ParseClient.taskForGETMethod", completionHandler: completionHandlerForGET)
         
     }
-    
-    // MARK: POST
     
     func taskForPOSTMethod(_ method: String, parameters: [String:String?], jsonBodyParameters: [String:AnyObject], completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
@@ -59,14 +55,12 @@ final class ParseClient : NSObject {
                        ParameterKeys.ApplicationID: Constants.ApplicationID]
         
         /* 2/3. Build the URL, Configure the request */
-        let request  = buildTheURL(method, parameters: parameters, httpMethod: .POST, headers: headers as [String : AnyObject], jsonBodyParameters: jsonBodyParameters)
+        let request  = buildTheURL(method, parameters: parameters, httpMethod: .post, headers: headers as [String : AnyObject], jsonBodyParameters: jsonBodyParameters)
         
         /* 4. Make the request */
         return makeTheTask(request: request as URLRequest, errorDomain: "ParseClient.taskForPOSTMethod", completionHandler: completionHandlerForPOST)
-
+        
     }
-    
-    // MARK: Put
     
     func taskForPUTMethod(_ method: String, parameters: [String:String?], jsonBodyParameters: [String:AnyObject], completionHandlerForPUT: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
@@ -76,14 +70,14 @@ final class ParseClient : NSObject {
                        ParameterKeys.ApplicationID: Constants.ApplicationID]
         
         /* 2/3. Build the URL, Configure the request */
-        let request  = buildTheURL(method, parameters: parameters, httpMethod: .PUT, headers: headers as [String : AnyObject], jsonBodyParameters: jsonBodyParameters)
+        let request  = buildTheURL(method, parameters: parameters, httpMethod: .put, headers: headers as [String : AnyObject], jsonBodyParameters: jsonBodyParameters)
         
         /* 4. Make the request */
         return makeTheTask(request: request as URLRequest, errorDomain: "ParseClient.taskForPUTMethod", completionHandler: completionHandlerForPUT)
         
     }
     
-    // MARK: Refresh Student Locations
+    // MARK: - Student Location Functions
     
     func refreshStudentLocations(completionHandlerForStudentLocations: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         
@@ -111,11 +105,9 @@ final class ParseClient : NSObject {
             
             self.students = StudentInformation.StudentInformationFromResults(students)
             completionHandlerForStudentLocations(true, nil)
-
+            
         }
     }
-    
-    // MARK: Get Student Locations
     
     func getStudents(_ completionHandlerForStudents: @escaping (_ result: [StudentInformation]?, _ error: Error?) -> Void) {
         
@@ -137,21 +129,20 @@ final class ParseClient : NSObject {
             guard let students = result?[JSONResponseKeys.StudentResults] as? [[String: AnyObject]] else {
                 
                 print("Cannot find key '\(JSONResponseKeys.StudentResults)' in \(String(describing: result))")
-                completionHandlerForStudents(nil, DecodeError.MissingKey(JSONResponseKeys.StudentResults))
+                completionHandlerForStudents(nil, DecodeError.missingKey(JSONResponseKeys.StudentResults))
                 return
             }
-
+            
             completionHandlerForStudents(StudentInformation.StudentInformationFromResults(students), nil)
             
         }
     }
     
-    // MARK: Get Student Location
     
     func getStudent(_ studentUniqueKey:String, completionHandlerForGetStudent: @escaping (_ result: StudentInformation?, _ error: Error?) -> Void) {
         
         guard !studentUniqueKey.isEmpty else {
-            completionHandlerForGetStudent(nil, APIError.MissingParametersError("Missing Student Unique Key"))
+            completionHandlerForGetStudent(nil, APIError.missingParametersError("Missing Student Unique Key"))
             return
         }
         
@@ -172,7 +163,7 @@ final class ParseClient : NSObject {
             guard let students = result?[JSONResponseKeys.StudentResults] as? [[String: AnyObject]] else {
                 
                 print("Cannot find key '\(JSONResponseKeys.StudentResults)' in \(String(describing: result))")
-                completionHandlerForGetStudent(nil, DecodeError.MissingKey(JSONResponseKeys.StudentResults))
+                completionHandlerForGetStudent(nil, DecodeError.missingKey(JSONResponseKeys.StudentResults))
                 return
             }
             
@@ -187,7 +178,6 @@ final class ParseClient : NSObject {
         }
     }
     
-    // MARK: Put Student Location
     
     func putStudentLocation(_ studentInformation: StudentInformation, completionHandlerForPutStudentLocation: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         
@@ -201,12 +191,12 @@ final class ParseClient : NSObject {
         }
         
         let jsonBodyParameters = [ParameterKeys.StudentUniqueKey: studentInformation.studentUniqueKey,
-                          ParameterKeys.StudentFirstName: studentInformation.studentFirstName,
-                          ParameterKeys.StudentLastName: studentInformation.studentLastName,
-                          ParameterKeys.StudentMapString: studentInformation.studentMapString,
-                          ParameterKeys.StudentMediaURL: studentInformation.studentMediaURL,
-                          ParameterKeys.StudentLatitude: studentInformation.studentLatitude,
-                          ParameterKeys.StudentLongitude: studentInformation.studentLongitude] as [String : AnyObject]
+                                  ParameterKeys.StudentFirstName: studentInformation.studentFirstName,
+                                  ParameterKeys.StudentLastName: studentInformation.studentLastName,
+                                  ParameterKeys.StudentMapString: studentInformation.studentMapString,
+                                  ParameterKeys.StudentMediaURL: studentInformation.studentMediaURL,
+                                  ParameterKeys.StudentLatitude: studentInformation.studentLatitude,
+                                  ParameterKeys.StudentLongitude: studentInformation.studentLongitude] as [String : AnyObject]
         
         
         
@@ -228,12 +218,11 @@ final class ParseClient : NSObject {
                 completionHandlerForPutStudentLocation(false, "Cannot find student 'updatedAt' key.")
                 return
             }
-
+            
             completionHandlerForPutStudentLocation(true, nil)
         }
     }
     
-    // MARK: Post Student Location
     
     func postStudentLocation(_ studentInformation: StudentInformation, completionHandlerForPostStudentLocation: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         
@@ -272,7 +261,7 @@ final class ParseClient : NSObject {
     }
     
     
-    // MARK: Shared Instance
+    // MARK: - Shared Instance
     
     class func sharedInstance() -> ParseClient {
         struct Singleton {
@@ -283,6 +272,7 @@ final class ParseClient : NSObject {
 }
 
 // MARK: - ParseClient: NetworkClient
+
 extension ParseClient: NetworkClient {
     
     func preprocessData (data: Data) -> Data {
