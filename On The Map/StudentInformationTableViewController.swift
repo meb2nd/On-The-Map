@@ -103,9 +103,7 @@ class StudentInformationTableViewController: UITableViewController, StudentInfor
         } else {
             AlertViewHelper.presentAlert(self, title: "Cannot Display Student Link", message: "Student has entered an invalid URL")
         }
-        
     }
-    
 }
 
 // MARK:  - StudentInformationView

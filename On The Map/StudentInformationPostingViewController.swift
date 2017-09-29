@@ -55,11 +55,6 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
         linkTextField.delegate = self
         studentLocationMapView.delegate = self
         
-        if let student = studentInformationHandler.student {
-            locationTextView.text = student.studentMapString
-            linkTextField.text = student.studentMediaURL
-        }
-        
     }
     
     // MARK: - UI

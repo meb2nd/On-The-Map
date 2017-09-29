@@ -25,30 +25,15 @@ struct StudentInformation {
     
     // construct a StudentInformation from a dictionary
     init?(_ dictionary: [String:Any]) {
-        
-        guard let studentLatitude = dictionary[ParseClient.JSONResponseKeys.StudentLatitude] as? Float else {
-            print("Cannot create StudentInformation from dictionary: Missing Student Latitude")
-            return nil
-        }
-        guard let studentLongitude = dictionary[ParseClient.JSONResponseKeys.StudentLongitude] as? Float else {
-            print("Cannot create StudentInformation from dictionary: Missing Student Longitude")
-            return nil
-        }
 
-        self.studentLatitude = studentLatitude
-        self.studentLongitude = studentLongitude
-        
-        // Will not have an object ID when creating a new student
         self.studentObjectID = dictionary[ParseClient.JSONResponseKeys.StudentObjectID] as? String ?? ""
-        
-        // Removed guards for these fields due to high number entries in database that were missing them.
-        // Added non empty values for display purposes
         self.studentUniqueKey = dictionary[ParseClient.JSONResponseKeys.StudentUniqueKey] as? String ?? ""
-        self.studentFirstName = dictionary[ParseClient.JSONResponseKeys.StudentFirstName] as? String ?? "(N/A)"
-        self.studentLastName = dictionary[ParseClient.JSONResponseKeys.StudentLastName] as? String ?? "(N/A)"
-        self.studentMediaURL = dictionary[ParseClient.JSONResponseKeys.StudentMediaURL] as? String ?? "(N/A)"
+        self.studentFirstName = dictionary[ParseClient.JSONResponseKeys.StudentFirstName] as? String ?? "[No First Name]"
+        self.studentLastName = dictionary[ParseClient.JSONResponseKeys.StudentLastName] as? String ?? "[No Last Name]"
+        self.studentMediaURL = dictionary[ParseClient.JSONResponseKeys.StudentMediaURL] as? String ?? "[No Media URL]"
         self.studentMapString = dictionary[ParseClient.JSONResponseKeys.StudentMapString] as? String ?? ""
-        
+        self.studentLongitude = dictionary[ParseClient.JSONResponseKeys.StudentLongitude] as? Float ?? 0.0
+        self.studentLatitude = dictionary[ParseClient.JSONResponseKeys.StudentLatitude] as? Float  ?? 0.0
     }
     
     static func StudentInformationFromResults(_ results: [[String:Any]]) -> [StudentInformation] {
