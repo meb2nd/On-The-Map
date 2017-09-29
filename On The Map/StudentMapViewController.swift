@@ -41,7 +41,7 @@ class StudentMapViewController: UIViewController, StudentInformationClient {
     // MARK: - Actions
     
     @IBAction func logout(_ sender: Any) {
-        completeLogout()
+        completeLogout(andClear: studentInformationHandler)
     }
     
     @IBAction func addStudentInformation(_ sender: Any) {
@@ -51,8 +51,6 @@ class StudentMapViewController: UIViewController, StudentInformationClient {
     @IBAction func refresh(_ sender: Any) {
         refreshData()
     }
-    
-    
 }
 
 
@@ -62,24 +60,21 @@ extension StudentMapViewController: StudentInformationView {
     
     func refreshData() {
         
-        activityIndicator.startAnimating()
-        addStudentInformationButton.isEnabled = false
-        refreshButton.isEnabled = false
-        enableTabBar(false)
+        studentInformationtionView(isEnabled: false)
         
         studentInformationHandler.refreshStudentData() {(success, errorString) in
             if let error = errorString {
                 print(error)
+                performUIUpdatesOnMain {
+                    AlertViewHelper.presentAlert(self, title: "Data Update Error", message: error)
+                    self.studentInformationtionView(isEnabled: true)
+                }
                 return
             }
             
             performUIUpdatesOnMain {
                 self.loadData()
-                
-                self.activityIndicator.stopAnimating()
-                self.addStudentInformationButton.isEnabled = true
-                self.refreshButton.isEnabled = true
-                self.enableTabBar(true)
+                self.studentInformationtionView(isEnabled: true)
             }
             
         }
@@ -123,5 +118,13 @@ extension StudentMapViewController: StudentInformationView {
         }
         
         studentInformationMapView.addAnnotations(annotations)
+    }
+    
+    func studentInformationtionView(isEnabled: Bool) {
+        
+        isEnabled ? activityIndicator.stopAnimating(): activityIndicator.startAnimating()
+        addStudentInformationButton.isEnabled = isEnabled
+        refreshButton.isEnabled = isEnabled
+        enableTabBar(isEnabled)
     }
 }

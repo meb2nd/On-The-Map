@@ -45,8 +45,8 @@ class StudentInformationTableViewController: UITableViewController, StudentInfor
     // MARK: - Actions
     
     @IBAction func logout(_ sender: Any) {
-        
-        completeLogout()
+        clearTable()
+        completeLogout(andClear: studentInformationHandler)
     }
     
     @IBAction func addStudentInformation(_ sender: Any) {
@@ -59,6 +59,12 @@ class StudentInformationTableViewController: UITableViewController, StudentInfor
         refreshData()
     }
     
+    // MARK: UI
+    
+    func clearTable() {
+        students = nil
+        tableView.reloadData()
+    }
     
     // MARK: - Table view data source
     
@@ -108,33 +114,20 @@ extension StudentInformationTableViewController: StudentInformationView {
     
     func refreshData() {
         
-        students = nil
-        tableView.reloadData()
+        clearTable()
         
-        activityIndicator.startAnimating()
-        addStudentInformationButton.isEnabled = false
-        refreshButton.isEnabled = false
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
-        enableTabBar(false)
+        studentInformationtionView(isEnabled: false)
         
         studentInformationHandler.refreshStudentData() {(success, errorString) in
-            if let error = errorString {
-                print(error)
-                return
-            }
-            
             performUIUpdatesOnMain {
-                
-                self.activityIndicator.stopAnimating()
-                self.addStudentInformationButton.isEnabled = true
-                self.refreshButton.isEnabled = true
-                self.tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
-                self.enableTabBar(true)
-                
+                if let error = errorString {
+                    print(error)
+                    AlertViewHelper.presentAlert(self, title: "Data Update Error", message: error)
+                    self.studentInformationtionView(isEnabled: true)
+                }
+                self.studentInformationtionView(isEnabled: true)
                 self.loadData()
-                
             }
-            
         }
     }
     
@@ -142,5 +135,13 @@ extension StudentInformationTableViewController: StudentInformationView {
     func loadData() {
         students = studentInformationHandler.students
         tableView.reloadData()
+    }
+    
+    func studentInformationtionView(isEnabled: Bool) {
+        isEnabled ? activityIndicator.stopAnimating(): activityIndicator.startAnimating()
+        addStudentInformationButton.isEnabled = isEnabled
+        refreshButton.isEnabled = isEnabled
+        tableView.separatorStyle = isEnabled ? UITableViewCellSeparatorStyle.singleLine: UITableViewCellSeparatorStyle.none
+        enableTabBar(isEnabled)
     }
 }

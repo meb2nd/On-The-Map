@@ -42,23 +42,6 @@ extension StudentInformationClient  where Self: UIViewController {
         present(controller, animated: true, completion: nil)
     }
     
-    func completeLogout() {
-        UdacityClient.sharedInstance().logout { (success, errorString) in
-            
-            performUIUpdatesOnMain {
-                
-                if success {
-                    self.studentInformationHandler.student = nil
-                    self.studentInformationHandler.students = nil
-                    self.dismiss(animated: true, completion: nil)
-                } else {
-                    AlertViewHelper.presentAlert(self, title: "Logout Failure", message: errorString)
-                }
-            }
-        }
-        
-    }
-    
 }
 
 // MARK: - UIViewController
