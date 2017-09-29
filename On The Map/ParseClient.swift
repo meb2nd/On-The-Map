@@ -12,8 +12,6 @@ final class ParseClient : NSObject {
     
     // MARK: - Properties
     
-    var students: [StudentInformation] = [StudentInformation]()
-    
     // shared session
     var session = URLSession.shared
     
@@ -78,36 +76,6 @@ final class ParseClient : NSObject {
     }
     
     // MARK: - Student Location Functions
-    
-    func refreshStudentLocations(completionHandlerForStudentLocations: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
-        
-        let parameters = [ParameterKeys.Limit: "100",
-                          ParameterKeys.Order: ParameterValues.DescendingUpdatedAt]
-        
-        _ = taskForGETMethod(Methods.StudentLocation, parameters: parameters){ (result, error) in
-            
-            guard (error == nil) else {
-                
-                print("There was an error in the request: \(String(describing: error))")
-                
-                completionHandlerForStudentLocations(false, "There was an error in processing the Student Locations request.")
-                
-                return
-            }
-            
-            /* GUARD: Is the "results" key in parsedResult? */
-            guard let students = result?[JSONResponseKeys.StudentResults] as? [[String: AnyObject]] else {
-                
-                print("Cannot find key '\(JSONResponseKeys.StudentResults)' in \(String(describing: result))")
-                completionHandlerForStudentLocations(false, "Cannot find results key.")
-                return
-            }
-            
-            self.students = StudentInformation.StudentInformationFromResults(students)
-            completionHandlerForStudentLocations(true, nil)
-            
-        }
-    }
     
     func getStudents(_ completionHandlerForStudents: @escaping (_ result: [StudentInformation]?, _ error: APIError?) -> Void) {
         

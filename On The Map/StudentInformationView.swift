@@ -10,8 +10,10 @@ import Foundation
 import UIKit
 
 protocol StudentInformationView  {
+    var studentInformationHandler: StudentInformationHandler! { get set }
     func refreshData()
     func loadData()
+    func clearView()
     func studentInformationtionView(isEnabled: Bool)
 }
 
@@ -33,6 +35,7 @@ extension StudentInformationView where Self: StudentInformationClient {
 }
 
 extension StudentInformationView where Self: UIViewController {
+    
     func completeLogout(andClear studentInformationHandler: StudentInformationHandler) {
         
         studentInformationtionView(isEnabled: false)
@@ -61,5 +64,22 @@ extension StudentInformationView where Self: UIViewController {
         }
     }
     
-    
+    func refreshData() {
+        
+        clearView()
+        
+        studentInformationtionView(isEnabled: false)
+        
+        studentInformationHandler.refreshStudentData() {(success, errorString) in
+            performUIUpdatesOnMain {
+                if let error = errorString {
+                    print(error)
+                    AlertViewHelper.presentAlert(self, title: "Data Update Error", message: error)
+                    self.studentInformationtionView(isEnabled: true)
+                }
+                self.studentInformationtionView(isEnabled: true)
+                self.loadData()
+            }
+        }
+    }
 }

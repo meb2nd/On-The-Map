@@ -58,38 +58,12 @@ class StudentMapViewController: UIViewController, StudentInformationClient {
 
 extension StudentMapViewController: StudentInformationView {
     
-    func refreshData() {
-        
-        studentInformationtionView(isEnabled: false)
-        
-        studentInformationHandler.refreshStudentData() {(success, errorString) in
-            if let error = errorString {
-                print(error)
-                performUIUpdatesOnMain {
-                    AlertViewHelper.presentAlert(self, title: "Data Update Error", message: error)
-                    self.studentInformationtionView(isEnabled: true)
-                }
-                return
-            }
-            
-            performUIUpdatesOnMain {
-                self.loadData()
-                self.studentInformationtionView(isEnabled: true)
-            }
-            
-        }
-    }
-    
     // Get the data from the Student Information Handler and update the map.
     func loadData() {
         
         var annotations = [MKPointAnnotation]()
         
-        let currentAnnotations = studentInformationMapView.annotations
-        
-        if currentAnnotations.count > 0 {
-            studentInformationMapView.removeAnnotations(currentAnnotations)
-        }
+        clearView()
         
         if let students = studentInformationHandler.students {
             for student in students {
@@ -118,6 +92,13 @@ extension StudentMapViewController: StudentInformationView {
         }
         
         studentInformationMapView.addAnnotations(annotations)
+    }
+    
+    func clearView() {
+        let currentAnnotations = studentInformationMapView.annotations
+        if currentAnnotations.count > 0 {
+            studentInformationMapView.removeAnnotations(currentAnnotations)
+        }
     }
     
     func studentInformationtionView(isEnabled: Bool) {

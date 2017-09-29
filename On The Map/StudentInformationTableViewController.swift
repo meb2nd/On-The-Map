@@ -15,7 +15,7 @@ class StudentInformationTableViewController: UITableViewController, StudentInfor
     // MARK: - Properties
     
     var studentInformationHandler: StudentInformationHandler!
-    var students: [StudentInformation]?
+
     weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: - Outlets
@@ -45,7 +45,7 @@ class StudentInformationTableViewController: UITableViewController, StudentInfor
     // MARK: - Actions
     
     @IBAction func logout(_ sender: Any) {
-        clearTable()
+        clearView()
         completeLogout(andClear: studentInformationHandler)
     }
     
@@ -61,8 +61,8 @@ class StudentInformationTableViewController: UITableViewController, StudentInfor
     
     // MARK: UI
     
-    func clearTable() {
-        students = nil
+    func clearView() {
+        studentInformationHandler.students = nil
         tableView.reloadData()
     }
     
@@ -70,20 +70,20 @@ class StudentInformationTableViewController: UITableViewController, StudentInfor
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         
-        return (students == nil) ? 0 : 1
+        return (studentInformationHandler.students == nil) ? 0 : 1
         
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return students?.count ?? 0
+        return studentInformationHandler.students?.count ?? 0
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "StudentInformationTableViewCell", for: indexPath)
-        let studentInformation = students![(indexPath as NSIndexPath).row]
+        let studentInformation = studentInformationHandler.students![(indexPath as NSIndexPath).row]
         
         cell.textLabel?.text = studentInformation.studentFirstName + " " + studentInformation.studentLastName
         cell.detailTextLabel?.text = studentInformation.studentMediaURL
@@ -94,7 +94,7 @@ class StudentInformationTableViewController: UITableViewController, StudentInfor
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         /* Show the media URL of the selected student */
-        let studentInformation = students![(indexPath as NSIndexPath).row]
+        let studentInformation = studentInformationHandler.students![(indexPath as NSIndexPath).row]
         
         let app = UIApplication.shared
         let url = studentInformation.studentMediaURL.lowercased()
@@ -110,28 +110,8 @@ class StudentInformationTableViewController: UITableViewController, StudentInfor
 
 extension StudentInformationTableViewController: StudentInformationView {
     
-    func refreshData() {
-        
-        clearTable()
-        
-        studentInformationtionView(isEnabled: false)
-        
-        studentInformationHandler.refreshStudentData() {(success, errorString) in
-            performUIUpdatesOnMain {
-                if let error = errorString {
-                    print(error)
-                    AlertViewHelper.presentAlert(self, title: "Data Update Error", message: error)
-                    self.studentInformationtionView(isEnabled: true)
-                }
-                self.studentInformationtionView(isEnabled: true)
-                self.loadData()
-            }
-        }
-    }
-    
     // Get the data from the Student Information Handler and update the table.
     func loadData() {
-        students = studentInformationHandler.students
         tableView.reloadData()
     }
     
