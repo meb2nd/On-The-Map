@@ -40,18 +40,16 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
         super.viewDidLoad()
 
         // Code for removing the navigation bar was found at: https://stackoverflow.com/questions/26390072/remove-border-in-navigationbar-in-swift
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
 
         locationTextView.text = defaultLocationPrompt
         
         activityIndicator.hidesWhenStopped = true
         activityIndicator.stopAnimating()
         
-        self.locationStackView.isHidden = false
-        self.linkStackView.isHidden = true
-        self.submitButton.isHidden = true
-        self.submitButton.backgroundColor = UIColor.white
+        findOnTheMapView(isHidden: false)
+        submitButton.backgroundColor = UIColor.white
         
         locationTextView.delegate = self
         linkTextField.delegate = self
@@ -63,7 +61,28 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
         }
         
     }
-
+    
+    // MARK: - UI
+    
+    func findOnTheMapView(isHidden: Bool) {
+        
+        locationStackView.isHidden = isHidden
+        linkStackView.isHidden = !isHidden
+        submitButton.isHidden = !isHidden
+    }
+    
+    func findOnTheMapView(isEnabled: Bool) {
+        findOnTheMapButton.isEnabled = isEnabled
+        locationTextView.isEditable = isEnabled
+        isEnabled ? activityIndicator.stopAnimating(): activityIndicator.startAnimating()
+    }
+    
+    func locationLinkView(isEnabled: Bool) {
+        submitButton.isEnabled = isEnabled
+        linkTextField.isEnabled = isEnabled
+        isEnabled ? activityIndicator.stopAnimating(): activityIndicator.startAnimating()
+    }
+    
     
     // MARK:  - Actions
     
@@ -79,6 +98,7 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
             return
         }
         
+        findOnTheMapView(isEnabled: false)
         let request = MKLocalSearchRequest()
         request.naturalLanguageQuery = locationTextView.text
         request.region = studentLocationMapView.region
@@ -87,19 +107,32 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
         search.start { response, error in
             guard error == nil else {
                 
-                AlertViewHelper.presentAlert(self, title: self.findOnMapErrorTitle, message: "Could Not Geocode The String")
-                
+                performUIUpdatesOnMain() {
+                    AlertViewHelper.presentAlert(self, title: self.findOnMapErrorTitle, message: "Could not geocode the string.")
+                    self.findOnTheMapView(isEnabled: true)
+                }
                 return
                 
             }
             
             guard let response = response else {
                 
-                AlertViewHelper.presentAlert(self, title: self.findOnMapErrorTitle, message: "Unexpected Error - Invalid response from the server.")
-                
+                performUIUpdatesOnMain {
+                    AlertViewHelper.presentAlert(self, title: self.findOnMapErrorTitle, message: "Unexpected Error - Invalid response from the server.")
+                    self.findOnTheMapView(isEnabled: true)
+                }
                 return
             }
-            guard response.mapItems.count > 0 else { return }
+            guard response.mapItems.count > 0 else {
+                
+                performUIUpdatesOnMain {
+                    AlertViewHelper.presentAlert(self, title: self.findOnMapErrorTitle, message: "Unexpected Error - No map items returned from the server.")
+                    self.findOnTheMapView(isEnabled: true)
+                }
+                
+                return
+                
+            }
             
             for item in response.mapItems {
                 // Display the received items
@@ -108,12 +141,14 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
                 
                 let region = MKCoordinateRegion(center: item.placemark.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
                 self.studentLocationMapView.setRegion(region, animated: true)
-                self.studentLocationMapView.addAnnotation(item.placemark) 
-                
-                self.locationStackView.isHidden = true
-                self.linkStackView.isHidden = false
-                self.submitButton.isHidden = false
+                self.studentLocationMapView.addAnnotation(item.placemark)
             }
+            
+            performUIUpdatesOnMain {
+                self.findOnTheMapView(isEnabled: true)
+                self.findOnTheMapView(isHidden: true)
+            }
+            
         }
     }
 
@@ -145,8 +180,7 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
             return
         }
         
-        submitButton.isEnabled = false
-        activityIndicator.startAnimating()
+        locationLinkView(isEnabled: false)
         
         if studentInformationHandler.student == nil {
             
@@ -169,20 +203,26 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
     private func processResults(success: Bool, _ error: String?) {
         
         guard error == nil else {
-            AlertViewHelper.presentAlert(self, title: "Error Processing Post Request", message: "Could not update server.")
+            performUIUpdatesOnMain {
+                AlertViewHelper.presentAlert(self, title: "Error Processing Post Request", message: "Could not update server.")
+                self.locationLinkView(isEnabled: true)
+            }
             return
         }
         
         // Need to refresh student list
         self.studentInformationHandler.refreshStudentData(){(success, error) in
             guard error == nil else {
-                AlertViewHelper.presentAlert(self, title: "Error Processing Post Request", message: "Could not refresh student data points.")
+                performUIUpdatesOnMain {
+                    AlertViewHelper.presentAlert(self, title: "Error Processing Post Request", message: "Could not refresh student data points.")
+                    self.locationLinkView(isEnabled: true)
+                }
+                
                 return
             }
             
             performUIUpdatesOnMain() {
-                self.submitButton.isEnabled = true
-                self.activityIndicator.stopAnimating()
+                self.locationLinkView(isEnabled: true)
                 self.dismiss(animated: true, completion: nil)
             }
         }
