@@ -226,7 +226,7 @@ extension LoginViewController {
         // If textfield is active make sure it does not move out of view
         if let activeField = activeField {
             let textFieldOrigin = activeField.convert(activeField.frame.origin, to: self.view)
-            let offset = textFieldOrigin.y + 8.0
+            let offset = textFieldOrigin.y - activeField.frame.height
             return keyboardSize.cgRectValue.height > offset ? offset : keyboardSize.cgRectValue.height
         } else {
             return keyboardSize.cgRectValue.height
