@@ -372,6 +372,9 @@
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="mh3-wC-ZUM" id="Bab-D3-Q2h"/>
+                                                </connections>
                                             </textView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="20" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZGZ-h0-SpU" userLabel="Find on the Map Button Stack View">
                                                 <rect key="frame" x="0.0" y="167" width="414" height="149"/>
@@ -401,9 +404,15 @@
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="URL" returnKeyType="done"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="mh3-wC-ZUM" id="D5y-8D-Y7S"/>
+                                                </connections>
                                             </textField>
                                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="SVc-q3-0bd">
                                                 <rect key="frame" x="0.0" y="38" width="414" height="278"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="mh3-wC-ZUM" id="hIm-hg-HaJ"/>
+                                                </connections>
                                             </mapView>
                                         </subviews>
                                     </stackView>

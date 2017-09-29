@@ -51,10 +51,6 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
         findOnTheMapView(isHidden: false)
         submitButton.backgroundColor = UIColor.white
         
-        locationTextView.delegate = self
-        linkTextField.delegate = self
-        studentLocationMapView.delegate = self
-        
     }
     
     // MARK: - UI

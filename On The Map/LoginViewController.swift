@@ -118,12 +118,11 @@ class LoginViewController: UIViewController, StudentInformationClient {
 
 extension LoginViewController: UITextFieldDelegate {
     
-    func textFieldDidBeginEditing(_ textField: UITextField)
-    {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         activeField = textField
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField){
+    func textFieldDidEndEditing(_ textField: UITextField) {
         activeField = nil
     }
     
@@ -137,7 +136,6 @@ extension LoginViewController: UITextFieldDelegate {
         }
         
         return true
-
     }
     
     

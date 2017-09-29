@@ -32,7 +32,7 @@ class StudentInformationTableViewController: UITableViewController, StudentInfor
         let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         activityIndicatorView.hidesWhenStopped = true
         tableView.backgroundView = activityIndicatorView
-        self.activityIndicator = activityIndicatorView
+        activityIndicator = activityIndicatorView
         
     }
     
