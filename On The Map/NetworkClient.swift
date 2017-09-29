@@ -113,7 +113,7 @@ extension NetworkClient {
                 let error = NSError(domain: errorDomain, code: 1, userInfo: userInfo)
                 
                 sendError("Your request returned a status code other than 2xx!", APIError.serverError(statusCode: statusCode!, error: error))
-
+                
                 return
             }
             

@@ -118,7 +118,7 @@ final class UdacityClient : NSObject {
                         completionHandlerForAuth(false, "There was a problem processing the response.")
                     }
                 }
-
+                
                 
                 return
             }

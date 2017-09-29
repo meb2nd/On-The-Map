@@ -16,6 +16,7 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
     var activeField: UITextInput?
     let defaultLocationPrompt = "Enter Your Location Here."
     let linkToShareErrorTitle = "Link to Share Error"
+    let findOnMapErrorTitle = "Location Not Found"
     var studentlatitude: Float = 0.0
     var studentLongitude: Float = 0.0
     var studentInformationHandler: StudentInformationHandler!
@@ -71,15 +72,31 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
     // https://littlebitesofcocoa.com/47-mklocalsearch
     
     @IBAction func findOnTheMap(_ sender: Any) {
+        
+        let searchText = locationTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !searchText.isEmpty, defaultLocationPrompt != searchText  else {
+            AlertViewHelper.presentAlert(self, title: "Find On Map Error", message: "You must enter a location to search.")
+            return
+        }
+        
         let request = MKLocalSearchRequest()
         request.naturalLanguageQuery = locationTextView.text
         request.region = studentLocationMapView.region
         
         let search = MKLocalSearch(request: request)
         search.start { response, error in
-            guard error == nil else { return } // TODO: Handle MKError
+            guard error == nil else {
+                
+                AlertViewHelper.presentAlert(self, title: self.findOnMapErrorTitle, message: "Could Not Geocode The String")
+                
+                return
+                
+            }
+            
             guard let response = response else {
-                print("There was an error searching for: \(String(describing: request.naturalLanguageQuery)) error: \(String(describing: error))")
+                
+                AlertViewHelper.presentAlert(self, title: self.findOnMapErrorTitle, message: "Unexpected Error - Invalid response from the server.")
+                
                 return
             }
             guard response.mapItems.count > 0 else { return }

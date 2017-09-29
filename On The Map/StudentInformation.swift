@@ -25,26 +25,7 @@ struct StudentInformation {
     
     // construct a StudentInformation from a dictionary
     init?(_ dictionary: [String:Any]) {
-        guard let studentUniqueKey = dictionary[ParseClient.JSONResponseKeys.StudentUniqueKey] as? String, !studentUniqueKey.isEmpty else {
-            print("Cannot create StudentInformation from dictionary: Missing Student Unique Key")
-            return nil
-        }
-        guard let studentFirstName = dictionary[ParseClient.JSONResponseKeys.StudentFirstName] as? String, !studentFirstName.isEmpty else {
-            print("Cannot create StudentInformation from dictionary: Missing Student First Name")
-            return nil
-        }
-        guard let studentLastName = dictionary[ParseClient.JSONResponseKeys.StudentLastName] as? String, !studentLastName.isEmpty else {
-            print("Cannot create StudentInformation from dictionary: Missing Student Last Name")
-            return nil
-        }
-        guard let studentMapString = dictionary[ParseClient.JSONResponseKeys.StudentMapString] as? String, !studentMapString.isEmpty else {
-            print("Cannot create StudentInformation from dictionary: Missing Student Map String")
-            return nil
-        }
-        guard let studentMediaURL = dictionary[ParseClient.JSONResponseKeys.StudentMediaURL] as? String, !studentMediaURL.isEmpty else {
-            print("Cannot create StudentInformation from dictionary: Missing Student Media URL")
-            return nil
-        }
+        
         guard let studentLatitude = dictionary[ParseClient.JSONResponseKeys.StudentLatitude] as? Float else {
             print("Cannot create StudentInformation from dictionary: Missing Student Latitude")
             return nil
@@ -53,16 +34,21 @@ struct StudentInformation {
             print("Cannot create StudentInformation from dictionary: Missing Student Longitude")
             return nil
         }
-        
-        self.studentUniqueKey = studentUniqueKey
-        self.studentFirstName = studentFirstName
-        self.studentLastName = studentLastName
-        self.studentMapString = studentMapString
-        self.studentMediaURL = studentMediaURL
+
         self.studentLatitude = studentLatitude
         self.studentLongitude = studentLongitude
+        
         // Will not have an object ID when creating a new student
         self.studentObjectID = dictionary[ParseClient.JSONResponseKeys.StudentObjectID] as? String ?? ""
+        
+        // Removed guards for these fields due to high number entries in database that were missing them.
+        // Added non empty values for display purposes
+        self.studentUniqueKey = dictionary[ParseClient.JSONResponseKeys.StudentUniqueKey] as? String ?? ""
+        self.studentFirstName = dictionary[ParseClient.JSONResponseKeys.StudentFirstName] as? String ?? "(N/A)"
+        self.studentLastName = dictionary[ParseClient.JSONResponseKeys.StudentLastName] as? String ?? "(N/A)"
+        self.studentMediaURL = dictionary[ParseClient.JSONResponseKeys.StudentMediaURL] as? String ?? "(N/A)"
+        self.studentMapString = dictionary[ParseClient.JSONResponseKeys.StudentMapString] as? String ?? ""
+        
     }
     
     static func StudentInformationFromResults(_ results: [[String:Any]]) -> [StudentInformation] {
