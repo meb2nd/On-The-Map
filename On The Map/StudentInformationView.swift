@@ -9,8 +9,9 @@
 import Foundation
 import UIKit
 
-protocol StudentInformationView  {
+protocol StudentInformationView: class  {
     var studentInformationHandler: StudentInformationHandler! { get set }
+    var activeField: UITextInput? { get set }
     func refreshData()
     func loadData()
     func clearView()
@@ -36,6 +37,17 @@ extension StudentInformationView where Self: StudentInformationClient {
 
 extension StudentInformationView where Self: UIViewController {
     
+    // MARK: Default function implementations
+    
+    func loadData(){}
+    func clearView(){}
+    func studentInformationtionView(isEnabled: Bool){}
+    var activeField: UITextInput? {
+        get { return nil }
+        set { }
+    }
+    
+    // MARK: - Logout
     func completeLogout(andClear studentInformationHandler: StudentInformationHandler) {
         
         studentInformationtionView(isEnabled: false)
@@ -64,6 +76,7 @@ extension StudentInformationView where Self: UIViewController {
         }
     }
     
+    // MARK: - Refresh Data
     func refreshData() {
         
         clearView()
@@ -81,5 +94,29 @@ extension StudentInformationView where Self: UIViewController {
                 self.loadData()
             }
         }
+    }
+    
+    // MARK: - Keyboard Offset Functions
+    func getKeyboardOffset(_ notification: Notification) -> CGFloat {
+        let userInfo = (notification as NSNotification).userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+        
+        // If textfield is active make sure it does not move out of view
+        if let activeField = activeField as? UITextField {
+            let textFieldOrigin = activeField.convert(activeField.frame.origin, to: self.view)
+            return calculateOffset(fromTextInputOrigin: textFieldOrigin, fieldFrame: activeField.frame, keyBoardSize: keyboardSize)
+            
+        } else if let activeField = activeField as? UITextView {
+            let textFieldOrigin = activeField.convert(activeField.frame.origin, to: self.view)
+            return calculateOffset(fromTextInputOrigin: textFieldOrigin, fieldFrame: activeField.frame, keyBoardSize: keyboardSize)
+            
+        } else {
+            return keyboardSize.cgRectValue.height
+        }
+    }
+    
+    private func calculateOffset (fromTextInputOrigin textInputOrigin: CGPoint, fieldFrame: CGRect, keyBoardSize: NSValue)  -> CGFloat {
+        let offset = textInputOrigin.y - fieldFrame.height
+        return keyBoardSize.cgRectValue.height > offset ? offset: keyBoardSize.cgRectValue.height
     }
 }

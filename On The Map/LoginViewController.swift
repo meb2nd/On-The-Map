@@ -9,13 +9,13 @@
 import UIKit
 import SafariServices
 
-class LoginViewController: UIViewController, StudentInformationClient {
+class LoginViewController: UIViewController, StudentInformationClient, StudentInformationView {
     
     // MARK: Properties
     
     var appDelegate: AppDelegate!
     var backgroundGradient: CAGradientLayer!
-    var activeField: UITextField?
+    var activeField: UITextInput?
     var studentInformationHandler: StudentInformationHandler!
     
 
@@ -126,6 +126,12 @@ extension LoginViewController: UITextFieldDelegate {
         activeField = nil
     }
     
+    func resignIfFirstResponder(_ textField: UITextField) {
+        if textField.isFirstResponder {
+            textField.resignFirstResponder()
+        }
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         switch textField {
@@ -136,13 +142,6 @@ extension LoginViewController: UITextFieldDelegate {
         }
         
         return true
-    }
-    
-    
-    private func resignIfFirstResponder(_ textField: UITextField) {
-        if textField.isFirstResponder {
-            textField.resignFirstResponder()
-        }
     }
     
     @IBAction func userDidTapView(_ sender: AnyObject) {
@@ -211,26 +210,12 @@ extension LoginViewController {
     
     @objc func keyboardWillShow(_ notification: Notification) {
         
-        view.frame.origin.y = 0 - getKeyboardHeight(notification)
+        view.frame.origin.y = 0 - getKeyboardOffset(notification)
     }
     
     @objc func keyboardWillHide(_ notification: Notification) {
         
         view.frame.origin.y = 0
-    }
-    
-    private func getKeyboardHeight(_ notification: Notification) -> CGFloat {
-        let userInfo = (notification as NSNotification).userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
-        
-        // If textfield is active make sure it does not move out of view
-        if let activeField = activeField {
-            let textFieldOrigin = activeField.convert(activeField.frame.origin, to: self.view)
-            let offset = textFieldOrigin.y - activeField.frame.height
-            return keyboardSize.cgRectValue.height > offset ? offset : keyboardSize.cgRectValue.height
-        } else {
-            return keyboardSize.cgRectValue.height
-        }
     }
     
 }

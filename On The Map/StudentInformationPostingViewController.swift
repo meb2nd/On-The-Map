@@ -9,8 +9,8 @@
 import UIKit
 import MapKit
 
-class StudentInformationPostingViewController: UIViewController, StudentInformationClient {
-
+class StudentInformationPostingViewController: UIViewController, StudentInformationClient, StudentInformationView {
+    
     // MARK: - Properties
     
     var activeField: UITextInput?
@@ -20,7 +20,7 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
     var studentlatitude: Float = 0.0
     var studentLongitude: Float = 0.0
     var studentInformationHandler: StudentInformationHandler!
-
+    
     
     // MARK: - Outlets
     
@@ -38,11 +38,11 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Code for removing the navigation bar was found at: https://stackoverflow.com/questions/26390072/remove-border-in-navigationbar-in-swift
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
-
+        
         locationTextView.text = defaultLocationPrompt
         
         activityIndicator.hidesWhenStopped = true
@@ -51,6 +51,20 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
         findOnTheMapView(isHidden: false)
         submitButton.backgroundColor = UIColor.white
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        subscribeToNotification(.UIKeyboardWillShow, selector: #selector(keyboardWillShow))
+        subscribeToNotification(.UIKeyboardWillHide, selector: #selector(keyboardWillHide))
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(animated)
+        unsubscribeFromAllNotifications()
     }
     
     // MARK: - UI
@@ -142,7 +156,7 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
             
         }
     }
-
+    
     @IBAction func submitStudentInformation(_ sender: Any) {
         
         
@@ -157,14 +171,14 @@ class StudentInformationPostingViewController: UIViewController, StudentInformat
         }
         
         let studentInfo: [String: Any] = [ParseClient.ParameterKeys.StudentUniqueKey: UdacityClient.sharedInstance().userID ?? "",
-                           ParseClient.ParameterKeys.StudentFirstName: UdacityClient.sharedInstance().firstName  ?? "",
-                           ParseClient.ParameterKeys.StudentLastName: UdacityClient.sharedInstance().lastName  ?? "",
-                           ParseClient.ParameterKeys.StudentMapString: self.locationTextView.text.trimmingCharacters(in: .whitespacesAndNewlines),
-                           ParseClient.ParameterKeys.StudentLongitude: studentLongitude,
-                           ParseClient.ParameterKeys.StudentLatitude: studentlatitude,
-                           ParseClient.ParameterKeys.StudentMediaURL: linkTextField.text?.trimmingCharacters(in: .whitespaces) ?? "",
-                           ParseClient.ParameterKeys.StudentObjectID: studentInformationHandler.student?.studentObjectID ?? ""
-            ]
+                                          ParseClient.ParameterKeys.StudentFirstName: UdacityClient.sharedInstance().firstName  ?? "",
+                                          ParseClient.ParameterKeys.StudentLastName: UdacityClient.sharedInstance().lastName  ?? "",
+                                          ParseClient.ParameterKeys.StudentMapString: self.locationTextView.text.trimmingCharacters(in: .whitespacesAndNewlines),
+                                          ParseClient.ParameterKeys.StudentLongitude: studentLongitude,
+                                          ParseClient.ParameterKeys.StudentLatitude: studentlatitude,
+                                          ParseClient.ParameterKeys.StudentMediaURL: linkTextField.text?.trimmingCharacters(in: .whitespaces) ?? "",
+                                          ParseClient.ParameterKeys.StudentObjectID: studentInformationHandler.student?.studentObjectID ?? ""
+        ]
         
         guard let studentInformation = StudentInformation(studentInfo) else {
             AlertViewHelper.presentAlert(self, title: "Error Processing Request", message: "Incomplete student information")
@@ -238,17 +252,17 @@ extension StudentInformationPostingViewController: UITextFieldDelegate {
         activeField = nil
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    private func resignIfFirstResponder(_ textInput: UITextInput) {
+    func resignIfFirstResponder(_ textInput: UITextInput) {
         if let textField = textInput as? UITextField, textField.isFirstResponder {
             textField.resignFirstResponder()
         } else if let textView = textInput as? UITextView, textView.isFirstResponder {
             textView.resignFirstResponder()
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     @IBAction func userDidTapView(_ sender: AnyObject) {
@@ -286,4 +300,36 @@ extension StudentInformationPostingViewController: UITextViewDelegate {
         activeField = nil
         return true
     }
+}
+
+// MARK: LoginViewController (Show/Hide Keyboard)
+
+extension StudentInformationPostingViewController {
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        
+        if traitCollection.verticalSizeClass == .compact {
+            view.frame.origin.y = 0 - getKeyboardOffset(notification)
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        
+        view.frame.origin.y = 0
+    }
+    
+}
+
+// MARK: - StudentInformationPostingViewController (Notifications)
+
+private extension StudentInformationPostingViewController {
+    
+    func subscribeToNotification(_ notification: NSNotification.Name, selector: Selector) {
+        NotificationCenter.default.addObserver(self, selector: selector, name: notification, object: nil)
+    }
+    
+    func unsubscribeFromAllNotifications() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
 }
