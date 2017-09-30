@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class StudentInformationPostingViewController: UIViewController, StudentInformationClient, StudentInformationView {
+class StudentInformationPostingViewController: UIViewController, StudentInformationClient {
     
     // MARK: - Properties
     
@@ -309,7 +309,7 @@ extension StudentInformationPostingViewController {
     @objc func keyboardWillShow(_ notification: Notification) {
         
         if traitCollection.verticalSizeClass == .compact {
-            view.frame.origin.y = 0 - getKeyboardOffset(notification)
+            view.frame.origin.y = 0 - getKeyboardOffset(forTextInput: activeField, view: self.view, notification) + 40.0
         }
     }
     

@@ -9,7 +9,7 @@
 import UIKit
 import SafariServices
 
-class LoginViewController: UIViewController, StudentInformationClient, StudentInformationView {
+class LoginViewController: UIViewController, StudentInformationClient {
     
     // MARK: Properties
     
@@ -206,11 +206,11 @@ private extension LoginViewController {
 
 // MARK: LoginViewController (Show/Hide Keyboard)
 
-extension LoginViewController {
+private extension LoginViewController {
     
     @objc func keyboardWillShow(_ notification: Notification) {
         
-        view.frame.origin.y = 0 - getKeyboardOffset(notification)
+        view.frame.origin.y = 0 - getKeyboardOffset(forTextInput: activeField, view: self.view, notification)
     }
     
     @objc func keyboardWillHide(_ notification: Notification) {
