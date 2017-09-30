@@ -50,7 +50,7 @@ extension StudentInformationView where Self: UIViewController {
     // MARK: - Logout
     func completeLogout(andClear studentInformationHandler: StudentInformationHandler) {
         
-        studentInformationtionView(isEnabled: false)
+        self.studentInformationtionView(isEnabled: false)
         UdacityClient.sharedInstance().logout { (success, errorString) in
             
             studentInformationHandler.student = nil
@@ -79,9 +79,9 @@ extension StudentInformationView where Self: UIViewController {
     // MARK: - Refresh Data
     func refreshData() {
         
-        clearView()
+        self.clearView()
         
-        studentInformationtionView(isEnabled: false)
+        self.studentInformationtionView(isEnabled: false)
         
         studentInformationHandler.refreshStudentData() {(success, errorString) in
             performUIUpdatesOnMain {
